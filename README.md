@@ -1,7 +1,7 @@
 # ATIG 2026 — reproducible teaching code
 
 Simulation and figure-generation code for the population-structure lecture.
-Version **0.1.0** contains the examples developed for the September 2026 slides.
+Version **0.1.1** contains the examples developed for the September 2026 slides.
 It produces **23 numbered figure families** in PNG, PDF and SVG, together with
 their calculated data and numerical checks.
 
@@ -66,5 +66,5 @@ simulation does not establish general calibration, power or robustness. The
 LDSC examples simulate a working model for test statistics rather than real
 genotype GWAS data. See the methods for the distinction.
 
-No open-source license has been chosen for this private repository. Existing
-third-party software and published material remain under their own licenses.
+This repository is publicly available. No open-source license is currently
+specified. Third-party software and published material retain their own licenses.

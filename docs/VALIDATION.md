@@ -1,5 +1,8 @@
 # Validation of version 0.1.0
 
+Version 0.1.1 updates repository visibility and documentation only. The
+simulation and figure-generation code is unchanged from the validated version.
+
 The complete R workflow ran on 8 September 2026 with R 4.6.0, bigsnpr 1.12.21,
 bigstatsr 1.6.2 and jsonlite 2.0.0 on an arm64 macOS host. It generated all 23
 figure families in three formats and passed 30 numerical/output checks.
