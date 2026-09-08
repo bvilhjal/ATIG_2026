@@ -3,7 +3,9 @@
 # R's plotmath renders mathematical labels; the optional LaTeX workflow is only
 # needed to reproduce the original LD heatmap's exact typography and layout.
 args <- commandArgs(trailingOnly=TRUE)
-out <- if(length(args)) args[[1]] else "outputs"
+script <- sub("^--file=", "", grep("^--file=", commandArgs(), value=TRUE)[1])
+lecture <- dirname(dirname(normalizePath(script,mustWork=TRUE)))
+out <- if(length(args)) args[[1]] else "outputs/2026-09-08"
 figdir <- file.path(out,"figures")
 dir.create(figdir,recursive=TRUE,showWarnings=FALSE)
 d <- readRDS(file.path(out,"population_structure/computed.rds"))
@@ -281,8 +283,8 @@ figure("21","local_ancestry_model","Local ancestry supplies information beyond a
   text(.8,.20,"Ancestry-specific effects\n+ a relatedness model",font=2)
 },kind="original deterministic schematic")
 
-rare <- read.csv("population_structure/data/rare_variant_inflation.csv")
-moba <- read.csv("population_structure/data/moba_attenuation.csv")
+rare <- read.csv(file.path(lecture,"data/rare_variant_inflation.csv"))
+moba <- read.csv(file.path(lecture,"data/moba_attenuation.csv"))
 figure("22","rare_variant_summary","Rare-variant structure can survive common-PC adjustment",
        "Published summary values, not simulations: Hanson et al. (2026), Nature Communications, doi:10.1038/s41467-026-73776-9.",function(){
   par(mar=c(4.3,13,2,1));yy <- 5:1

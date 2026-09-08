@@ -3,7 +3,7 @@ from fractions import Fraction as F
 import json, sys
 import numpy as np
 
-B = Path(sys.argv[1] if len(sys.argv)>1 else 'outputs/standardized_pca_python')
+B = Path(sys.argv[1] if len(sys.argv)>1 else 'outputs/2026-09-08/standardized_pca_python')
 B.mkdir(parents=True, exist_ok=True)
 G = np.array([[1,1,1,0,0],[0,1,2,1,2],[2,1,1,0,1],
               [0,0,1,2,2],[2,1,1,0,0],[0,0,1,1,1],[2,2,1,1,0]])

@@ -2,7 +2,9 @@
 # Run from the repository root. Each module runs in a fresh R process so that
 # plotting and module order cannot consume another simulation's random stream.
 args <- commandArgs(trailingOnly=TRUE)
-out <- if (length(args)) args[[1]] else "outputs"
+teaching_day <- "2026-09-08"
+lecture <- file.path("teaching_days",teaching_day,"population_structure")
+out <- file.path(if (length(args)) args[[1]] else "outputs",teaching_day)
 if (!file.exists("VERSION")) stop("Run this script from the ATIG_2026 repository root.")
 required <- c("bigsnpr","bigstatsr","jsonlite")
 missing <- required[!vapply(required,requireNamespace,FALSE,quietly=TRUE)]
@@ -22,13 +24,15 @@ run <- function(file,arguments) {
 }
 for (name in names(modules)) {
   cat("Running",name,"\n")
-  elapsed <- system.time(run(file.path("population_structure/R",modules[[name]]),
+  elapsed <- system.time(run(file.path(lecture,"R",modules[[name]]),
                              file.path(out,name)))[["elapsed"]]
   times[[name]] <- elapsed
 }
-times$figures <- system.time(run("population_structure/R/plot_figures.R",out))[["elapsed"]]
-run("scripts/validate.R",out)
+times$figures <- system.time(run(file.path(lecture,"R/plot_figures.R"),out))[["elapsed"]]
+run(file.path(lecture,"R/validate.R"),out)
 jsonlite::write_json(list(version=trimws(readLines("VERSION")),
+                         teaching_day=teaching_day,
+                         lecture=lecture,
                          UTC=format(Sys.time(),tz="UTC",usetz=TRUE),
                          elapsed_seconds=times, R=R.version.string,
                          packages=setNames(lapply(required,function(p) as.character(packageVersion(p))),required),

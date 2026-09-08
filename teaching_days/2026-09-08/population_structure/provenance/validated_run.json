@@ -1,12 +1,14 @@
 {
-  "version": "0.1.0",
-  "UTC": "2026-09-08 06:47:47 UTC",
+  "version": "0.2.0",
+  "teaching_day": "2026-09-08",
+  "lecture": "teaching_days/2026-09-08/population_structure",
+  "UTC": "2026-09-08 07:04:01 UTC",
   "elapsed_seconds": {
-    "population_structure": 12.626,
-    "genomic_control": 1.49,
-    "ld_score": 0.382,
-    "small_calculations": 0.283,
-    "figures": 3.917
+    "population_structure": 14.591,
+    "genomic_control": 4.883,
+    "ld_score": 2.003,
+    "small_calculations": 1.162,
+    "figures": 11.264
   },
   "R": "R version 4.6.0 (2026-04-24)",
   "packages": {

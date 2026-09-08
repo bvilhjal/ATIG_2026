@@ -13,12 +13,12 @@ accept explicit paths. The latter points to the installed `sharp` module.
 From the repository root:
 
 ```sh
-python3 -m pip install -r population_structure/optional/ld_score_latex/requirements.txt
-npm --prefix population_structure/optional/ld_score_latex install
-python3 population_structure/optional/ld_score_latex/build_figure.py
+python3 -m pip install -r teaching_days/2026-09-08/population_structure/optional/ld_score_latex/requirements.txt
+npm --prefix teaching_days/2026-09-08/population_structure/optional/ld_score_latex install
+python3 teaching_days/2026-09-08/population_structure/optional/ld_score_latex/build_figure.py
 ```
 
-Outputs go to `outputs/ld_score_latex/`. Use `--output DIRECTORY` to select
+Outputs go to `outputs/2026-09-08/ld_score_latex/`. Use `--output DIRECTORY` to select
 another folder. `--offline` asks Tectonic to use only cached LaTeX packages.
 `--equation-number 22` adds optional lecture-specific equation tags. Numbering
 is omitted by default because the current deck can be reordered independently.

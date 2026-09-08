@@ -1,7 +1,9 @@
 #!/usr/bin/env Rscript
 # Numerical contracts and independent special-case calculations, not screenshots.
 args <- commandArgs(trailingOnly=TRUE)
-out <- if(length(args)) args[[1]] else "outputs"
+script <- sub("^--file=", "", grep("^--file=", commandArgs(), value=TRUE)[1])
+lecture <- dirname(dirname(normalizePath(script,mustWork=TRUE)))
+out <- if(length(args)) args[[1]] else "outputs/2026-09-08"
 d <- readRDS(file.path(out,"population_structure/computed.rds"))
 inputs <- readRDS(file.path(out,"population_structure/synthetic_inputs.rds"))
 s <- d$small; r <- d$running
@@ -17,7 +19,7 @@ check(isSymmetric(s$psi)&&min(s$d)>-1e-12,"GRM is symmetric and positive semidef
 check(max(abs(s$psi%*%s$V-sweep(s$V,2,s$d,"*")))<1e-12,"Eigendecomposition reconstructs the GRM action")
 check(max(abs(crossprod(s$V)-diag(5)))<1e-12,"Individual eigenvectors are orthonormal")
 check(max(abs(s$score^2-sweep(s$V[,1:2]^2,2,7*s$d[1:2],"*")))<1e-12,"PC scores include singular-value scaling")
-sf <- jsonlite::read_json("provenance/standardized_pca_snapshot.json",simplifyVector=TRUE)
+sf <- jsonlite::read_json(file.path(lecture,"provenance/standardized_pca_snapshot.json"),simplifyVector=TRUE)
 check(max(abs(s$psi-sf$psi))<1e-12,"GRM agrees with the independently checked lecture matrix")
 
 # Direct model fits independently verify residualization, standard errors and df.
@@ -56,7 +58,7 @@ check(abs(sum(L[4,])-3.35)<1e-12&&sum(L[12,])==1,"LD score includes self-correla
 check(identical(unname(which(L[4,]>=.2 & seq_len(12)!=4)),c(2L,3L,5L,6L)),"Thresholded LD-friend count excludes the focal SNP")
 
 # Compare science rather than arbitrary eigenvector signs or graphic bytes.
-old <- jsonlite::read_json("provenance/lecture_simulation_snapshot.json",simplifyVector=TRUE)
+old <- jsonlite::read_json(file.path(lecture,"provenance/lecture_simulation_snapshot.json"),simplifyVector=TRUE)
 agreement <- list(null_beta_difference=r$null[[1]]$beta-old$running$null$beta[1],
                   adjusted_beta_difference=r$null[[2]]$beta-old$running$null$beta[2],
                   ld_retained_current=d$ld$retained,ld_retained_lecture=old$ld$retained,

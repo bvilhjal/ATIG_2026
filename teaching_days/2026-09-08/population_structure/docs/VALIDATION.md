@@ -1,15 +1,17 @@
-# Validation of version 0.1.0
+# Validation of version 0.2.0
 
-Version 0.1.1 updates repository visibility and documentation only. The
-simulation and figure-generation code is unchanged from the validated version.
+Version 0.2.0 groups sources, documentation, provenance and previews by the
+teaching date, 8 September 2026. The root reproduction command is
+unchanged; its outputs now include the teaching date. The numerical models,
+seeds and stable figure IDs are preserved.
 
 The complete R workflow ran on 8 September 2026 with R 4.6.0, bigsnpr 1.12.21,
 bigstatsr 1.6.2 and jsonlite 2.0.0 on an arm64 macOS host. It generated all 23
 figure families in three formats and passed 30 numerical/output checks.
-The committed machine-readable records are `provenance/validated_run.json` and
-`provenance/validation.json`. Installed direct and transitive package versions
-are listed in `provenance/dependencies.tsv`; hashes of the validated R sources
-are in `provenance/validated_code_hashes.json`.
+The committed machine-readable records are [the run manifest](../provenance/validated_run.json) and
+[the check results](../provenance/validation.json). Installed direct and transitive package versions
+are listed in [the dependency record](../provenance/dependencies.tsv); hashes of the validated R sources
+are in [the source hashes](../provenance/validated_code_hashes.json).
 
 | Calculation | Observed result |
 |---|---:|
@@ -37,13 +39,13 @@ summing to one, GC rank preservation, identical GC/LDSC normal draws and exact
 LD-score arithmetic. The corrected small PCA kernel was also run independently
 in Python, with rational arithmetic verifying the GRM entries.
 
-A full simulation-and-figure run took about 19 seconds on this host: 12.6 seconds
-for the main population examples, 1.5 seconds for GC, 0.4 seconds for LD, 0.3
-seconds for the small calculations and 3.9 seconds for figure rendering. These
-are measured phase times, not a portable performance guarantee; validation adds
-roughly one further second. Later figure-only passes corrected layout and font
-issues without changing simulated values.
+The version 0.2.0 simulation-and-figure run took about 34 seconds on this host:
+14.6 seconds for the main population examples, 4.9 seconds for GC, 2.0 seconds
+for LD, 1.2 seconds for the small calculations and 11.3 seconds for rendering.
+These measured phase times exclude validation and are not a portable
+performance guarantee.
 
+The reorganized workflow reproduced all 23 PNG previews pixel for pixel.
 All 23 rendered figure families were reviewed on a contact sheet. The LD and GC
 plots and the LD-filtering example were also inspected at large size. The
 optional LaTeX LD heatmap rebuilt to a 3200 × 2000 PNG and vector SVG using

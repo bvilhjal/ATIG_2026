@@ -1,6 +1,6 @@
 # Exact classroom examples; no random draws and no participant data.
 args <- commandArgs(trailingOnly=TRUE)
-out <- if (length(args)) args[[1]] else "outputs/small_calculations"
+out <- if (length(args)) args[[1]] else "outputs/2026-09-08/small_calculations"
 dir.create(out, recursive=TRUE, showWarnings=FALSE)
 
 G <- rbind(c(0,1,0,2,1), c(1,0,1,2,1), c(2,1,1,0,2), c(0,2,1,0,1))

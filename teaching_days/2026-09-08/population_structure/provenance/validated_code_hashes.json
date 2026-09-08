@@ -1,0 +1,10 @@
+{
+  "scripts/install_dependencies.R": "d8f48f57e1801605dee7c7a047b5d719c3ac6863ebdd4a2741e2e8ab40f8ebdd",
+  "scripts/reproduce.R": "59ce3cdfa0dd85701923c5c11c349775c586839eda53eb043c4a703e4da4072b",
+  "teaching_days/2026-09-08/population_structure/R/plot_figures.R": "0753e3509a6d81805973238c88f0cadf5786c1455d7ec6e2c66a5fde5a5e3cd6",
+  "teaching_days/2026-09-08/population_structure/R/simulate_genomic_control.R": "6981568271374abfc1d9000a35934abc8be3f58f2423e73f7477e915cc257139",
+  "teaching_days/2026-09-08/population_structure/R/simulate_ld_score.R": "d6a78671ce0929007bd58477887affbc2c32744916937d45ec4a7b311f1e9d38",
+  "teaching_days/2026-09-08/population_structure/R/simulate_population_structure.R": "3e5b85aa19c9394d0f88c9828bf5eb84b8bfbf157f2652943bc01d0350386760",
+  "teaching_days/2026-09-08/population_structure/R/small_calculations.R": "c52cd9266abdf63e4130ffe024b7ae7d9feeb59db9dbe4b95d54f806272b4ec8",
+  "teaching_days/2026-09-08/population_structure/R/validate.R": "6659dff90539fdcad9dd7174fe972d16c85194001707e84eed3cf9ec9fb1eeb6"
+}

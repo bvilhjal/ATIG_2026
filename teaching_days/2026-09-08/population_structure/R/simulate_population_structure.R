@@ -4,7 +4,7 @@ library(jsonlite)
 options(bigstatsr.ncores.max = 2L, bigstatsr.ncores = 1L, bigstatsr.check.parallel.blas = FALSE)
 set.seed(20260907)
 args <- commandArgs(trailingOnly = TRUE)
-B <- if (length(args)) args[[1]] else 'outputs/population_structure'
+B <- if (length(args)) args[[1]] else 'outputs/2026-09-08/population_structure'
 dir.create(B, recursive = TRUE, showWarnings = FALSE)
 dir.create(file.path(B, 'fbm'), showWarnings = FALSE)
 mk <- function(x, name) {
@@ -147,7 +147,7 @@ out <- list(running=running,ld=ld,batch=batchout,projection=projection,
  small=small,ldsc=ldsc,clustering=clustering,
  provenance=list(seed=20260907, module_seeds=c(main=20260907, LD=901, batch=902, projection=903, LDSC=904, ancestry=905), R=R.version.string,
  bigsnpr=as.character(packageVersion('bigsnpr')),bigstatsr=as.character(packageVersion('bigstatsr')),
- source='population_structure/R/simulate_population_structure.R', notes='All teaching simulations are synthetic. No participant data were downloaded.'))
+ source='teaching_days/2026-09-08/population_structure/R/simulate_population_structure.R', notes='All teaching simulations are synthetic. No participant data were downloaded.'))
 write_json(out,file.path(B,'computed.json'),auto_unbox=TRUE,digits=10,pretty=FALSE)
 saveRDS(out,file.path(B,'computed.rds'))
 cat('Running null before/after:',fit0[[1]]$beta,fit0[[2]]$beta,'; PC1 R2',running$r2pc,'\n')

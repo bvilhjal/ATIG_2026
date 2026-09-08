@@ -10,7 +10,7 @@ from lxml import etree as ET
 
 HERE = Path(__file__).resolve().parent
 parser = argparse.ArgumentParser(description=__doc__)
-parser.add_argument('--output', type=Path, default=Path('outputs/ld_score_latex'))
+parser.add_argument('--output', type=Path, default=Path('outputs/2026-09-08/ld_score_latex'))
 parser.add_argument('--offline', action='store_true', help='Use Tectonic cached packages only')
 parser.add_argument('--equation-number', default=None, help='Optional current lecture equation number')
 args = parser.parse_args()

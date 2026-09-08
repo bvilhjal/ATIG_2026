@@ -45,7 +45,7 @@ historical layout source. Numerical outputs match the final standardized example
 | Figure 21, stratification v1 | `Figure_21_population_stratification_20260908_v1.prompt.txt` | First redesigned raster illustration. |
 | Figure 21, stratification v2 | `Figure_21_population_stratification_20260908_v2.prompt.txt` | Revised diamond layout requested by the lecturer. |
 
-**Table 3.** The saved prompts are in `population_structure/prompts/`. They record
+**Table 3.** The saved prompts are in [the prompts folder](../prompts/). They record
 the requested geometry and semantics, not a random seed or a reproducible image
 model version. Generating them again may change the pixels; those outputs require
 visual checking. F04/F05/F21 supply deterministic vector alternatives for the
@@ -57,7 +57,7 @@ needed by the numerical pipeline.
 These are source figures, not figures simulated by this repository. No pixels or
 participant-level coordinates have been copied here. The historical crop
 inventory preserves panel framing and source attribution, and the corresponding
-layout definitions are in `provenance/layout_sources/`.
+layout definitions are in [the historical layout archive](../provenance/layout_sources/).
 
 | Lecture subject | Source recorded in the lecture | Treatment here |
 |---|---|---|
