@@ -1,0 +1,5 @@
+trait,n,attenuation_percent,lower_95,upper_95,source
+Height,23786,11,8,15,https://doi.org/10.1038/s41586-026-10926-5
+Educational achievement,41761,23,18,28,https://doi.org/10.1038/s41586-026-10926-5
+Sleep duration,24376,29,9,49,https://doi.org/10.1038/s41586-026-10926-5
+Depressive symptoms,18701,16,3,28,https://doi.org/10.1038/s41586-026-10926-5

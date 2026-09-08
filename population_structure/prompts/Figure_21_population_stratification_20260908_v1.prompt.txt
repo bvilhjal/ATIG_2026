@@ -1,0 +1,62 @@
+Created with the built-in image generation tool by editing the user-provided Figure 21 screenshot. Scientific facts checked against the lecture simulation source. Original teaching schematic.
+
+Initial redesign prompt
+
+Edit the attached teaching slide into a clearer scientific figure about population stratification. Redesign its layout while preserving the exact simulation facts, the meaning of its causal arrows, the phenotype symbol π, Figure 21, and the lecture's white background, navy text and restrained blue/orange palette. Deliver a polished wide landscape figure suitable for PowerPoint. No decorative DNA, people, scenery, fake data plots, institutional logos, or photorealism.
+
+Title, large and left-aligned: "Population stratification at a null SNP"
+Small category line: "RUNNING EXAMPLE"
+
+Main visual: a SINGLE, exceptionally readable, horizontal causal diagram across the middle of the image. Four compact nodes on the same horizontal baseline, generously spaced, ordered LEFT TO RIGHT:
+1. "Tested SNP dosage" with the genotype symbol Gᵢⱼ underneath (G with proper subscript i,j).
+2. "Population group" with the group symbol aⱼ underneath (lowercase a with subscript j).
+3. "Environment"
+4. "Phenotype" with πⱼ underneath (Greek pi, with proper subscript j).
+
+There are exactly THREE solid dark arrows in the causal diagram:
+Population group → Tested SNP dosage: arrow points LEFT, from node 2 to node 1.
+Population group → Environment: arrow points RIGHT, from node 2 to node 3.
+Environment → Phenotype: arrow points RIGHT, from node 3 to node 4.
+Thus the visually obvious confounding path is G ← a → Environment → π.
+Do NOT reverse the first arrow. Do NOT connect genotype to environment. No solid arrow goes from tested SNP to phenotype.
+
+Make this chain visually unified using subtle pale backgrounds around nodes or simple circular/rounded node outlines, never a dashboard-like card grid. Use only discreet emphasis. Directly ABOVE the chain, one small label centered: "Confounding path".
+
+Directly BELOW the tested-SNP node: two readable lines, color-coded:
+"Group A: p = 0.20" in blue #0072B2
+"Group B: p = 0.60" in orange #E69F00
+Here p is the allele frequency, NOT a P value. Add the small heading "Allele frequency" immediately above these lines so that this is explicit.
+
+Directly BELOW the population-group node:
+"A or B"
+"aⱼ = 0 or 1"
+Use real subscripts, not literal underscore characters.
+
+Directly BELOW the environment node:
+"Mean shift B − A = 1.2"
+Below that, smaller: "Phenotype units"
+
+Between the bottom of the tested-SNP node and the bottom of the phenotype node, but sufficiently far BELOW all the above per-node annotations, draw a thin gray long connector WITHOUT ANY ARROWHEADS. Put a clear small red X in its middle. Beside the X write prominently:
+"Direct effect of the tested SNP = 0"
+This line is an explicit no-effect annotation, not a causal edge. Keep it separated from the solid-arrow diagram and from other text. Use red only for this small X.
+
+Below this, a single succinct bold takeaway:
+"Pooling the groups can create a SNP–phenotype association."
+
+At the bottom, a compact understated one-line simulation specification:
+"Simulation: 600 people; 3,000 background SNPs; separate causal SNP effect = 0.25"
+This separate causal SNP is not the tested SNP. Do not relabel 0.25 as the tested SNP effect.
+
+Footer on two lines, small but readable:
+"Figure 21. Original simulation schematic with an ancestry-associated environment and a null SNP."
+"Background: Price et al. (2006), Nature Genetics"
+The Price paper is BACKGROUND reading, not the source of these simulated data. Do not imply that the image is reproduced from that paper.
+No slide-page number. No new numerical results, no invented significance levels, no regression plots, no new equations requiring equation numbers. Accuracy of arrow directions, node labels, Greek π, subscripts, allele frequencies and effect labels is mandatory. Aim for a clean, simple textbook diagram with larger typography and much better alignment than the source image.
+
+Final notation correction
+
+Make one precise text correction to this scientific infographic. Preserve the entire image, all geometry, arrows, colors, title, figures, numbers, footer, simulation facts, and all other text exactly.
+Under the "Population group" node, the small two-line annotation currently says "A or B" followed by a mathematical variable = 0 or 1. REPLACE THESE TWO LINES with exactly:
+"Group A: 0"
+"Group B: 1"
+Color "Group A: 0" blue to match Group A's allele-frequency text and "Group B: 1" orange to match Group B's allele-frequency text. Do not introduce any mathematical symbol into these two annotation lines. Keep the main population node's existing a with subscript j unchanged, and keep the G with subscripts i,j and the Greek pi with subscript j unchanged. No other changes.

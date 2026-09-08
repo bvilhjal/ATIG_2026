@@ -1,0 +1,11 @@
+{
+  "status": "passed",
+  "checks": ["All 600 individuals and 3000 background SNPs retained", "Each SNP is centered across individuals", "Standardized GRM equals X transpose X divided by M", "GRM is symmetric and positive semidefinite", "Eigendecomposition reconstructs the GRM action", "Individual eigenvectors are orthonormal", "PC scores include singular-value scaling", "GRM agrees with the independently checked lecture matrix", "Correct regression confidence interval, K = 0", "Correct regression confidence interval, K = 1", "Correct regression confidence interval, K = 2", "Correct regression confidence interval, K = 5", "Correct regression confidence interval, K = 10", "Correct regression confidence interval, K = 20", "Unadjusted coefficient agrees with lm", "PC-adjusted coefficient agrees with lm", "PC-adjusted standard error agrees with lm", "Frisch-Waugh-Lovell residual regression matches the full fit", "Reference and target individuals do not overlap", "Retained LD-filtered SNP identities are recorded", "Fitted ancestry components sum to one", "GC corrected median gives lambda = 1 by construction", "GC preserves statistic ranks", "GC divides every statistic by one common factor", "GC and LDSC scenarios use identical null draws", "Illustrative LD matrix is a valid positive-definite correlation matrix", "LD score includes self-correlation exactly once", "Thresholded LD-friend count excludes the focal SNP", "All 23 numbered figure families have been rendered", "Every figure has PNG, PDF and SVG output"],
+  "lecture_comparison": {
+    "null_beta_difference": 3.9830361231452116e-12,
+    "adjusted_beta_difference": 1.9872992140790302e-14,
+    "ld_retained_current": 2468,
+    "ld_retained_lecture": 2468,
+    "ancestry_r2_difference": -3.837152817709466e-12
+  }
+}

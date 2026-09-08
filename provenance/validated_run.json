@@ -1,0 +1,22 @@
+{
+  "version": "0.1.0",
+  "UTC": "2026-09-08 06:47:47 UTC",
+  "elapsed_seconds": {
+    "population_structure": 12.626,
+    "genomic_control": 1.49,
+    "ld_score": 0.382,
+    "small_calculations": 0.283,
+    "figures": 3.917
+  },
+  "R": "R version 4.6.0 (2026-04-24)",
+  "packages": {
+    "bigsnpr": "1.12.21",
+    "bigstatsr": "1.6.2",
+    "jsonlite": "2.0.0"
+  },
+  "platform": "aarch64-apple-darwin23",
+  "system": ["Darwin", "25.6.0", "arm64"],
+  "BLAS": "/Library/Frameworks/R.framework/Versions/4.6/Resources/lib/libRblas.0.dylib",
+  "threads": 1,
+  "data": "Synthetic teaching examples and separately labelled published summary values"
+}

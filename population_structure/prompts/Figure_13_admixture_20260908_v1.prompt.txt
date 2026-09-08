@@ -1,0 +1,15 @@
+Created with the built-in image generation tool. Original teaching schematic, not empirical data.
+
+Create a clean scientific teaching illustration in wide landscape format on a white background. Main title: "Admixture and recombination". Use deep navy text and ONLY blue for ancestry 1 and golden orange for ancestry 2. Large readable sans-serif labels, restrained flat illustration, plenty of white space. No citations or logos.
+
+UPPER HALF: an uncomplicated left-to-right sequence with three stages.
+Stage 1 "Two ancestry sources": two separate clusters of simple horizontal chromosome bars, one cluster entirely blue and the other entirely orange. No people. Small labels "Ancestry 1" and "Ancestry 2". Arrows from the source groups lead to stage 2.
+Stage 2 "First-generation descendant": show exactly TWO parallel long chromosome bars, top solid blue and bottom solid orange. Label them together as a chromosome pair. A simple arrow leads to stage 3, labeled "Recombination over generations".
+Stage 3 "Later descendants": show exactly TWO parallel chromosome-copy bars, each with several contiguous blue and orange tracts of different lengths. This is a generic example, not a detailed pedigree. No percentage or ancestry count on these bars.
+
+LOWER HALF: a large separate example headed "Local ancestry in one individual".
+Show TWO large perfectly aligned horizontal chromosome bars, one above the other. Each bar has exactly TWO colored parts. The TOP bar is BLUE for roughly the first two-thirds and ORANGE for the final third. The BOTTOM bar is BLUE for roughly the first third and ORANGE for the final two-thirds. All same total length. Upper label "Copy 1", lower "Copy 2". Therefore, at the LEFT, both copies are BLUE; in the CENTER, the top is BLUE and the bottom is ORANGE; at the RIGHT, both copies are ORANGE.
+Place three vertical thin gray guide lines through both bars: one at the CENTER OF THE LEFT THIRD, one at the CENTER OF THE MIDDLE THIRD, one at the CENTER OF THE RIGHT THIRD. Align one simple text annotation below each guide. LEFT: "2 copies of ancestry 1". CENTER: "1 copy of ancestry 1". RIGHT: "0 copies of ancestry 1". These statements must agree with the colors under each guide. Do not use callout cards, mini-chromosomes, letters, percentage positions, decorative boxes or floating labels.
+Under the example, one clear sentence: "Global ancestry (αⱼ) averages local ancestry across all chromosome copies." Render Greek alpha with a true small subscript j.
+Small footer: "Figure 13. Original teaching schematic. Colors denote ancestry relative to two reference populations."
+Correctness requirements: two copies per individual, no chromosome-shaped Xs, no extra copies, no quantitative claims from fictional data, no blending of ancestry colors. This is a conceptual diagram of genetic inheritance, not empirical data. The bottom two-copy example and its three copy counts must be especially clear and scientifically consistent.

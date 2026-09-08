@@ -1,0 +1,11 @@
+outputs*/
+.Rhistory
+.RData
+Rplots.pdf
+.DS_Store
+__pycache__/
+*.pyc
+*.bk
+*.pptx
+*.key
+node_modules/

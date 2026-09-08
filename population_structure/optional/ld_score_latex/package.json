@@ -1,0 +1,7 @@
+{
+  "private": true,
+  "name": "atig-ld-score-latex",
+  "version": "0.1.0",
+  "description": "Optional exact-layout SVG and PNG export for the lecture LD-score heatmap",
+  "dependencies": {"sharp": "0.35.4"}
+}

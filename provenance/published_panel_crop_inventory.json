@@ -1,0 +1,239 @@
+[
+  {
+    "key": "ding_large",
+    "title": "PGS accuracy varies along a genetic continuum",
+    "references": [
+      [
+        "Ding et al. (2023), Nature",
+        "https://doi.org/10.1038/s41586-023-06079-4"
+      ]
+    ],
+    "crops": [
+      {
+        "alt": "Figure 7. Ding et al. (2023), published Figure 3b, with its complete axes and legend",
+        "crop": {
+          "left": 0,
+          "top": 0.37,
+          "right": 0,
+          "bottom": 0.325
+        },
+        "frame": [
+          80,
+          215,
+          1120,
+          297
+        ],
+        "imageIndex": 0
+      }
+    ],
+    "notes": "Original Figure 3b from Ding et al. (2023), cropped from the full-resolution publisher figure. The vertical axis is the paper's model-based individual-level relative accuracy, not a directly measured single-person R-squared. The published notation and group labels are retained inside the source figure. Source image and complete caption are linked via the article."
+  },
+  {
+    "key": "hu_large",
+    "title": "Fine-scale ancestry can matter after PC adjustment",
+    "references": [
+      [
+        "Hu et al. (2025), Nature Genetics",
+        "https://doi.org/10.1038/s41588-024-02035-8"
+      ]
+    ],
+    "crops": [
+      {
+        "alt": "Figure 12. Hu et al. Figure 3c, birthplace north/south, original axes",
+        "crop": {
+          "left": 0,
+          "top": 0.515,
+          "right": 0.656,
+          "bottom": 0.062
+        },
+        "frame": [
+          145,
+          175,
+          386,
+          416
+        ],
+        "imageIndex": 0
+      },
+      {
+        "alt": "Original Hu et al. trait-category legend",
+        "crop": {
+          "left": 0,
+          "top": 0.955,
+          "right": 0,
+          "bottom": 0
+        },
+        "frame": [
+          80,
+          599,
+          1120,
+          45
+        ],
+        "imageIndex": 1
+      }
+    ],
+    "notes": "Original Figure 3c of Hu et al. (2025), enlarged from the publisher asset. Each point is a reported GWAS signal, colored according to the original legend. Vertical axis -log10(P_PC); horizontal axis -log10(P_AC). Large vertical values with smaller horizontal values illustrate birthplace associations attenuated with ancestry components. The panel does not by itself show that every removed association is a false causal signal. The full original figure, legend and methods remain linked."
+  },
+  {
+    "key": "allofus_plot",
+    "title": "All of Us: a continuous cloud with dense regions",
+    "references": [
+      [
+        "Sharma et al. (2025), Nature Communications",
+        "https://doi.org/10.1038/s41467-025-59351-8"
+      ]
+    ],
+    "crops": [
+      {
+        "alt": "Figure 29. All of Us published Figure 1c, PC1/PC2 and PC1/PC3 groups",
+        "crop": {
+          "left": 0,
+          "top": 0.666,
+          "right": 0,
+          "bottom": 0
+        },
+        "frame": [
+          120,
+          190,
+          1040,
+          454
+        ],
+        "imageIndex": 0
+      }
+    ],
+    "notes": "Original Figure 1c of Sharma et al. (2025), full-resolution crop, shows 7 density-defined PCA groups. The study separately identified 13 UMAP groups, illustrating dependence on representation and resolution. N=297,549 in the analyzed controlled-tier array-data sample (v7); this is not the whole All of Us program. Participants self-identifying as American Indian/Alaska Native were excluded from the analyzed release. Published group colors do not define discrete biological types. The original numerical comparison is retained in the appendix."
+  },
+  {
+    "key": "ukb_panels",
+    "title": "Genetic axes in UK Biobank",
+    "references": [
+      [
+        "Privé et al. (2022), American Journal of Human Genetics",
+        "https://doi.org/10.1016/j.ajhg.2021.11.008"
+      ]
+    ],
+    "crops": [
+      {
+        "alt": "Figure 10. Original UK Biobank PC1/PC2 panel",
+        "crop": {
+          "left": 0,
+          "top": 0,
+          "right": 0.582,
+          "bottom": 0.495
+        },
+        "frame": [
+          80,
+          202,
+          440,
+          351
+        ],
+        "imageIndex": 0
+      },
+      {
+        "alt": "Original UK Biobank PC3/PC4 panel",
+        "crop": {
+          "left": 0.421,
+          "top": 0,
+          "right": 0.156,
+          "bottom": 0.495
+        },
+        "frame": [
+          544,
+          202,
+          440,
+          351
+        ],
+        "imageIndex": 1
+      },
+      {
+        "alt": "Original UK Biobank ancestry-group legend",
+        "crop": {
+          "left": 0.85,
+          "top": 0.345,
+          "right": 0,
+          "bottom": 0.335
+        },
+        "frame": [
+          1006,
+          254,
+          194,
+          266
+        ],
+        "imageIndex": 2
+      }
+    ],
+    "notes": "Figure 10 enlarges PC1/PC2 and PC3/PC4 from the supplied lecture figure without changing any points, axes or group colors. The complete four-panel figure is retained in the appendix. Original source citation: Privé et al. (2022), American Journal of Human Genetics, https://doi.org/10.1016/j.ajhg.2021.11.008 ."
+  },
+  {
+    "key": "kg_panels",
+    "title": "Genetic axes in 1000 Genomes",
+    "references": [],
+    "crops": [
+      {
+        "alt": "Figure 11. Original 1000 Genomes PC1/PC2 panel and legend",
+        "crop": {
+          "left": 0,
+          "top": 0,
+          "right": 0.5,
+          "bottom": 0.5
+        },
+        "frame": [
+          80,
+          226,
+          540,
+          334
+        ],
+        "imageIndex": 0
+      },
+      {
+        "alt": "Original 1000 Genomes PC3/PC4 panel and legend",
+        "crop": {
+          "left": 0.5,
+          "top": 0,
+          "right": 0,
+          "bottom": 0.5
+        },
+        "frame": [
+          660,
+          226,
+          540,
+          334
+        ],
+        "imageIndex": 1
+      }
+    ],
+    "notes": "Figure 11 retains original source-lecture PCA scores and reference population labels, enlarging the first two panels. No genotype coordinates were reconstructed or invented. The complete original four-panel figure is retained in the appendix. Source artifact: Population_Structure_20250902.pptx, supplied 2025 lecture."
+  },
+  {
+    "key": "tree_detail",
+    "title": "Trees summarize structure, but cannot show every migration",
+    "references": [
+      [
+        "Li et al. (2008), Science",
+        "https://doi.org/10.1126/science.1153717"
+      ],
+      [
+        "Jakobsson et al. (2008), Nature",
+        "https://doi.org/10.1038/nature06742"
+      ]
+    ],
+    "crops": [
+      {
+        "alt": "Figure 8b. Enlarged selected clade in the original rooted tree",
+        "crop": {
+          "left": 0.57,
+          "top": 0.142,
+          "right": 0.09,
+          "bottom": 0.523
+        },
+        "frame": [
+          743,
+          199,
+          395,
+          409
+        ],
+        "imageIndex": 1
+      }
+    ],
+    "notes": "Figure 8 retains the supplied unrooted population tree on the left and enlarges a selected part of the original rooted tree on the right. The full rooted tree remains on the preceding slide. No branch lengths, topology, leaf names or colors are reconstructed. Original references: Jakobsson et al. (2008), Nature, https://doi.org/10.1038/nature06742; Li et al. (2008), Science, https://doi.org/10.1126/science.1153717 ."
+  }
+]

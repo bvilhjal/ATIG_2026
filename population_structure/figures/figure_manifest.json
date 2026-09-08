@@ -1,0 +1,163 @@
+[
+  {
+    "id": "F01",
+    "file": "F01_standardized_pca",
+    "title": "A single genotype example links the PCA calculations",
+    "caption": "Seven SNPs, five individuals; binomial-standardized genotypes. Colors identify individuals.",
+    "kind": "deterministic worked example"
+  },
+  {
+    "id": "F02",
+    "file": "F02_ancestry_likelihood",
+    "title": "A four-SNP likelihood for an ancestry proportion",
+    "caption": "Known reference allele frequencies and four genotypes; independent SNPs and Hardy–Weinberg equilibrium assumed.",
+    "kind": "deterministic worked example"
+  },
+  {
+    "id": "F03",
+    "file": "F03_reference_panels",
+    "title": "The reference panel changes the inferred components",
+    "caption": "The same 30 synthetic genomes are fitted against three reference profiles (top) or two (bottom).",
+    "kind": "original synthetic illustration"
+  },
+  {
+    "id": "F04",
+    "file": "F04_local_global_ancestry",
+    "title": "Local ancestry labels sum to global ancestry",
+    "caption": "A deterministic chromosome schematic; lengths, not the number of inferred tracts, determine global ancestry.",
+    "kind": "original deterministic schematic"
+  },
+  {
+    "id": "F05",
+    "file": "F05_stratification_diamond",
+    "title": "Population structure can produce a spurious SNP association",
+    "caption": "Original schematic for the running simulation. The tested SNP has zero direct effect; a separate causal SNP affects the phenotype.",
+    "kind": "original deterministic schematic"
+  },
+  {
+    "id": "F06",
+    "file": "F06_pooled_association",
+    "title": "A null SNP appears associated in the pooled sample",
+    "caption": "600 synthetic individuals; horizontal jitter is for display only. The true tested-SNP effect is zero.",
+    "kind": "original synthetic illustration"
+  },
+  {
+    "id": "F07",
+    "file": "F07_background_pca",
+    "title": "PC1 captures the simulated ancestry contrast",
+    "caption": "PCA uses 3,000 background SNPs; both tested SNPs are excluded. All 600 individuals are shown.",
+    "kind": "original synthetic illustration"
+  },
+  {
+    "id": "F08",
+    "file": "F08_residual_association",
+    "title": "After PC adjustment, compare residual with residual",
+    "caption": "Both dosage and phenotype are residualized on an intercept and PC1, using the same 600 individuals.",
+    "kind": "original synthetic illustration"
+  },
+  {
+    "id": "F09",
+    "file": "F09_known_effects",
+    "title": "Compare estimates with the effects used to generate the data",
+    "caption": "A single simulation: estimates and 95% t intervals before and after PC1 adjustment; vertical lines show the true effects.",
+    "kind": "original synthetic illustration"
+  },
+  {
+    "id": "F10",
+    "file": "F10_pc_sensitivity",
+    "title": "How many PCs? Inspect sensitivity of the effect estimate",
+    "caption": "Null-SNP point estimates and 95% t intervals. Stability in this example does not determine K for another study.",
+    "kind": "original synthetic illustration"
+  },
+  {
+    "id": "F11",
+    "file": "F11_ld_pca",
+    "title": "A large LD region can dominate the first PC",
+    "caption": "Synthetic correlated block at SNPs 1,201–1,700; big_randomSVD before filtering, snp_autoSVD after filtering.",
+    "kind": "original synthetic illustration"
+  },
+  {
+    "id": "F12",
+    "file": "F12_ld_loadings",
+    "title": "Inspect SNP loadings before interpreting a PC",
+    "caption": "All 3,000 PC1 loadings from the unfiltered synthetic example; the highlighted region was deliberately made correlated.",
+    "kind": "original synthetic illustration"
+  },
+  {
+    "id": "F13",
+    "file": "F13_batch_pca",
+    "title": "The same PCs can track ancestry and technical batch",
+    "caption": "Identical coordinates in both panels; only the coloring changes. Batch was assigned independently of ancestry.",
+    "kind": "original synthetic illustration"
+  },
+  {
+    "id": "F14",
+    "file": "F14_oadp_projection",
+    "title": "Fit the axes once, then project held-out individuals",
+    "caption": "snp_autoSVD fits 480 reference individuals; snp_projectSelfPCA supplies OADP scores for 120 held-out individuals.",
+    "kind": "original synthetic illustration"
+  },
+  {
+    "id": "F15",
+    "file": "F15_genomic_control",
+    "title": "Genomic control rescales the same association statistics",
+    "caption": "100,000 synthetic null statistics. The corrected median equals the null median by construction; the same ranks are plotted.",
+    "kind": "original synthetic illustration"
+  },
+  {
+    "id": "F16",
+    "file": "F16_matched_qq",
+    "title": "Similar Q–Q inflation can have different causes",
+    "caption": "100,000 matched normal draws under two LDSC working-model scenarios; both have expected mean χ² = 1.4.",
+    "kind": "original synthetic illustration"
+  },
+  {
+    "id": "F17",
+    "file": "F17_ldsc_scenarios",
+    "title": "LD-score relationships separate these model scenarios",
+    "caption": "The same statistics as Figure 16. Points are means in 20 bins; lines show generating means, not a fitted real GWAS.",
+    "kind": "original synthetic illustration"
+  },
+  {
+    "id": "F18",
+    "file": "F18_ld_score_heatmap",
+    "title": "LD score sums squared correlations with neighboring SNPs",
+    "caption": "Exact illustrative population LD. SNP 4: score 3.35, including self-LD 1; four other SNPs exceed the example cutoff 0.20.",
+    "kind": "deterministic valid population-LD model"
+  },
+  {
+    "id": "F19",
+    "file": "F19_pedigree_relationships",
+    "title": "Relatives create correlated observations",
+    "caption": "An expected additive relationship matrix for two unrelated, non-inbred parents and two full siblings; realized genomic values vary.",
+    "kind": "original deterministic schematic"
+  },
+  {
+    "id": "F20",
+    "file": "F20_parental_transmission",
+    "title": "Parental transmission and family environment are different pathways",
+    "caption": "Original teaching DAG. Conditioning on parental genotypes uses within-family segregation; causal interpretation still requires assumptions.",
+    "kind": "original deterministic schematic"
+  },
+  {
+    "id": "F21",
+    "file": "F21_local_ancestry_model",
+    "title": "Local ancestry supplies information beyond a global proportion",
+    "caption": "Original two-copy schematic for an ancestry-specific association model; it is not output from Tractor-Mix or observed genotype data.",
+    "kind": "original deterministic schematic"
+  },
+  {
+    "id": "F22",
+    "file": "F22_rare_variant_summary",
+    "title": "Rare-variant structure can survive common-PC adjustment",
+    "caption": "Published summary values, not simulations: Hanson et al. (2026), Nature Communications, doi:10.1038/s41467-026-73776-9.",
+    "kind": "redrawn published numerical summary"
+  },
+  {
+    "id": "F23",
+    "file": "F23_moba_summary",
+    "title": "Parental adjustment attenuates some SNP associations",
+    "caption": "Published estimates and 95% CIs, not simulations: Corfield et al. (2026), Nature, doi:10.1038/s41586-026-10926-5.",
+    "kind": "redrawn published numerical summary"
+  }
+]

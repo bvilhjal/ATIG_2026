@@ -1,0 +1,174 @@
+{
+  "gram": {
+    "latex": "\\boldsymbol\\Psi=\\frac{1}{M}\\mathbf X^{\\mathsf T}\\mathbf X\\in\\mathbb R^{N\\times N}",
+    "number": 1
+  },
+  "spectral": {
+    "latex": "\\boldsymbol\\Psi=\\mathbf V\\mathbf D\\mathbf V^{\\mathsf T},\\qquad \\mathbf V^{\\mathsf T}\\mathbf V=\\mathbf I",
+    "number": 2
+  },
+  "eig": {
+    "latex": "\\boldsymbol\\Psi\\mathbf v_k=d_k\\mathbf v_k,\\qquad d_1\\geq d_2\\geq\\cdots\\geq d_N\\geq0",
+    "number": 3
+  },
+  "toyX": {
+    "latex": "\\mathbf X=\\begin{bmatrix}2&-2\\\\1&-1\\\\0&0\\\\-1&1\\\\-2&2\\end{bmatrix}",
+    "number": 4
+  },
+  "toyPsi": {
+    "latex": "\\boldsymbol\\Psi=\\frac{1}{5}\\mathbf X^{\\mathsf T}\\mathbf X=\\begin{bmatrix}2&-2\\\\-2&2\\end{bmatrix}",
+    "number": 5
+  },
+  "toyVD": {
+    "latex": "\\mathbf V=\\frac{1}{\\sqrt2}\\begin{bmatrix}1&1\\\\-1&1\\end{bmatrix},\\qquad\\mathbf D=\\begin{bmatrix}4&0\\\\0&0\\end{bmatrix}",
+    "number": 6
+  },
+  "toyPC1": {
+    "latex": "\\mathbf v_1=\\frac{1}{\\sqrt2}\\begin{bmatrix}1\\\\-1\\end{bmatrix},\\quad d_1=4,\\quad\\boldsymbol\\Psi\\mathbf v_1=4\\mathbf v_1",
+    "number": 7
+  },
+  "toyPC2": {
+    "latex": "\\mathbf v_2=\\frac{1}{\\sqrt2}\\begin{bmatrix}1\\\\1\\end{bmatrix},\\quad d_2=0,\\quad\\boldsymbol\\Psi\\mathbf v_2=\\mathbf0",
+    "number": 8
+  },
+  "Gdef": {
+    "latex": "\\mathbf G=(g_{ij})\\in\\{0,1,2\\}^{M\\times N}",
+    "number": 9
+  },
+  "center": {
+    "latex": "p_i=\\frac{1}{2N}\\sum_{j=1}^N g_{ij},\\qquad x_{ij}=g_{ij}-2p_i",
+    "number": 10
+  },
+  "scale": {
+    "latex": "x_{ij}=\\frac{g_{ij}-2p_i}{\\sqrt{2p_i(1-p_i)}}",
+    "number": 11
+  },
+  "gram7": {
+    "latex": "\\boldsymbol\\Psi=\\frac{1}{7}\\mathbf X^{\\mathsf T}\\mathbf X",
+    "number": null
+  },
+  "G7": {
+    "latex": "\\mathbf G=\\begin{bmatrix}1&1&1&0&0\\\\0&1&2&1&2\\\\2&1&1&0&1\\\\0&0&1&2&2\\\\2&1&1&0&0\\\\0&0&1&1&1\\\\2&2&1&1&0\\end{bmatrix}",
+    "number": 12
+  },
+  "X7": {
+    "latex": "\\mathbf X=\\begin{bmatrix}0.4&0.4&0.4&-0.6&-0.6\\\\-1.2&-0.2&0.8&-0.2&0.8\\\\1.0&0.0&0.0&-1.0&0.0\\\\-1.0&-1.0&0.0&1.0&1.0\\\\1.2&0.2&0.2&-0.8&-0.8\\\\-0.6&-0.6&0.4&0.4&0.4\\\\0.8&0.8&-0.2&-0.2&-1.2\\end{bmatrix}",
+    "number": 13
+  },
+  "Psi5": {
+    "latex": "\\boldsymbol\\Psi\\approx\\begin{bmatrix}0.863&0.377&-0.137&-0.480&-0.623\\\\0.377&0.320&-0.051&-0.251&-0.394\\\\-0.137&-0.051&0.149&-0.051&0.091\\\\-0.480&-0.251&-0.051&0.463&0.320\\\\-0.623&-0.394&0.091&0.320&0.606\\end{bmatrix}",
+    "number": 14
+  },
+  "PC15": {
+    "latex": "\\mathbf v_1\\approx\\begin{bmatrix}0.652\\\\0.357\\\\-0.078\\\\-0.399\\\\-0.532\\end{bmatrix},\\quad d_1\\approx1.888",
+    "number": 15
+  },
+  "binomial": {
+    "latex": "\\Pr(g_{ij}\\mid p_{iq})=\\binom{2}{g_{ij}}p_{iq}^{\\,g_{ij}}(1-p_{iq})^{\\,2-g_{ij}}",
+    "number": 16
+  },
+  "lk": {
+    "latex": "L_q\\propto\\prod_{i=1}^M p_{iq}^{\\,g_{ij}}(1-p_{iq})^{\\,2-g_{ij}}",
+    "number": 17
+  },
+  "lvalues": {
+    "latex": "L_1\\approx0.002242,\\quad L_2\\approx0.006825,\\quad L_2/L_1\\approx3.04",
+    "number": 18
+  },
+  "admixp": {
+    "latex": "p_i(\\alpha)=\\alpha p_{i1}+(1-\\alpha)p_{i2},\\qquad0\\leq\\alpha\\leq1",
+    "number": 19
+  },
+  "admixL": {
+    "latex": "L(\\alpha)\\propto\\prod_{i=1}^M p_i(\\alpha)^{\\,g_{ij}}\\{1-p_i(\\alpha)\\}^{\\,2-g_{ij}}",
+    "number": 20
+  },
+  "alphahat": {
+    "latex": "\\widehat\\alpha=\\mathop{\\rm arg\\,max}_{0\\leq\\alpha\\leq1}L(\\alpha)\\approx0.218",
+    "number": 21
+  },
+  "wald": {
+    "latex": "T_i=z_i^2=\\left(\\frac{\\widehat\\beta_i}{\\operatorname{se}(\\widehat\\beta_i)}\\right)^2\\;\\dot\\sim\\;\\chi_1^2\\quad(H_0)",
+    "number": 22
+  },
+  "lambda": {
+    "latex": "\\lambda_{\\rm GC}=\\frac{\\operatorname{median}_i(T_i)}{\\operatorname{median}(\\chi_1^2)}\\approx\\frac{\\operatorname{median}_i(T_i)}{0.454936}",
+    "number": 23
+  },
+  "l105": {
+    "latex": "\\lambda_{\\rm GC}\\approx1.05",
+    "number": null
+  },
+  "l119": {
+    "latex": "\\lambda_{\\rm GC}\\approx1.19",
+    "number": null
+  },
+  "Tmedian48": {
+    "latex": "\\operatorname{median}_i(T_i)\\approx0.48",
+    "number": null
+  },
+  "Tmedian54": {
+    "latex": "\\operatorname{median}_i(T_i)\\approx0.54",
+    "number": null
+  },
+  "gc": {
+    "latex": "T_i^{\\rm GC}=\\frac{T_i}{\\lambda_{\\rm GC}}",
+    "number": 24
+  },
+  "ldscore": {
+    "latex": "\\ell_i=\\sum_{m=1}^M r_{im}^{\\,2}",
+    "number": 25
+  },
+  "ldsc": {
+    "latex": "\\mathbb E[T_i\\mid\\ell_i]=\\frac{Nh_g^2}{M}\\ell_i+c,\\qquad c=1+Na",
+    "number": 26
+  },
+  "crossldsc": {
+    "latex": "\\mathbb E[z_{1i}z_{2i}\\mid\\ell_i]=\\frac{\\sqrt{N_1N_2}\\,\\sigma_{g,12}}{M}\\ell_i+c_{12}",
+    "number": 27
+  },
+  "C": {
+    "latex": "\\mathbf C=[\\mathbf1,\\mathbf V_K],\\qquad\\mathbf V_K=[\\mathbf v_1,\\ldots,\\mathbf v_K]",
+    "number": 28
+  },
+  "hat": {
+    "latex": "\\mathbf H_C=\\mathbf C(\\mathbf C^{\\mathsf T}\\mathbf C)^{-1}\\mathbf C^{\\mathsf T}",
+    "number": 29
+  },
+  "gtilde": {
+    "latex": "\\widetilde{\\mathbf g}_i=(\\mathbf I-\\mathbf H_C)\\mathbf g_i,\\qquad\\mathbf g_i=(g_{i1},\\ldots,g_{iN})^{\\mathsf T}",
+    "number": 30
+  },
+  "ytilde": {
+    "latex": "\\widetilde{\\boldsymbol\\pi}=(\\mathbf I-\\mathbf H_C)\\boldsymbol\\pi,\\qquad\\boldsymbol\\pi=(\\pi_1,\\ldots,\\pi_N)^{\\mathsf T}",
+    "number": 31
+  },
+  "beta": {
+    "latex": "\\widehat\\beta_i=\\frac{\\widetilde{\\mathbf g}_i^{\\mathsf T}\\widetilde{\\boldsymbol\\pi}}{\\widetilde{\\mathbf g}_i^{\\mathsf T}\\widetilde{\\mathbf g}_i}",
+    "number": 32
+  },
+  "t": {
+    "latex": "t_i=r_i\\sqrt{\\frac{N-K-2}{1-r_i^2}}\\sim t_{N-K-2}\\quad(H_0)",
+    "number": 33
+  },
+  "r": {
+    "latex": "r_i=\\operatorname{corr}(\\widetilde{\\mathbf g}_i,\\widetilde{\\boldsymbol\\pi})",
+    "number": null
+  },
+  "reg": {
+    "latex": "\\boldsymbol\\pi=\\mathbf C\\boldsymbol\\alpha+\\mathbf g_i\\beta_i+\\boldsymbol\\varepsilon",
+    "number": 34
+  },
+  "lmm": {
+    "latex": "\\boldsymbol\\pi=\\mathbf C\\boldsymbol\\alpha+\\mathbf g_i\\beta_i+\\mathbf u+\\boldsymbol\\varepsilon",
+    "number": 35
+  },
+  "lmmvar": {
+    "latex": "\\operatorname{Var}(\\boldsymbol\\pi\\mid\\mathbf C,\\mathbf g_i)=\\sigma_g^2\\boldsymbol\\Psi+\\sigma_e^2\\mathbf I",
+    "number": 36
+  },
+  "trio": {
+    "latex": "\\begin{aligned}\\boldsymbol\\pi_{\\rm child}&=\\mathbf C\\boldsymbol\\alpha+\\mathbf g_{i,\\rm child}\\beta_{i,\\rm direct}\\\\&\\quad+\\mathbf g_{i,\\rm mother}\\beta_{i,\\rm mother}+\\mathbf g_{i,\\rm father}\\beta_{i,\\rm father}+\\boldsymbol\\varepsilon\\end{aligned}",
+    "number": 37
+  }
+}

@@ -1,0 +1,50 @@
+[
+  {
+    "source": "atig_population_redesign_2026/build/compute_examples.R",
+    "sha256": "5565190e5f73a094c96ab04a7ff7df964022879748e5d8e5bc4d63241938b5e6"
+  },
+  {
+    "source": "atig_standardization_v3/build/prepare.py",
+    "sha256": "9fd8c4b2d0589a7d0ada40842c9678806453653a19f6b8b7235063f71cfbafb9"
+  },
+  {
+    "source": "atig_population_redesign_2026/build/build_redesign.mjs",
+    "sha256": "28245d001882913c0a9ec4d756a4615c71398ea2f00fba11414f700a42713df2"
+  },
+  {
+    "source": "atig_population_correct_2026/build/build_deck.mjs",
+    "sha256": "6a03db0358ecab860740966533bfe3a1aea0e7376ae1fdde099ddf349c6fd272"
+  },
+  {
+    "source": "atig_population_correct_2026/build/prepare_math.py",
+    "sha256": "36e6eb127649ffdbcdaf4f7d5c2ea77461a6d98007c474716b0456679b9af43b"
+  },
+  {
+    "source": "atig_gc_v5/build/build_figure.mjs",
+    "sha256": "0de91f102fc655b7e36c4dd30f4460c56b2a739fbc67bec4ee7c16e70f360688"
+  },
+  {
+    "source": "ATiG_2026/figure_sources/Genomic_control_20260908_v1/simulate_gc.R",
+    "sha256": "6981568271374abfc1d9000a35934abc8be3f58f2423e73f7477e915cc257139"
+  },
+  {
+    "source": "ATiG_2026/figure_sources/LD_score_heatmap_20260908_v1/draw_ld_score.R",
+    "sha256": "86df57e553f597677d0b10b5bcdf68dc257e9c85077144fd397df494b828e40d"
+  },
+  {
+    "source": "ATiG_2026/figure_sources/LD_score_heatmap_20260908_v1/build_figure.py",
+    "sha256": "86ad0f2cb7c1386bd7b181fcbde5ca50edcb5bcdc5576bde5fac25c20213200d"
+  },
+  {
+    "source": "ATiG_2026/figures/Figure_21_population_stratification_20260908_v1.prompt.txt",
+    "sha256": "884dbe16624166db1720df0283eca7637ebbaf779b1fa02593e380bd2ec4b9a7"
+  },
+  {
+    "source": "ATiG_2026/figures/Figure_21_population_stratification_20260908_v2.prompt.txt",
+    "sha256": "e7934e2169587dc50fcb22ae00d50e3a5b6db3e160c79082767fa02ff1267587"
+  },
+  {
+    "source": "ATiG_2026/figures/Figure_13_admixture_20260908_v1.prompt.txt",
+    "sha256": "66aedd5abe6b773acd8cb15047f46cd65772cc39eab98fcd1f213217c63e4512"
+  }
+]

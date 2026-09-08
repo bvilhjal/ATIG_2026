@@ -1,0 +1,20 @@
+{
+  "figure": "28a",
+  "version": "1",
+  "data": "Exact illustrative population LD; not observed data",
+  "model": "Independent binary haplotype blocks; allele flip probabilities (1-u)/2; two independent haplotypes per diploid genotype",
+  "block_1_loadings": [0.2, 0.6, 0.8, 1, 0.9, 0.7, 0.1],
+  "block_2_loadings": [0.8, 1, 0.9, 0.6],
+  "independent_SNP": 12,
+  "focal_SNP": 4,
+  "focal_score": 3.35,
+  "self_contribution": 1,
+  "other_contribution": 2.35,
+  "illustrative_r_squared_cutoff": 0.2,
+  "other_friends": [2, 3, 5, 6],
+  "convention": "Scores sum all 12 variants, including the focal variant; no threshold is used in the LD score",
+  "caveat": "The r-squared cutoff illustrates a friend count. GCTA --ld uses a significance threshold; this is not a reproduction of that implementation. Finite-sample bias-corrected LD-score estimates need not be >=1.",
+  "references": ["https://doi.org/10.1038/ng.3211", "https://yanglab.westlake.edu.cn/software/gcta/"],
+  "minimum_eigenvalue": 0.08005023894415263,
+  "R_version": "R version 4.6.0 (2026-04-24)"
+}

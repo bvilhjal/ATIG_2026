@@ -1,0 +1,22 @@
+{
+  "scores": {
+    "latex": "\\mathbf X=\\mathbf U\\mathbf S\\mathbf V^{\\mathsf T},\\quad s_k=\\sqrt{Md_k},\\quad \\mathrm{score}_{jk}=s_kv_{jk}",
+    "number": 38
+  },
+  "simmodel": {
+    "latex": "\\pi_j=1.2(a_j-0.5)+0.25g_{{\\rm causal},j}+\\varepsilon_j,\\qquad \\beta_{\\rm null}=0",
+    "number": 39
+  },
+  "global": {
+    "latex": "\\alpha_j=\\frac{1}{2L}\\sum_{h=1}^{2}\\sum_{b=1}^{B} L_b\\,I(A_{jhb}=1),\\qquad L=\\sum_{b=1}^{B}L_b",
+    "number": 40
+  },
+  "ldsim": {
+    "latex": "\\mathrm{A:}\\ z_i\\sim N(0,1.4)\\qquad\\mathrm{B:}\\ z_i\\sim N(0,1+0.008\\ell_i)",
+    "number": 41
+  },
+  "software": {
+    "latex": "\\mathbf G_{\\rm software}=\\mathbf G^{\\mathsf T},\\qquad d_k=s_{k,\\rm software}^{\\,2}/M",
+    "number": 42
+  }
+}

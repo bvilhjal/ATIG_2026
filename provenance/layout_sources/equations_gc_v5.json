@@ -1,0 +1,16 @@
+{
+  "estimate": {
+    "latex": "\\lambda_{\\rm GC}=\\frac{\\operatorname{median}_i(T_i)}{0.454936}\\approx 1.391",
+    "number": 20
+  },
+  "rescale": {
+    "latex": "T_i^{\\rm GC}=\\frac{T_i}{\\lambda_{\\rm GC}}",
+    "number": 21
+  },
+  "before_label": {
+    "latex": "\\lambda_{\\rm GC}=1.391"
+  },
+  "after_label": {
+    "latex": "\\lambda_{\\rm GC}=1.000"
+  }
+}

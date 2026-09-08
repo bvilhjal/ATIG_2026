@@ -1,0 +1,39 @@
+{
+  "estimate": {
+    "latex": "\\lambda_{\\rm GC}=\\frac{\\operatorname{median}_i(T_i)}{0.454936}\\approx 1.391",
+    "number": 19
+  },
+  "rescale": {
+    "latex": "T_i^{\\rm GC}=\\frac{T_i}{\\lambda_{\\rm GC}}",
+    "number": 20
+  },
+  "before_label": {
+    "latex": "\\lambda_{\\rm GC}=1.391"
+  },
+  "after_label": {
+    "latex": "\\lambda_{\\rm GC}=1.000"
+  },
+  "lmm": {
+    "latex": "\\boldsymbol\\pi=\\mathbf C\\boldsymbol\\alpha+\\mathbf g_i\\beta_i+\\mathbf u+\\boldsymbol\\varepsilon",
+    "number": 32
+  },
+  "lmm_dist": {
+    "latex": "\\mathbf u\\sim\\mathcal N(\\mathbf0,\\sigma_g^2\\boldsymbol\\Psi),\\quad\\boldsymbol\\varepsilon\\sim\\mathcal N(\\mathbf0,\\sigma_e^2\\mathbf I),\\quad\\mathbf u\\perp\\boldsymbol\\varepsilon",
+    "number": 33
+  },
+  "lmm_cov": {
+    "latex": "\\boldsymbol\\Omega=\\operatorname{Var}(\\boldsymbol\\pi\\mid\\mathbf C,\\mathbf g_i)=\\sigma_g^2\\boldsymbol\\Psi+\\sigma_e^2\\mathbf I",
+    "number": 34
+  },
+  "lmm_eigen": {
+    "latex": "\\boldsymbol\\Omega=\\mathbf V\\bigl(\\sigma_g^2\\mathbf D+\\sigma_e^2\\mathbf I\\bigr)\\mathbf V^{\\mathsf T}",
+    "number": 35
+  },
+  "gi_label": {
+    "latex": "g_{ij}"
+  },
+  "wald": {
+    "latex": "T_i=z_i^2=\\left(\\frac{\\widehat\\beta_i}{\\operatorname{se}(\\widehat\\beta_i)}\\right)^2\\;\\dot\\sim\\;\\chi_1^2\\quad(H_0)",
+    "number": 18
+  }
+}

@@ -1,0 +1,50 @@
+Created with the built-in image generation tool. Restores the user's preferred diamond arrangement while preserving the improved Figure 21 notation, labels and simulation values.
+
+Revise Image 1, the current population-stratification infographic, to restore the DIAMOND arrangement from Image 2. Image 1 is the edit target and the source of the improved wording, notation and numerical facts. Image 2 is a layout reference only. The user explicitly prefers the earlier diamond arrangement over the horizontal chain.
+
+Create one polished landscape teaching figure on a white background. Keep the deep navy typography, restrained blue/orange group colors, compact pale rounded nodes, and generous spacing. The main diagram must clearly have FOUR vertices in a DIAMOND: top, left, right, bottom. Do not make another horizontal chain and do not confuse a diamond arrangement with diamond-shaped nodes.
+
+Keep the title: "Population stratification at a null SNP"
+Small category above it: "RUNNING EXAMPLE"
+
+DIAMOND GEOMETRY:
+TOP CENTER: node "Population group" with aⱼ below, properly typeset as lowercase a with subscript j.
+LEFT MIDDLE: node "Tested SNP dosage" with Gᵢⱼ below, properly typeset as capital G with subscript i,j.
+RIGHT MIDDLE: node "Environment".
+BOTTOM CENTER: node "Phenotype" with πⱼ below, properly typeset Greek pi with subscript j.
+The top and bottom nodes share the same horizontal center. The left and right nodes share the same vertical level. Leave the middle of the diamond open and spacious.
+
+Draw EXACTLY THREE SOLID CAUSAL ARROWS along three sides:
+1. Top population-group node points diagonally DOWN-LEFT to tested SNP dosage.
+2. Top population-group node points diagonally DOWN-RIGHT to environment.
+3. Right environment node points diagonally DOWN-LEFT to bottom phenotype.
+All arrowheads must touch their TARGET node, never their source. No vertical shortcut from group to phenotype. No line between the two middle nodes.
+
+The fourth side, from LEFT tested-SNP node toward BOTTOM phenotype, must be a thin light-gray DASHED connector WITHOUT ARROWHEADS. Interrupt it with one small red X. Beside this dashed side, clearly write "Direct effect = 0". This is an explicit no-effect annotation, not an actual causal arrow. Do not put any other solid arrow on this side.
+
+Place numerical annotations OUTSIDE the diamond so they cannot overlap its edges:
+Near the TOP node, compact group coding:
+"Group A: 0" in blue #0072B2
+"Group B: 1" in orange #E69F00
+These lines define aⱼ. Do not introduce q or any other variable.
+Near or immediately below the LEFT node, aligned as a neat block:
+"Allele frequency"
+"Group A: p = 0.20" in blue
+"Group B: p = 0.60" in orange
+Near or immediately below the RIGHT node:
+"Mean shift B − A = 1.2"
+"Phenotype units"
+Ensure these annotations do not collide with the diagonal arrows; use space toward the outer margins as needed.
+
+Below the diamond, retain a concise centered takeaway:
+"Pooling the groups can create a SNP–phenotype association."
+
+Below that, compact simulation information:
+"Simulation: 600 people; 3,000 background SNPs; separate causal SNP effect = 0.25"
+The 0.25 is the effect of a DIFFERENT causal SNP, never the tested SNP.
+
+Footer:
+"Figure 21. Original simulation schematic with an ancestry-associated environment and a null SNP."
+"Background: Price et al. (2006), Nature Genetics"
+
+Preserve every stated number and the correct Gᵢⱼ, aⱼ, πⱼ notation. Use true mathematical subscripts. No fake data plots, no new equations, no logos or people. Keep all text legible, arrows correctly directed, and ample whitespace. The dominant visual must be the user's preferred diamond layout.
