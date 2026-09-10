@@ -104,7 +104,7 @@
       },
       {
         "path": "README.md",
-        "sha256": "5e3be2850322a2291e251331a87e487226c1dccfde3cb6d969321330cf1d398c"
+        "sha256": "5cfe15f3903559fb83d05f18e62687af8f2ce30a5a1d51fbb404b6f9642f362b"
       },
       {
         "path": "RUN_REPORT.md",
@@ -289,14 +289,17 @@
     ]
   },
   "repository_distribution": {
-    "version": "0.3.0",
-    "path": "teaching_days/2026-09-08/population_structure/PCA",
+    "version": "0.3.1",
+    "path": "teaching_days/2026-09-10/PCA",
     "source_materials": "ATiG_2026/PCA",
     "original_course_manifest_sha256": "27a9bc3077734f83f1948df1ecf68890c8f4f29d72d1bf391a770c2256d38cc9",
     "local_caches_excluded_from_git": [
       "data/",
       "results/pca_results.rds"
     ],
-    "note": "Teaching Rmd sources and full-analysis runner match the verified course files byte-for-byte. README instructions describe Git distribution; source-directory labels omit machine-specific paths. The 28 cached-fit checks and HTML rendering were repeated from the repository copy with RStudio Pandoc 3.8.3; no PCA refit or fresh data download."
+    "note": "Teaching Rmd sources and full-analysis runner match the verified course files byte-for-byte. README instructions describe Git distribution; source-directory labels omit machine-specific paths. The 28 cached-fit checks and HTML rendering were repeated from the repository copy with RStudio Pandoc 3.8.3; no PCA refit or fresh data download.",
+    "teaching_date": "2026-09-10",
+    "teaching_date_source": "Population_Structure_Recap_PCA_20260910_v1.pptx",
+    "layout_note": "Exercise moved into its own dated folder; analysis sources and results are unchanged from commit 87180f71d589a4c0617c4f0f910b0bb11244eec8."
   }
 }

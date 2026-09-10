@@ -1,8 +1,10 @@
-# ATiG 2026 PCA exercise
+# ATiG 2026 PCA exercise — 10 September 2026
 
 A runnable adaptation of the 2025 PCA exercise, retaining questions Q1–Q14 and
 using the same 1000 Genomes dataset and relatedness/outlier thresholds.
-The verified full run took 20 minutes on two cores; see [the run report](RUN_REPORT.md).
+The exercise belongs to the 10 September teaching day. The verified full run
+was recorded on 9 September and took 20 minutes on two cores; see
+[the run report](RUN_REPORT.md).
 
 - `PCA_tutorial.Rmd`: student exercise.
 - `PCA_tutorial.html`: rendered student worksheet, without worked answers.
@@ -91,4 +93,4 @@ Input hashes and the local 2025 source state are recorded in
 `results/validation.tsv` for the executed run. The recorded walkthrough reused
 the existing data and PLINK cache; a fresh download was not required.
 
-[Population-structure materials](../README.md) · [Course index](../../../../README.md)
+[Teaching day](../README.md) · [Population-structure lecture](../../2026-09-08/population_structure/README.md) · [Course index](../../../README.md)
