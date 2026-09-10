@@ -7,7 +7,7 @@ The material covers genotype standardization and PCA, reference-panel and
 local/global ancestry examples, population stratification, genomic control and
 LD scores. The provenance archive also preserves the mixed-model equations.
 
-Continue with the [PCA exercise for 10 September](../2026-09-10/PCA/README.md).
+Continue with the [PCA exercise for 10 September](https://bvilhjal.github.io/ATIG_2026/teaching_days/2026-09-10/PCA/PCA_tutorial.html).
 It has its own dated folder, student and worked-answer handouts, validation
 records and full-analysis entrypoint.
 

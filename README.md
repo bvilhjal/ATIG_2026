@@ -1,7 +1,7 @@
 # ATIG 2026 — reproducible teaching code
 
 Lecture simulations and practical exercises, organized by teaching date.
-Version **0.3.2** includes the [PCA practical](teaching_days/2026-09-10/PCA/README.md)
+Version **0.3.3** includes the [PCA practical](https://bvilhjal.github.io/ATIG_2026/teaching_days/2026-09-10/PCA/PCA_tutorial.html)
 in its own folder for 10 September,
 with student and worked-answer handouts, rendered HTML, and validation records.
 The population-structure lecture produces **23 numbered figure families** in
@@ -12,11 +12,11 @@ PNG, PDF and SVG, with calculated data and numerical checks.
 | Teaching date | Topic | Material |
 |---|---|---|
 | [8 September 2026](teaching_days/2026-09-08/README.md) | [Population structure](teaching_days/2026-09-08/population_structure/README.md) | Lecture simulations and figures. |
-| [10 September 2026](teaching_days/2026-09-10/README.md) | [PCA exercise](teaching_days/2026-09-10/PCA/README.md) | 1000 Genomes practical, student handout, worked answers and validation records. |
+| [10 September 2026](teaching_days/2026-09-10/README.md) | [PCA exercise](https://bvilhjal.github.io/ATIG_2026/teaching_days/2026-09-10/PCA/PCA_tutorial.html) | 1000 Genomes practical, student handout, worked answers and validation records. |
 
 **Table 1.** Teaching days currently represented in this repository.
 
-## Run the PCA practical
+## PCA practical
 
 Open the [student handout](teaching_days/2026-09-10/PCA/PCA_tutorial.Rmd)
 in RStudio, or consult the [worked answers](teaching_days/2026-09-10/PCA/PCA_tutorial_answers.Rmd).
@@ -25,11 +25,6 @@ or [worked answers](https://bvilhjal.github.io/ATIG_2026/teaching_days/2026-09-1
 directly in your browser. The practical keeps 14 questions in four stages and
 uses the public 1000 Genomes reference panel. A complete run took about 20 minutes on
 two cores; the current teaching refresh passed 28 checks.
-
-Follow the [practical instructions](teaching_days/2026-09-10/PCA/README.md)
-to install dependencies and run it. Genotype files and PLINK are downloaded on
-first use, and fitted PCA objects are generated locally. These large caches
-are excluded from Git. The lecture reproduction command below is separate.
 
 ## Reproduce the lecture figures
 

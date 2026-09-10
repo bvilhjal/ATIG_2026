@@ -17,7 +17,7 @@ calculated data and PNG/PDF/SVG figures under `outputs/2026-09-08/`. Simulated
 examples are synthetic; the original model seeds and repository figure IDs are
 preserved when the lecture is rearranged.
 
-The [PCA exercise for 10 September](../../2026-09-10/PCA/README.md) is in its own
+The [PCA exercise for 10 September](https://bvilhjal.github.io/ATIG_2026/teaching_days/2026-09-10/PCA/PCA_tutorial.html) is in its own
 dated folder.
 
 [Teaching day](../README.md) · [Course index](../../../README.md)
