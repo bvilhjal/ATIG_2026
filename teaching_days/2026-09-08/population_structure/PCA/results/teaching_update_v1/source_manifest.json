@@ -1,0 +1,191 @@
+{
+  "source_directory": "atig2025/PCA",
+  "source_git_commit": "a1e69408c18a362d2e2073461e08435012b6aa14",
+  "note": "Copied from the existing local 2025 working files; student Rmd has an existing uncommitted path syntax correction. Source files were left unchanged.",
+  "files": [
+    {
+      "path": "PCA_tutorial.Rmd",
+      "bytes": 4795,
+      "sha256": "34a226012054d06b776a29a38ac7ae868ae5f5e92d64769a1e74864cfe288142"
+    },
+    {
+      "path": "PCA_tutorial_answers.Rmd",
+      "bytes": 8960,
+      "sha256": "0d7c5797f6f867cd87d7dd83506d1af56e3ca0a723eafa58339e7734004d2a55"
+    },
+    {
+      "path": "data/1000G_phase3_common_norel.bed",
+      "bytes": 1037202799,
+      "sha256": "4a33207e17ad1e7861db2dc7d849acba7b267e6f649afbcf0dd6603553331647"
+    },
+    {
+      "path": "data/1000G_phase3_common_norel.bim",
+      "bytes": 46569819,
+      "sha256": "3184ad9c8afe03487f6c1ab0abd5ccf2c6665dce3a8cf67977331b1018a8ea2f"
+    },
+    {
+      "path": "data/1000G_phase3_common_norel.fam",
+      "bytes": 47316,
+      "sha256": "d16a66fee04a6dcfe8844c3100d6aa01df658b56e8849de3aa48451871af4750"
+    },
+    {
+      "path": "data/1000G_phase3_common_norel.fam2",
+      "bytes": 116686,
+      "sha256": "833478cbc4a10db395a433ba035064fcff8563cbe15b71956e26518b880c4f7c"
+    },
+    {
+      "path": "data/plink2",
+      "bytes": 3336008,
+      "sha256": "5258130d1841a41cbf08c5ece286a7ec2b40829622816490a14db6957b765c24"
+    }
+  ],
+  "adapted_files": [
+    {
+      "path": "PCA_tutorial.Rmd",
+      "sha256": "f0e616d1c4fffe892e614f5520d23484d39dfdf1a813fa4e05ec8eff37dc0663"
+    },
+    {
+      "path": "PCA_tutorial_answers.Rmd",
+      "sha256": "317ed64a5dd332c75262e84f1a2295320e86fc3b07eefe5cbc49e2aa36dc7f8c"
+    },
+    {
+      "path": "run_exercise.R",
+      "sha256": "2a54374b65735ae9ed6a411b9106f1b71abed423b76bdc6baa532a93df5a54b9"
+    }
+  ],
+  "execution_note": "Worked-answer Rmd evaluated in full. Student HTML rendered without execution; its shared analysis snippets and variance helper were checked against the executed answer sheet.",
+  "adapted_files_note": "These are the sources executed in the original full run. Copies are preserved under results/full_run_sources; the teaching update below records the current handouts separately.",
+  "teaching_update": {
+    "date": "2026-09-09",
+    "execution_note": "Reused the verified full-run PCA objects and outlier scores. Recalculated the total-variance denominator and executed new summaries and plotting code; no PCA refit. Student HTML rendered as a code-only worksheet; shared fitting chunks and total-variance code match the worked answers.",
+    "refresh_info": {
+      "date": "2026-09-09",
+      "elapsed_seconds": 30.0201,
+      "mode": "Teaching update rendered from saved, previously validated full-data fit; no PCA refit.",
+      "unchanged_fit_chunks": [
+        "setup",
+        "packages",
+        "data",
+        "relatedness",
+        "initial-pca",
+        "outlier-scores",
+        "refit-pca",
+        "projection"
+      ],
+      "checks_passed": 21,
+      "fitted_results_sha256": "60b6ee455b0ec7c08ec44c2a56831291b38eba2f659e67eedbbfd5d0ea2c6990"
+    },
+    "full_run_archive": "results/full_run_sources",
+    "html_and_figure_qa": "results/teaching_update/html_structure.json",
+    "files": [
+      {
+        "path": "PCA_tutorial.Rmd",
+        "sha256": "8d1f6946fef09f1790611727fa38266a54e0ed8be01da48b7a8c6d09e3d5ab24"
+      },
+      {
+        "path": "PCA_tutorial_answers.Rmd",
+        "sha256": "8166beaf830501c6e512716b8a298aeab8734cc301bd3a56709af14c277fc84d"
+      },
+      {
+        "path": "PCA_tutorial.html",
+        "sha256": "8239483b856e0fcc80c188bcbb34b2a8349a991030f12d7ad2b7dfab68e833ec"
+      },
+      {
+        "path": "PCA_tutorial_answers.html",
+        "sha256": "76cc88117e704c5cd7521f2efbd60963fd990de68eb800fb60028368dfb7ce67"
+      },
+      {
+        "path": "README.md",
+        "sha256": "589dc9d0eb7a515e2817636dce3f61df8c0d6daf4e0da06a3904fbc9d965d5b2"
+      },
+      {
+        "path": "RUN_REPORT.md",
+        "sha256": "3766e70ca2f9c1dfb84176564f5c21c6008ada93785e7bdc5b43135f4e389b1c"
+      },
+      {
+        "path": "run_exercise.R",
+        "sha256": "2a54374b65735ae9ed6a411b9106f1b71abed423b76bdc6baa532a93df5a54b9"
+      },
+      {
+        "path": "results/teaching_update/PC_correlations.tsv",
+        "sha256": "4beaafc6d05d7313ca8f2561b92959c1d3ed9bbc437b1eaa84b6e14a1f4e1185"
+      },
+      {
+        "path": "results/teaching_update/cutoff_sensitivity.tsv",
+        "sha256": "4481811ea3310c7666e48f7b16d0168ebed0fb599a755ad8db3a0d6f6606defd"
+      },
+      {
+        "path": "results/teaching_update/html_structure.json",
+        "sha256": "7f6b383db32ae9c8f72c1e62ed38e6f35ceb52f8ef62aeaad02d5318ae22830c"
+      },
+      {
+        "path": "results/teaching_update/population_means.tsv",
+        "sha256": "662a8e77491531d5a4609dacff919699931d56554991b4a5551f2929ec17c24d"
+      },
+      {
+        "path": "results/teaching_update/refresh.R",
+        "sha256": "b2a9b578731e67ec5caefb4c0840be6a9013f68435c47c77a0e0f49424b291d1"
+      },
+      {
+        "path": "results/teaching_update/refresh.log",
+        "sha256": "66cbc715195bc1ea9a37b0fcffeb4cb85933e4a0d774b1309f19aa401837ce6c"
+      },
+      {
+        "path": "results/teaching_update/refresh_info.json",
+        "sha256": "a9dc00e87009198e80928e48d35c4b31f17da92818476c3e4846f7033fbdb61b"
+      },
+      {
+        "path": "results/teaching_update/validation.tsv",
+        "sha256": "2341228b042da865c9c671fbc1e5550b2246c7b86e2cce66cef0b326d34e1c15"
+      },
+      {
+        "path": "results/full_run_sources/PCA_tutorial.Rmd",
+        "sha256": "f0e616d1c4fffe892e614f5520d23484d39dfdf1a813fa4e05ec8eff37dc0663"
+      },
+      {
+        "path": "results/full_run_sources/PCA_tutorial_answers.Rmd",
+        "sha256": "317ed64a5dd332c75262e84f1a2295320e86fc3b07eefe5cbc49e2aa36dc7f8c"
+      },
+      {
+        "path": "results/full_run_sources/PCA_tutorial_answers.html",
+        "sha256": "c76aeafe041baedfc61be4d4d2388da446b766158bd18db8b7e3a95cc6958e12"
+      },
+      {
+        "path": "results/full_run_sources/run_exercise.R",
+        "sha256": "2a54374b65735ae9ed6a411b9106f1b71abed423b76bdc6baa532a93df5a54b9"
+      },
+      {
+        "path": "results/figures/Figure_01.png",
+        "sha256": "6d31119ef78ad666b4cf95daef2767c0155926c3e140130b4e62c072cf9cff9c"
+      },
+      {
+        "path": "results/figures/Figure_02.png",
+        "sha256": "42885cf288290d26ad16c8ed930de8f8616a121d98bd3c23d3fb98b9041a3188"
+      },
+      {
+        "path": "results/figures/Figure_03.png",
+        "sha256": "5fa8cba3a9c67cedbe73e70db136da197ed02945688fe63106bc1ca89498ecf6"
+      },
+      {
+        "path": "results/figures/Figure_04.png",
+        "sha256": "ef101821f4fbde45fac39a352319cd0e01d54b985f1263835f8157234a061f53"
+      },
+      {
+        "path": "results/figures/Figure_05.png",
+        "sha256": "1a52118af5576419d27775a7bbc007acff268e188abf71301f31d5d4966c2de7"
+      },
+      {
+        "path": "results/figures/Figure_06.png",
+        "sha256": "8bfb94dae769d1bf8cb588f7bcbc9a837bc4e4557fe6e2e4bb30d6c5b6dbe0fa"
+      },
+      {
+        "path": "results/figures/Figure_07.png",
+        "sha256": "42bb168c9bb38bc2c8d8286c1657f7ab38248b3ad7608bb5347048bc5a4446fb"
+      },
+      {
+        "path": "results/figures/Figure_08.png",
+        "sha256": "a39a9a1f38f13c0b9718f2112412b07fb023803888ea066d198bac21199a089d"
+      }
+    ]
+  }
+}

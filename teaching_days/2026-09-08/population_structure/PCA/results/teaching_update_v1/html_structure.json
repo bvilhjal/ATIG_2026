@@ -1,0 +1,40 @@
+{
+  "PCA_tutorial": {
+    "question_count": 14,
+    "plots": 0,
+    "tables": 0
+  },
+  "PCA_tutorial_answers": {
+    "question_count": 14,
+    "plots": 8,
+    "tables": 2
+  },
+  "shared_fitting_chunks_match": [
+    "setup",
+    "packages",
+    "data",
+    "relatedness",
+    "initial-pca",
+    "outlier-scores",
+    "refit-pca",
+    "projection"
+  ],
+  "shared_total_variance_code_matches": true,
+  "numbered_equations": [
+    1,
+    2,
+    3
+  ],
+  "plots_identical_to_full_run": [
+    1,
+    2,
+    3,
+    6
+  ],
+  "changed_or_added_plots_visually_inspected": [
+    4,
+    5,
+    7,
+    8
+  ]
+}

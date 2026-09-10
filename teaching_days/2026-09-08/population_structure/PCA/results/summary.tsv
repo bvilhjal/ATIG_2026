@@ -1,0 +1,16 @@
+metric	value
+samples	2490
+input_variants	1664852
+related_pairs	31
+flagged_individuals	58
+higher_threshold_pairs	0
+initial_samples	2432
+initial_variants	322376
+outliers	2
+final_reference_samples	2430
+final_variants	322263
+projected_samples	60
+PCs	20
+PC1_PVE	0.0766604577707495
+first20_PVE	0.138570951562056
+cores	2

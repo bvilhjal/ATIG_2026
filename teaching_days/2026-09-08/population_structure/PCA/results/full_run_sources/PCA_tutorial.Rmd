@@ -1,0 +1,178 @@
+---
+title: "ATiG 2026: PCA Exercise using bedpca"
+output:
+  html_document:
+    df_print: paged
+  pdf_document: default
+---
+
+This exercise generally follows the vignette by Florian Privé available online [**here**](https://privefl.github.io/bigsnpr/articles/bedpca.html).
+
+The most relevant literature is [Privé *et al.*, Bioinformatics 2020](https://doi.org/10.1093/bioinformatics/btaa520). And a draft manual for `bigstatsr` and `bigsnpr` can be found [here](https://privefl.github.io/bigsnpr-extdoc/introduction.html). 
+
+## Prerequisites (IMPORTANT)
+Use a current R installation and RStudio. Open this file and choose **Knit to HTML**. When running chunks interactively, set the working directory to this file's folder (RStudio: **Session > Set Working Directory > To Source File Location**).
+
+Install the following packages once:
+
+```{r install, eval=FALSE}
+install.packages(c("bigsnpr", "ggplot2", "cowplot", "knitr", "rmarkdown"))
+```
+
+The first run downloads about 1 GB of genotype data plus PLINK 2; later runs reuse the files in `data/`. The analysis reads genotypes from disk and uses two cores by default.
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(error = FALSE, fig.width = 8, fig.height = 5, dpi = 120)
+set.seed(2026)
+ncores <- as.integer(Sys.getenv("ATIG_PCA_NCORES", "2"))
+stopifnot(length(ncores) == 1L, !is.na(ncores), ncores >= 1L)
+```
+
+First we load the packages.
+
+```{r packages, message=FALSE}
+library(bigsnpr)
+library(ggplot2)
+```
+
+### 1 Principal Component Analysis (PCA) and Relatedness
+
+A vignette for how to conduct PCA analyses using the package can be found [**here**](https://privefl.github.io/bigsnpr/articles/bedpca.html).
+
+First we download the 1000 genomes data in plink bed file format, which can take time if the internet connection is slow.
+
+```{r data}
+dir.create("data", showWarnings = FALSE)
+bedfile <- download_1000G("data")
+```
+##### Q1: What are plink bed files?
+
+
+#### Relatedness
+
+First, let us detect all pairs of related individuals by filtering on the kinship coefficient. Note that the kinship coefficient is the probability that a pair of randomly sampled homologous alleles are identical by descent (IBD). In pedigree terms, the coefficient of relatedness is twice the kinship coefficient. An estimated genomic relationship matrix depends on its allele-frequency reference and is not automatically twice a KING estimate.
+
+
+```{r relatedness}
+plink2 <- download_plink2("data",
+                          ARM = grepl("aarch64|arm64", R.version$arch),
+                          AVX2 = FALSE)
+# Keep relative paths: the course folder itself may contain spaces.
+plink2 <- file.path("data", basename(plink2))
+rel <- snp_plinkKINGQC(
+  plink2.path = plink2,
+  bedfile.in = bedfile,
+  thr.king = 2^-4.5,
+  make.bed = FALSE,
+  ncores = ncores
+)
+str(rel)
+```
+
+##### Q2: What threshold was used to filter related individuals? What level of relatedness does it correspond to?
+
+##### Q3: Can you plot the kinship values, also using a less stringent threshold?
+
+#### Principal Component Analysis (PCA)
+
+We then exclude every individual in a flagged pair from fitting the PCs and compute PCA on the remaining individuals. This conservative teaching choice removes both members of each pair; retaining one member per family is another option. The function `bed_autoSVD()` filters MAC < 10 or MAF < 0.02, clumps variants at r² > 0.2, and iteratively removes variants in long-range LD regions. These steps reduce the risk of PCs capturing LD.
+
+```{r initial-pca}
+(obj.bed <- bed(bedfile))
+stopifnot(!anyDuplicated(obj.bed$fam$sample.ID))
+ind.rel <- unique(match(c(rel$IID1, rel$IID2), obj.bed$fam$sample.ID))
+stopifnot(!anyNA(ind.rel))
+ind.norel <- setdiff(rows_along(obj.bed), ind.rel)
+
+set.seed(2026)
+obj.svd <- bed_autoSVD(obj.bed, ind.row = ind.norel, k = 20,
+                       ncores = ncores)
+```
+
+##### Q4: How many individuals were related?
+
+##### Q5: What did we do with them?
+
+##### Q6: How many PCs do we estimate?
+
+For Q7–Q8, we need the total variation of the *same standardized genotype matrix* used in this PCA. The following helper computes its sum of squares in small blocks, using the retained variants and reference samples. Missing genotypes contribute zero after centering (mean imputation).
+
+```{r total-variance}
+ind.col.pca <- attr(obj.svd, "subset")
+total_ss <- 0
+for (first in seq.int(1L, length(ind.col.pca), by = 1024L)) {
+  j <- first:min(first + 1023L, length(ind.col.pca))
+  Z <- obj.bed[ind.norel, ind.col.pca[j], drop = FALSE]
+  Z <- scale(Z, center = obj.svd$center[j], scale = obj.svd$scale[j])
+  Z[is.na(Z)] <- 0
+  total_ss <- total_ss + sum(Z^2)
+}
+rm(Z)
+```
+
+##### Q7: Plot the proportion of variance explained by each PC. Which PC explains most genetic variation?
+
+Hint: use squared singular values for the numerators and `total_ss` as the denominator.
+
+##### Q8: Make a cumulative plot of the variance explained by the PCs. Do the first 20 PCs explain 90% of the total variation? If not, can this truncated analysis tell you exactly how many PCs are needed?
+
+Hint: Use `cumsum()`. Variance is proportional to squared singular values, `obj.svd$d^2`. Dividing by the sum of just those 20 values gives shares *within the first 20 PCs*, not shares of total genotype variance.
+
+
+##### Q9: Plot the PCs.
+
+You can color the plots using the ancestry information in the .fam2 file. Match its `sample.ID` column to `obj.bed$fam$sample.ID`, then select `ind.norel`; do not assume row order.
+
+##### Q10: Can you describe what PCs 3-8 are capturing?  
+
+
+#### Outlier sample detection (quality control)
+
+We now look for sample outliers in PC space. They may reflect genotyping issues or unusual ancestry; an outlier score alone cannot establish poor genotype quality. We retain the 2025 exercise threshold of 0.5 for this demonstration.
+
+```{r outlier-scores}
+prob <- bigutilsr::prob_dist(obj.svd$u, ncores = ncores)
+S <- prob$dist.self / sqrt(prob$dist.nn)
+stopifnot(all(is.finite(S)))
+
+```
+
+We can then rerun the PCA without these outliers
+
+```{r refit-pca}
+ind.row <- ind.norel[S < 0.5]
+ind.col <- attr(obj.svd, "subset")
+set.seed(2027)
+obj.svd2 <- bed_autoSVD(obj.bed, ind.row = ind.row,
+                        ind.col = ind.col, thr.r2 = NA,
+                        k = 20, ncores = ncores)
+```
+
+##### Q11: How many individuals were removed?  
+
+##### Q12: What are we filtering on? (may have to read the paper to answer this) 
+
+
+#### Final PCA with all individuals
+
+We would still like to obtain the PCA values for the remaining individuals. We do this by projecting the excluded individuals onto the newly derived PCs, to get PCs for all individuals.
+
+```{r projection}
+PCs <- matrix(NA_real_, nrow(obj.bed), ncol(obj.svd2$u))
+PCs[ind.row, ] <- predict(obj.svd2)
+ind.proj <- setdiff(rows_along(obj.bed), ind.row)
+
+if (length(ind.proj)) {
+  proj <- bed_projectSelfPCA(obj.svd2, obj.bed,
+                            ind.row = ind.proj, ncores = 1)
+  PCs[ind.proj, ] <- proj$OADP_proj
+}
+stopifnot(all(is.finite(PCs)))
+```
+
+##### Q13: How do we project individuals onto a PC space?  (might have to read paper or do math)
+
+
+##### Q14: Plot the PCs again. Did the PCs 1-8 change?  Why or why not?
+
+

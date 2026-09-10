@@ -1,0 +1,58 @@
+{
+  "PCA_tutorial": {
+    "questions": 14,
+    "stages": [
+      "1. Identify related samples",
+      "2. Fit and interpret the reference PCs",
+      "3. Assess outliers before refitting",
+      "4. Project excluded samples and compare the fits"
+    ],
+    "toc_present": true,
+    "plots": 0,
+    "tables": 0,
+    "decisions_precede_fits": true
+  },
+  "PCA_tutorial_answers": {
+    "questions": 14,
+    "stages": [
+      "1. Identify related samples",
+      "2. Fit and interpret the reference PCs",
+      "3. Assess outliers before refitting",
+      "4. Project excluded samples and compare the fits"
+    ],
+    "toc_present": true,
+    "plots": 8,
+    "tables": 2,
+    "decisions_precede_fits": true
+  },
+  "matching_shared_code": [
+    "setup",
+    "packages",
+    "data",
+    "relatedness",
+    "reference-samples",
+    "initial-pca",
+    "outlier-scores",
+    "refit-pca",
+    "projection",
+    "total-variance"
+  ],
+  "figures_unchanged_from_previous_render": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    8
+  ],
+  "changed_figures_visually_inspected": [
+    7
+  ],
+  "student_starters_executed": [
+    "kinship-starter",
+    "pc-plot-starter",
+    "comparison-starter",
+    "sign-starter"
+  ]
+}

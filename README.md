@@ -1,19 +1,34 @@
 # ATIG 2026 — reproducible teaching code
 
-Simulation and figure-generation code, organized by teaching date.
-Version **0.2.0** contains the population-structure lecture and produces
-**23 numbered figure families** in PNG, PDF and SVG, with calculated data and
-numerical checks.
+Lecture simulations and practical exercises, organized by teaching date.
+Version **0.3.0** adds a [PCA practical](teaching_days/2026-09-08/population_structure/PCA/README.md)
+with student and worked-answer handouts, rendered HTML, and validation records.
+The population-structure lecture produces **23 numbered figure families** in
+PNG, PDF and SVG, with calculated data and numerical checks.
 
 ## Teaching days
 
 | Teaching date | Topic | Material |
 |---|---|---|
-| [8 September 2026](teaching_days/2026-09-08/README.md) | [Population structure](teaching_days/2026-09-08/population_structure/README.md) | PCA, ancestry, stratification, genomic control, LD scores, simulations and figure sources. |
+| [8 September 2026](teaching_days/2026-09-08/README.md) | [Population structure](teaching_days/2026-09-08/population_structure/README.md) | Lecture simulations and figures; [1000 Genomes PCA practical](teaching_days/2026-09-08/population_structure/PCA/README.md). |
 
 **Table 1.** Teaching days currently represented in this repository.
 
-## Reproduce the figures
+## Run the PCA practical
+
+Open the [student handout](teaching_days/2026-09-08/population_structure/PCA/PCA_tutorial.Rmd)
+in RStudio, or consult the [worked answers](teaching_days/2026-09-08/population_structure/PCA/PCA_tutorial_answers.Rmd).
+Rendered HTML copies are included beside the sources; download and open them
+in a browser. The practical keeps 14 questions in four stages and uses the
+public 1000 Genomes reference panel. A complete run took about 20 minutes on
+two cores; the current teaching refresh passed 28 checks.
+
+Follow the [practical instructions](teaching_days/2026-09-08/population_structure/PCA/README.md)
+to install dependencies and run it. Genotype files and PLINK are downloaded on
+first use, and fitted PCA objects are generated locally. These large caches
+are excluded from Git. The lecture reproduction command below is separate.
+
+## Reproduce the lecture figures
 
 Install R and the packages `bigsnpr`, `bigstatsr` and `jsonlite`. On macOS, install
 Poppler (`pdftocairo`) for SVG conversion; for example, `brew install poppler`.
@@ -52,9 +67,11 @@ figure IDs are independent of slide and equation numbers in an editable lecture.
 
 ## Reuse and limitations
 
-The genotype and phenotype examples are synthetic. Two small published numerical
-summaries are explicitly labelled and cited. Lecture files, participant data,
-downloaded paper panels and private course documents are not stored here.
+The lecture's genotype and phenotype examples are synthetic. Two small published
+numerical summaries are explicitly labelled and cited. The PCA practical uses
+public 1000 Genomes data and includes derived scores, plots and validation
+records. Lecture files, course participant data, downloaded paper panels and
+private course documents are not stored here.
 
 The code is teaching material, not a production GWAS pipeline. A single selected
 simulation does not establish general calibration, power or robustness. The

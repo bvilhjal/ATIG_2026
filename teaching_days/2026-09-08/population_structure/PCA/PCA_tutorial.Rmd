@@ -1,0 +1,262 @@
+---
+title: "ATiG 2026: PCA Exercise using bedpca"
+output:
+  html_document:
+    df_print: paged
+    toc: true
+    toc_depth: 2
+    toc_float: true
+  pdf_document: default
+---
+
+## What you will learn
+
+Use PCA to describe genetic variation in this reference panel, explain why relatedness and LD affect the fit, and distinguish fitting PCs from projecting additional individuals. We compute 20 PCs for exploration; this does not establish how many covariates a GWAS needs.
+
+The data are a previously filtered subset of the 1000 Genomes Project, with 2,490 individuals and 1,664,852 variants. Their population labels describe the reference panel and do not partition all human genetic variation into discrete categories. Budget about 20 minutes for the full computation on two cores, plus time to discuss the results.
+
+Work through four stages: identify related samples, fit and interpret PCs, assess outliers, and project excluded samples back. Before running each stage, write down what you expect to change. Afterwards, check the output and explain one result in your own words.
+
+Keep your code, annotated plots and answers in one R Markdown file. Your final product is a short analysis note in Q14 that distinguishes what these PCs show from what they cannot establish. Questions Q5, Q8 and Q12 can be discussed while the PCA runs.
+
+The workflow follows the [bigsnpr PCA vignette](https://privefl.github.io/bigsnpr/articles/bedpca.html) and [Privé et al. (2020)](https://doi.org/10.1093/bioinformatics/btaa520).
+
+## Setup
+Use a current R installation and RStudio. Open this file, set the working directory to its folder (**Session > Set Working Directory > To Source File Location**), and run the supplied chunks in order. Add your own R chunks below the questions, then choose **Knit to HTML** when your answers are ready. Chunks labelled as starters have `eval=FALSE`: run them interactively or change this to `TRUE` after adapting them.
+
+Install the following packages once:
+
+```{r install, eval=FALSE}
+install.packages(c("bigsnpr", "ggplot2", "cowplot", "knitr", "rmarkdown"))
+```
+
+The first run downloads about 1 GB of genotype data plus PLINK 2; later runs reuse the files in `data/`. The analysis reads genotypes from disk and uses two cores by default.
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(error = FALSE, fig.width = 8, fig.height = 5, dpi = 120)
+set.seed(2026)
+ncores <- as.integer(Sys.getenv("ATIG_PCA_NCORES", "2"))
+stopifnot(length(ncores) == 1L, !is.na(ncores), ncores >= 1L)
+```
+
+First we load the packages.
+
+```{r packages, message=FALSE}
+library(bigsnpr)
+library(ggplot2)
+```
+
+## 1. Identify related samples
+
+**Before running:** why might a large family influence PCA more than the same number of unrelated individuals?
+
+First we download the 1000 genomes data in plink bed file format, which can take time if the internet connection is slow.
+
+```{r data}
+dir.create("data", showWarnings = FALSE)
+bedfile <- download_1000G("data")
+```
+### Q1: What are plink bed files?
+
+
+### Estimate relatedness
+
+First, let us detect all pairs of related individuals by filtering on the kinship coefficient. Note that the kinship coefficient is the probability that a pair of randomly sampled homologous alleles are identical by descent (IBD). In pedigree terms, the coefficient of relatedness is twice the kinship coefficient. An estimated genomic relationship matrix depends on its allele-frequency reference and is not automatically twice a KING estimate.
+
+
+```{r relatedness}
+plink2 <- download_plink2("data",
+                          ARM = grepl("aarch64|arm64", R.version$arch),
+                          AVX2 = FALSE)
+# Keep relative paths: the course folder itself may contain spaces.
+plink2 <- file.path("data", basename(plink2))
+rel <- snp_plinkKINGQC(
+  plink2.path = plink2,
+  bedfile.in = bedfile,
+  thr.king = 2^-4.5,
+  make.bed = FALSE,
+  ncores = ncores
+)
+str(rel)
+```
+
+### Q2: What threshold was used to filter related individuals? What level of relatedness does it correspond to?
+
+### Q3: How does the relatedness cutoff change the result?
+
+Plot the reported kinship values and compare cutoffs 2^-4.5 and 2^-3.5. Explain why the higher cutoff flags fewer pairs. Does `rel` contain every possible pair, or only pairs above the original cutoff? Could it be used to evaluate a *lower* cutoff?
+
+
+```{r kinship-starter, eval=FALSE}
+hist(rel$KINSHIP, xlab = "KING kinship", main = "Reported pairs")
+# Extend the x-axis to include both cutoffs, then add vertical reference lines.
+# Use logical indexing to count pairs above the higher cutoff.
+```
+
+## 2. Fit and interpret the reference PCs
+
+**Before running:** consider which rows and columns should contribute to the fit. Relatedness concerns samples; LD concerns variants.
+
+We then exclude every individual in a flagged pair from fitting the PCs and compute PCA on the remaining individuals. This conservative teaching choice removes both members of each pair; retaining one member per family is another option. The function `bed_autoSVD()` filters MAC < 10 or MAF < 0.02, clumps variants at r² > 0.2, and iteratively removes variants in long-range LD regions. These steps reduce the risk of PCs capturing LD.
+
+```{r reference-samples}
+(obj.bed <- bed(bedfile))
+stopifnot(!anyDuplicated(obj.bed$fam$sample.ID))
+ind.rel <- unique(match(c(rel$IID1, rel$IID2), obj.bed$fam$sample.ID))
+stopifnot(!anyNA(ind.rel))
+ind.norel <- setdiff(rows_along(obj.bed), ind.rel)
+```
+
+### Q4: How many pairs are flagged, and how many distinct individuals occur in those pairs? Why can these counts differ?
+
+As a small example, suppose the flagged pairs are A–B and B–C. Count the distinct people. Could A and C both be retained if their pair is below the cutoff?
+
+### Q5: Which samples and variants should influence the fit?
+
+Explain the conservative sample selection above and how a suitably selected unrelated subset could retain more people. Then consider a region with hundreds of nearly identical variant columns: what would those columns contribute to PCA, and why might clumping help?
+
+**Run the reference fit after considering Q5.**
+
+```{r initial-pca}
+set.seed(2026)
+obj.svd <- bed_autoSVD(obj.bed, ind.row = ind.norel, k = 20,
+                       ncores = ncores)
+```
+
+**Checkpoint:** `nrow(obj.svd$u)` must equal `length(ind.norel)`, and both `u` and `v` must have 20 columns. The number of retained variants is `length(attr(obj.svd, "subset"))`.
+
+### Q6: How many PCs do we estimate? Distinguish the singular vectors `u`, singular values `d`, and scores returned by `predict(obj.svd)`.
+
+Inspect `dim(obj.svd$u)`, `length(obj.svd$d)` and `dim(obj.svd$v)`. Which dimension refers to individuals, and which to variants?
+
+For Q7–Q8, we need the total variation of the *same standardized genotype matrix* used in this PCA. The following helper computes its sum of squares in small blocks, using the retained variants and reference samples. Missing genotypes contribute zero after centering (mean imputation).
+
+```{r total-variance}
+ind.col.pca <- attr(obj.svd, "subset")
+total_ss <- 0
+for (first in seq.int(1L, length(ind.col.pca), by = 1024L)) {
+  j <- first:min(first + 1023L, length(ind.col.pca))
+  Z <- obj.bed[ind.norel, ind.col.pca[j], drop = FALSE]
+  Z <- scale(Z, center = obj.svd$center[j], scale = obj.svd$scale[j])
+  Z[is.na(Z)] <- 0
+  total_ss <- total_ss + sum(Z^2)
+}
+rm(Z)
+```
+
+### Q7: Plot the proportion of variance explained by each PC. Which PC explains most genetic variation?
+
+Hint: use squared singular values for the numerators and `total_ss` as the denominator.
+
+### Q8: How much variance is enough?
+
+Make a cumulative variance plot, then answer three questions:
+
+1. Do the first 20 PCs reach 90% of total variation? Can this truncated fit tell you exactly how many PCs would be required?
+2. A colleague plots `obj.svd$d / sum(obj.svd$d)` as proportions of total variance. Identify both mistakes.
+3. Would reaching 90% be an appropriate rule for choosing GWAS covariates?
+
+Hint: Use `cumsum()`. Variance is proportional to squared singular values, `obj.svd$d^2`. Dividing by the sum of just those 20 values gives shares *within the first 20 PCs*, not shares of total genotype variance.
+
+
+### Q9: Plot the PCs.
+
+Use the starter to align the labels and draw PCs 1–2. Extend it to PCs 3–4, 5–6 and 7–8. Keep the same colors for the same labels across panels.
+
+```{r pc-plot-starter, eval=FALSE}
+anc_info <- read.delim("data/1000G_phase3_common_norel.fam2")
+stopifnot(!anyDuplicated(anc_info$sample.ID))
+anc_info <- anc_info[match(obj.bed$fam$sample.ID, anc_info$sample.ID), ]
+stopifnot(identical(anc_info$sample.ID, obj.bed$fam$sample.ID))
+anc_fit <- anc_info[ind.norel, ]
+initial_scores <- predict(obj.svd)
+pc_plot_data <- data.frame(PC1 = initial_scores[, 1], PC2 = initial_scores[, 2],
+                           Ancestry = anc_fit$Super.Population)
+ggplot(pc_plot_data, aes(PC1, PC2, color = Ancestry)) +
+  geom_point(size = 1, alpha = 0.7) + coord_fixed() +
+  scale_color_viridis_d() + theme_bw()
+```
+
+### Q10: What do PCs 3–8 distinguish in this panel? Use both `Super.Population` and `Population` labels, rather than only continental labels.
+
+Hint: compare mean PC scores by population using `aggregate()`, then return to the individual-level plots to see variation within groups. Decode abbreviations using `Population.Description` in `anc_fit`; a mean alone does not describe everyone in a group.  
+
+
+## 3. Assess outliers before refitting
+
+**Before running:** would an isolated point necessarily be a bad genotype, or could the reference panel represent its ancestry poorly?
+
+We now look for sample outliers in PC space. They may reflect genotyping issues or unusual ancestry; an outlier score alone cannot establish poor genotype quality. We retain the 2025 exercise threshold of 0.5 for this demonstration.
+
+```{r outlier-scores}
+prob <- bigutilsr::prob_dist(obj.svd$u, ncores = ncores)
+S <- prob$dist.self / sqrt(prob$dist.nn)
+stopifnot(all(is.finite(S)))
+
+```
+
+
+### Q11: How many individuals are excluded at the outlier step? Compare the counts at cutoffs 0.4, 0.5, and 0.6.  
+
+### Q12: What does the outlier statistic measure? What evidence would you want before treating a flagged sample as a genotyping problem? 
+
+
+**Now refit.** For this exercise, retain the chosen threshold of 0.5 so that everyone compares the same analysis. The sensitivity counts do not require three separate PCA fits.
+
+```{r refit-pca}
+ind.row <- ind.norel[S < 0.5]
+ind.col <- attr(obj.svd, "subset")
+set.seed(2027)
+obj.svd2 <- bed_autoSVD(obj.bed, ind.row = ind.row,
+                        ind.col = ind.col, thr.r2 = NA,
+                        k = 20, ncores = ncores)
+```
+
+## 4. Project excluded samples and compare the fits
+
+We would still like to obtain the PCA values for the remaining individuals. We do this by projecting the excluded individuals onto the newly derived PCs, to get PCs for all individuals.
+
+```{r projection}
+PCs <- matrix(NA_real_, nrow(obj.bed), ncol(obj.svd2$u))
+PCs[ind.row, ] <- predict(obj.svd2)
+ind.proj <- setdiff(rows_along(obj.bed), ind.row)
+
+if (length(ind.proj)) {
+  proj <- bed_projectSelfPCA(obj.svd2, obj.bed,
+                            ind.row = ind.proj, ncores = 1)
+  PCs[ind.proj, ] <- proj$OADP_proj
+}
+stopifnot(all(is.finite(PCs)))
+```
+
+### Q13: How do we project additional individuals? Which means, scales, variants, and allele coding must agree with the reference fit?
+
+Distinguish exclusion from *fitting the reference PCs* from exclusion from the final score matrix. Mark projected individuals in a PC plot: how many were excluded because of relatedness, and how many because of the outlier statistic?
+
+
+**Checkpoint:** every input sample must have a row of finite scores. A projected sample did not help define the reference axes, but still has coordinates on those axes.
+
+### Q14: Compare the initial and final PCs on individuals used in both fits. Do PCs 1–8 agree after allowing for sign changes? What happens to PCs 15–20?
+
+Hint: compare `predict(obj.svd)[match(ind.row, ind.norel), ]` with `predict(obj.svd2)`. Inspect the full matrix of correlations, not only its diagonal: components can change order or rotate when their singular values are similar. A sign change alone has no effect on the PCA.
+
+
+
+```{r comparison-starter, eval=FALSE}
+shared_initial <- predict(obj.svd)[match(ind.row, ind.norel), ]
+shared_final <- predict(obj.svd2)
+C <- cor(shared_initial, shared_final)
+# Compare abs(diag(C))[1:8] with abs(C[15:20, 15:20]).
+# Which large off-diagonal correlation indicates a change in component order?
+```
+
+**Check the sign issue yourself.** In the starter below, predict the result before running it. Explain why a mirrored PC plot can describe the same geometry.
+
+```{r sign-starter, eval=FALSE}
+A <- predict(obj.svd)[1:100, 1:8]
+B <- A
+B[, 1] <- -B[, 1]
+all.equal(as.vector(dist(A)), as.vector(dist(B)))
+```
+
+**Finish with three sentences for an analysis report.** State what the plotted PCs describe and what the variance percentages measure; distinguish reference-sample exclusions from missing final scores; then explain why the plots alone cannot determine the number of PCs needed in a GWAS. Support your note with a computed count or comparison.

@@ -1,0 +1,8 @@
+{
+  "date": "2026-09-09",
+  "elapsed_seconds": 30.0201,
+  "mode": "Teaching update rendered from saved, previously validated full-data fit; no PCA refit.",
+  "unchanged_fit_chunks": ["setup", "packages", "data", "relatedness", "initial-pca", "outlier-scores", "refit-pca", "projection"],
+  "checks_passed": 21,
+  "fitted_results_sha256": "60b6ee455b0ec7c08ec44c2a56831291b38eba2f659e67eedbbfd5d0ea2c6990"
+}

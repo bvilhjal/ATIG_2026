@@ -1,0 +1,10 @@
+{
+  "date": "2026-09-10",
+  "elapsed_seconds": 42.1262,
+  "mode": "Teaching update rendered from saved, previously validated full-data fit; no PCA refit.",
+  "unchanged_fit_chunks": ["setup", "packages", "data", "relatedness", "initial-pca", "outlier-scores", "refit-pca", "projection"],
+  "fitting_code_note": "The original initial-pca code is now split into reference-samples and initial-pca; their concatenated R statements match the full-run source.",
+  "student_starters_executed": ["kinship-starter", "pc-plot-starter", "comparison-starter", "sign-starter"],
+  "checks_passed": 28,
+  "fitted_results_sha256": "60b6ee455b0ec7c08ec44c2a56831291b38eba2f659e67eedbbfd5d0ea2c6990"
+}

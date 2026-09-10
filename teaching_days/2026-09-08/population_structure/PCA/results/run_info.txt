@@ -1,0 +1,6 @@
+Started: 2026-09-09 19:50:31 UTC
+Finished: 2026-09-09 20:10:40 UTC
+Elapsed seconds: 1209.39
+RNG seeds: 2026 (initial PCA), 2027 (refitted PCA)
+Pandoc: 3.8.3
+Thread limits: 1,1,1,1
