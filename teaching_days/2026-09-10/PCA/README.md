@@ -7,9 +7,9 @@ was recorded on 9 September and took 20 minutes on two cores; see
 [the run report](RUN_REPORT.md).
 
 - `PCA_tutorial.Rmd`: student exercise.
-- `PCA_tutorial.html`: rendered student worksheet, without worked answers.
+- [View the student exercise in your browser](https://bvilhjal.github.io/ATIG_2026/teaching_days/2026-09-10/PCA/PCA_tutorial.html): rendered worksheet, without worked answers.
 - `PCA_tutorial_answers.Rmd`: worked answers, with calculated results and plots.
-- `PCA_tutorial_answers.html`: updated worked answers using the recorded PCA fit.
+- [View the worked answers in your browser](https://bvilhjal.github.io/ATIG_2026/teaching_days/2026-09-10/PCA/PCA_tutorial_answers.html): updated answers using the recorded PCA fit.
 - `results/`: PC scores, variance explained, related pairs, outlier scores,
   fitted PCA objects, numerical checks, and software/input provenance.
 

@@ -1,7 +1,7 @@
 # ATIG 2026 — reproducible teaching code
 
 Lecture simulations and practical exercises, organized by teaching date.
-Version **0.3.1** places the [PCA practical](teaching_days/2026-09-10/PCA/README.md)
+Version **0.3.2** includes the [PCA practical](teaching_days/2026-09-10/PCA/README.md)
 in its own folder for 10 September,
 with student and worked-answer handouts, rendered HTML, and validation records.
 The population-structure lecture produces **23 numbered figure families** in
@@ -20,9 +20,10 @@ PNG, PDF and SVG, with calculated data and numerical checks.
 
 Open the [student handout](teaching_days/2026-09-10/PCA/PCA_tutorial.Rmd)
 in RStudio, or consult the [worked answers](teaching_days/2026-09-10/PCA/PCA_tutorial_answers.Rmd).
-Rendered HTML copies are included beside the sources; download and open them
-in a browser. The practical keeps 14 questions in four stages and uses the
-public 1000 Genomes reference panel. A complete run took about 20 minutes on
+Read the [student exercise](https://bvilhjal.github.io/ATIG_2026/teaching_days/2026-09-10/PCA/PCA_tutorial.html)
+or [worked answers](https://bvilhjal.github.io/ATIG_2026/teaching_days/2026-09-10/PCA/PCA_tutorial_answers.html)
+directly in your browser. The practical keeps 14 questions in four stages and
+uses the public 1000 Genomes reference panel. A complete run took about 20 minutes on
 two cores; the current teaching refresh passed 28 checks.
 
 Follow the [practical instructions](teaching_days/2026-09-10/PCA/README.md)
