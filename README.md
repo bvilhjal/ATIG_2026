@@ -1,7 +1,7 @@
 # ATIG 2026 — reproducible teaching code
 
 Lecture simulations and practical exercises, organized by teaching date.
-Version **0.4.1** adds the [LT-FH exercise](https://bvilhjal.github.io/ATIG_2026/teaching_days/2026-09-24/LTFH/LTFH_exercise.html)
+Version **0.4.2** adds the [LT-FH exercise](https://bvilhjal.github.io/ATIG_2026/teaching_days/2026-09-24/LTFH/LTFH_exercise.html)
 for 24 September, a Python practical on family-history liability scores with
 student and worked-answer notebooks. The [PCA practical](https://bvilhjal.github.io/ATIG_2026/teaching_days/2026-09-10/PCA/PCA_tutorial.html)
 for 10 September has student and worked-answer handouts, rendered HTML, and

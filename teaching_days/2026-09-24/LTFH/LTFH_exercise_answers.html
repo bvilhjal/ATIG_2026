@@ -7813,20 +7813,20 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="What-you-will-learn">What you will learn<a class="anchor-link" href="#What-you-will-learn">¶</a></h2><p>The <a href="https://bvilhjal.github.io/ltpred/tutorial/">ltpred tutorial</a> builds a simulated register whose genetic liability is
-known, then scores every person from family history. It ends with a list of
-shortcuts it took and never measures them. In this exercise you measure two of
-them on the same register: what a wrong liability-scale heritability does to the
-score (Part A), and how far a posterior mean genetic liability is from a disease
-risk (Part B). Part C estimates the heritability from the register itself with a
-tetrachoric correlation.</p>
-<p>Everything is compared against the true genetic liability that the simulation
-drew; no real data are used. Budget one hour for Parts A and B after tutorial
-steps 1–4. Part C is homework.</p>
-<p>Before running each part, write down what you expect. Afterwards, check the
-printout against the checkpoint and explain one number in your own words. Keep
-code and answers in this notebook. Your final product is a short note in Q10 that
-distinguishes what the score shows from what it cannot establish.</p>
+<h2 id="What-you-will-learn">What you will learn<a class="anchor-link" href="#What-you-will-learn">¶</a></h2><p>The <a href="https://bvilhjal.github.io/ltpred/tutorial/">ltpred tutorial</a> builds a
+simulated register whose genetic liability is known, then scores every person
+from family history, and ends by listing shortcuts it never measured. In this
+exercise you measure two of them on the same register: what a wrong
+liability-scale heritability does to the score (Part A), and how far a
+posterior mean genetic liability is from a disease risk (Part B). Part C
+estimates the heritability from the register itself with a tetrachoric
+correlation.</p>
+<p>Everything is compared against the true genetic liability the simulation drew;
+no real data are used. Budget one hour for Parts A and B; Part C is homework.</p>
+<p>Before running each part, write down what you expect; afterwards, explain one
+checkpoint number in your own words. Keep code and answers in this notebook.
+Your final product is the Q10 note distinguishing what the score shows from
+what it cannot establish.</p>
 <p>The model is LT-FH++ (<a href="https://doi.org/10.1016/j.ajhg.2022.01.009">Pedersen et al. 2022</a>),
 which extends LT-FH (<a href="https://doi.org/10.1038/s41588-020-0613-6">Hujoel et al. 2020</a>)
 with age of onset. ADuLT (<a href="https://doi.org/10.1038/s41467-023-41210-z">Pedersen et al. 2023</a>)
@@ -7849,15 +7849,19 @@ ceiling shows the same logic from the other side. ltpred's
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Setup">Setup<a class="anchor-link" href="#Setup">¶</a></h2><p>Use Python 3.9 or newer with NumPy and SciPy. ltpred is installed from a source
-checkout (PyPI publication is pending):</p>
+<h2 id="Setup">Setup<a class="anchor-link" href="#Setup">¶</a></h2><p>Python 3.9 or newer with NumPy and SciPy, and ltpred — not yet on PyPI, so
+install it from source. The commands are the same on Windows, macOS and Linux;
+no compiler and no R are needed (the worked answers also need Matplotlib):</p>
 <div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/bvilhjal/ltpred.git
 <span class="nb">cd</span><span class="w"> </span>ltpred
-pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">".[fast]"</span>
+pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">".[fast]"</span><span class="w">      </span><span class="c1"># plain  pip install -e .  works too; numba only speeds it up</span>
 </pre></div>
-<p>This handout was executed with ltpred 0.7.0 (commit <code>2d85ce9</code>). The printouts do
-not depend on the NumPy version: they are identical under NumPy 1.26, 2.2 and 2.4.
-Run the cell below to confirm your install.</p>
+<p>No data files either: Part 0 rebuilds the tutorial register from fixed seeds,
+so a fresh session is enough — you do not need the tutorial still open. Parts
+A and B run in about a minute; Part C factorises a 10,000-person kinship
+matrix and needs a few GB of memory. Executed with ltpred 0.7.0 (commit <code>2d85ce9</code>); the printouts
+are identical under NumPy 1.26, 2.2 and 2.4. Run the cell below to confirm
+your install.</p>
 </div>
 </div>
 </div>

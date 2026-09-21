@@ -1,10 +1,11 @@
 """ATiG 2026, 24 September: LT-FH exercise with ltpred -- every answer, as a script.
 
 Rebuilds tutorial steps 1, 3 and 4 with the tutorial's seeds, then prints the
-answers to Parts A, B and C of ``LTFH_exercise.ipynb``. Needs ltpred >= 0.7.0
-(https://github.com/bvilhjal/ltpred), NumPy and SciPy. Runs in about a minute;
-Part C factorises a 10,000-person kinship matrix, so keep it on a laptop with
-a few GB free.
+answers to Parts A, B and C of ``LTFH_exercise.ipynb``. Needs Python >= 3.9
+with NumPy, SciPy and ltpred >= 0.7.0 installed from source
+(https://github.com/bvilhjal/ltpred); no other files, same on Windows, macOS
+and Linux. Runs from any directory in about a minute; Part C factorises a
+10,000-person kinship matrix and needs a few GB of RAM.
 """
 import platform
 
