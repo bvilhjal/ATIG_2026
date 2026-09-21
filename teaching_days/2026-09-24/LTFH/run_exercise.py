@@ -1,7 +1,7 @@
 """ATiG 2026, 24 September: LT-FH exercise with ltpred -- every answer, as a script.
 
 Rebuilds tutorial steps 1, 3 and 4 with the tutorial's seeds, then prints the
-answers to Parts A-D of ``LTFH_exercise.ipynb``. Needs Python >= 3.9
+answers to Parts A-E of ``LTFH_exercise.ipynb``. Needs Python >= 3.9
 with NumPy, SciPy and ltpred >= 0.7.0 installed from source
 (https://github.com/bvilhjal/ltpred); no other files, same on Windows, macOS
 and Linux. Runs from any directory in about a minute; Part C factorises a
@@ -156,6 +156,58 @@ for name, n_case, n_ctrl in (("register as sampled", n_cases, len(cohort.ids) - 
     print(f"Q12: {name:20s} N={n:6d}  P={n_case / n:.3f}  "
           f"Neff={4 * n_case * n_ctrl / n:8.0f}  "
           f"Neff/N={4 * (n_case / n) * (n_ctrl / n):.3f}")
+
+# ------------------------- Part E: 0/1 baseline and iPSYCH-style ascertainment
+print("\nPart E -- the score against a 0/1 indicator, and a case-cohort sample")
+idx = {p: i for i, p in enumerate(cohort.ids)}
+sibs = {}
+for i, (f_, m_) in enumerate(zip(cohort.father, cohort.mother)):
+    if f_ in idx and m_ in idx:
+        sibs.setdefault((f_, m_), []).append(i)
+
+
+def fdr_count(i):
+    rels = [idx[p_] for p_ in (cohort.father[i], cohort.mother[i]) if p_ in idx]
+    f_, m_ = cohort.father[i], cohort.mother[i]
+    if f_ in idx and m_ in idx:
+        rels += [j for j in sibs[(f_, m_)] if j != i]
+    return int(cohort.status[rels].sum())
+
+
+n_fdr = np.array([fdr_count(i) for i in range(len(cohort.ids))], float)
+fh01 = (n_fdr > 0).astype(float)
+print(f"Q13: {int(fh01.sum())} of {len(fh01)} FH-positive; R2 with truth:")
+for name, x in (("own status", cohort.status.astype(float)),
+                ("FH indicator 0/1", fh01), ("# affected FDRs", n_fdr),
+                ("ltpred score", est)):
+    print(f"     {name:18s} {np.corrcoef(x, truth)[0, 1] ** 2:.3f}")
+for name, x in (("FH indicator 0/1", fh01[at_risk]),
+                ("# affected FDRs", n_fdr[at_risk])):
+    print(f"     AUC {name:18s} {auc(x, y):.3f}   (score 0.612)")
+
+Q_KEEP = 0.2
+keep = big.status | (np.random.default_rng(20260924).random(len(big.ids)) < Q_KEEP)
+kept = set(np.flatnonzero(keep).tolist())
+bidx = {p: i for i, p in enumerate(big.ids)}
+pi = np.where(big.status, 1.0, Q_KEEP)
+par, kid, w = [], [], []
+for i in kept:
+    for p_ in (big.father[i], big.mother[i]):
+        if p_ in bidx and bidx[p_] in kept:
+            par.append(big.status[bidx[p_]]); kid.append(big.status[i])
+            w.append(1.0 / (pi[bidx[p_]] * pi[i]))
+par, kid, w = np.asarray(par), np.asarray(kid), np.asarray(w)
+t_keep = tetrachoric(par, kid)
+print(f"Q14: {int(keep.sum())} of {len(big.ids)} kept, case rate "
+      f"{big.status[np.flatnonzero(keep)].mean():.1%} vs {big.status.mean():.1%}; "
+      f"naive h2 = {2 * t_keep.rho:+.2f} +/- {2 * t_keep.se:.2f}")
+p_w = w / w.sum()
+rhos = []
+for rep in range(20):
+    d = np.random.default_rng(rep).choice(len(par), size=len(par), p=p_w)
+    rhos.append(2 * tetrachoric(par[d], kid[d]).rho)
+print(f"     20 inverse-probability remixes: mean h2 = {np.mean(rhos):+.2f} "
+      f"(spread {np.std(rhos):.2f})")
 
 print(f"\nPython {platform.python_version()}  NumPy {np.__version__}  "
       f"SciPy {scipy.__version__}  ltpred {ltpred.__version__}")

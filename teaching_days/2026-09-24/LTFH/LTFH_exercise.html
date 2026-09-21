@@ -7820,13 +7820,14 @@ exercise you measure two of them on the same register: what a wrong
 liability-scale heritability does to the score (Part A), and how far a
 posterior mean genetic liability is from a disease risk (Part B). Part C
 estimates the heritability from the register itself with a tetrachoric
-correlation, and Part D moves an observed-scale GWAS h² — and the effective
-sample sizes behind it — onto the liability scale.</p>
+correlation, Part D moves an observed-scale GWAS h² — and the effective
+sample sizes behind it — onto the liability scale, and Part E sets the score
+against a 0/1 family-history indicator and an iPSYCH-style case-cohort.</p>
 <p>Everything is compared against the true genetic liability the simulation drew;
-no real data are used. Budget one hour for Parts A and B; Parts C and D are homework.</p>
+no real data are used. Budget one hour for Parts A and B; Parts C–E are homework.</p>
 <p>Before running each part, write down what you expect; afterwards, explain one
 checkpoint number in your own words. Keep code and answers in this notebook.
-Your final product is the Q13 note distinguishing what the score shows from
+Your final product is the Q15 note distinguishing what the score shows from
 what it cannot establish.</p>
 <p>The model is LT-FH++ (<a href="https://doi.org/10.1016/j.ajhg.2022.01.009">Pedersen et al. 2022</a>),
 which extends LT-FH (<a href="https://doi.org/10.1038/s41588-020-0613-6">Hujoel et al. 2020</a>)
@@ -8588,15 +8589,139 @@ scale and must be told how that sample was drawn.</p>
 </div>
 </div>
 </div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=8468fe54">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h2 id="Part-E.-What-the-score-buys,-and-what-ascertainment-costs-(homework)">Part E. What the score buys, and what ascertainment costs (homework)<a class="anchor-link" href="#Part-E.-What-the-score-buys,-and-what-ascertainment-costs-(homework)">¶</a></h2><p>The alternative to a family-history score is usually a crude 0/1 indicator —
+"any first-degree relative diagnosed" — the covariate a GWAS might adjust for.
+And real registers are often case-enriched: iPSYCH, for instance, includes
+every diagnosed person in its birth cohorts plus a random sample of the rest,
+so the sample's case share far exceeds the prevalence K. Selection does not
+change any family's posterior; what it breaks is the mix of families — and
+with it Part C's population-sampling cross-check.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=d00c4155">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="Q13:-How-much-does-the-score-improve-on-a-0/1-family-history-indicator?">Q13: How much does the score improve on a 0/1 family-history indicator?<a class="anchor-link" href="#Q13:-How-much-does-the-score-improve-on-a-0/1-family-history-indicator?">¶</a></h3><p>For every person, compute (i) their own status, (ii) a 0/1 indicator of any
+diagnosed first-degree relative (parent or full sibling, not the proband),
+and (iii) the count of diagnosed first-degree relatives. Compare all three
+with the step-3 score: R² against <code>cohort.genetic</code>, then AUC for the Part B
+outcome among the 974 probands. Why is own status missing from the AUC
+comparison?</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=aa99e505">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">idx</span> <span class="o">=</span> <span class="p">{</span><span class="n">p</span><span class="p">:</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">cohort</span><span class="o">.</span><span class="n">ids</span><span class="p">)}</span>
+<span class="n">sibs</span> <span class="o">=</span> <span class="p">{}</span>                                    <span class="c1"># ids grouped by (father, mother)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">fdr_count</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
+    <span class="o">...</span>                                      <span class="c1"># diagnosed parents + full siblings</span>
+    <span class="k">return</span> <span class="o">...</span>
+<span class="n">n_fdr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">fdr_count</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">cohort</span><span class="o">.</span><span class="n">ids</span><span class="p">))],</span> <span class="nb">float</span><span class="p">)</span>
+<span class="n">fh01</span> <span class="o">=</span> <span class="o">...</span>                                   <span class="c1"># 0/1: any diagnosed first-degree relative</span>
+
+<span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">((</span><span class="s2">"own status"</span><span class="p">,</span> <span class="n">cohort</span><span class="o">.</span><span class="n">status</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)),</span>
+                <span class="p">(</span><span class="s2">"FH indicator 0/1"</span><span class="p">,</span> <span class="n">fh01</span><span class="p">),</span> <span class="p">(</span><span class="s2">"# affected FDRs"</span><span class="p">,</span> <span class="n">n_fdr</span><span class="p">),</span>
+                <span class="p">(</span><span class="s2">"ltpred score"</span><span class="p">,</span> <span class="n">est</span><span class="p">)):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">name</span><span class="si">:</span><span class="s2">18s</span><span class="si">}</span><span class="s2"> R2 = </span><span class="si">{</span><span class="o">...</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">((</span><span class="s2">"FH indicator 0/1"</span><span class="p">,</span> <span class="n">fh01</span><span class="p">[</span><span class="n">at_risk</span><span class="p">]),</span>
+                <span class="p">(</span><span class="s2">"# affected FDRs"</span><span class="p">,</span> <span class="n">n_fdr</span><span class="p">[</span><span class="n">at_risk</span><span class="p">])):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">name</span><span class="si">:</span><span class="s2">18s</span><span class="si">}</span><span class="s2"> AUC = </span><span class="si">{</span><span class="o">...</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=4b6886d0">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p><strong>Checkpoint.</strong> R² = 0.155, 0.075, 0.102 and 0.303: the score recovers four
+times the genetic variance of the indicator, and twice the proband's own
+diagnosis. Among the probands the AUCs are 0.542 and 0.545 against the
+score's 0.612; own status is constant there — everyone is undiagnosed at 40 —
+so it separates nobody.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=67f60649">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="Q14:-Run-Part-C's-cross-check-on-an-iPSYCH-style-case-cohort.">Q14: Run Part C's cross-check on an iPSYCH-style case-cohort.<a class="anchor-link" href="#Q14:-Run-Part-C's-cross-check-on-an-iPSYCH-style-case-cohort.">¶</a></h3><p>From the larger register, keep every diagnosed person and each undiagnosed
+person with probability 0.2 (seed 20260924). Report the sample's case rate
+against the population's, then estimate h² from its parent–offspring pairs.
+Re-mix the pairs with inverse-probability weights — a pair is included with
+the product of its members' probabilities — and average 2ρ over 20 remixes.</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=4e5f1fb0">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">Q_KEEP</span> <span class="o">=</span> <span class="mf">0.2</span>
+<span class="n">keep</span> <span class="o">=</span> <span class="o">...</span>                                   <span class="c1"># every case, else a draw &lt; Q_KEEP (seed 20260924)</span>
+<span class="o">...</span>                                          <span class="c1"># parent-offspring pairs with both members kept</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">tetrachoric</span><span class="p">(</span><span class="n">par</span><span class="p">,</span> <span class="n">kid</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"kept </span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">keep</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span><span class="si">}</span><span class="s2">, case rate </span><span class="si">{</span><span class="o">...</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2"> vs </span><span class="si">{</span><span class="n">big</span><span class="o">.</span><span class="n">status</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2">, "</span>
+      <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">par</span><span class="p">)</span><span class="si">}</span><span class="s2"> pairs: naive h2 = </span><span class="si">{</span><span class="mi">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">t</span><span class="o">.</span><span class="n">rho</span><span class="si">:</span><span class="s2">+.2f</span><span class="si">}</span><span class="s2"> +/- </span><span class="si">{</span><span class="mi">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">t</span><span class="o">.</span><span class="n">se</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="o">...</span>                                          <span class="c1"># 20 inverse-probability remixes; mean 2*rho</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=fc31f8df">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p><strong>Checkpoint.</strong> About 2,600 people at a 28% case rate (population 7.3%). The
+naive tetrachoric gives 2ρ ≈ 0.65; the re-mixed mean returns to ≈ 0.50, at
+the price of a much wider spread — re-mixing spends information.</p>
+</div>
+</div>
+</div>
+</div>
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=12c125cf">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Q13:-Analysis-note.">Q13: Analysis note.<a class="anchor-link" href="#Q13:-Analysis-note.">¶</a></h3><p>In at most 150 words, state what the family-history score estimates, what it
+<h3 id="Q15:-Analysis-note.">Q15: Analysis note.<a class="anchor-link" href="#Q15:-Analysis-note.">¶</a></h3><p>In at most 150 words, state what the family-history score estimates, what it
 showed in this exercise, and what it cannot establish. Cite one number from each
-of Parts A and B and, if you did them, Parts C and D.</p>
+of Parts A and B and, if you did them, Parts C–E.</p>
 </div>
 </div>
 </div>

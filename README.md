@@ -1,7 +1,7 @@
 # ATIG 2026 — reproducible teaching code
 
 Lecture simulations and practical exercises, organized by teaching date.
-Version **0.4.3** adds the [LT-FH exercise](https://bvilhjal.github.io/ATIG_2026/teaching_days/2026-09-24/LTFH/LTFH_exercise.html)
+Version **0.4.4** adds the [LT-FH exercise](https://bvilhjal.github.io/ATIG_2026/teaching_days/2026-09-24/LTFH/LTFH_exercise.html)
 for 24 September, a Python practical on family-history liability scores with
 student and worked-answer notebooks. The [PCA practical](https://bvilhjal.github.io/ATIG_2026/teaching_days/2026-09-10/PCA/PCA_tutorial.html)
 for 10 September has student and worked-answer handouts, rendered HTML, and
@@ -35,10 +35,11 @@ in Jupyter, or consult the [worked answers](teaching_days/2026-09-24/LTFH/LTFH_e
 Read the [student exercise](https://bvilhjal.github.io/ATIG_2026/teaching_days/2026-09-24/LTFH/LTFH_exercise.html)
 or [worked answers](https://bvilhjal.github.io/ATIG_2026/teaching_days/2026-09-24/LTFH/LTFH_exercise_answers.html)
 directly in your browser. The practical follows the
-[ltpred tutorial](https://bvilhjal.github.io/ltpred/tutorial/) and asks 13
-questions in four parts on a simulated register whose genetic liability is
+[ltpred tutorial](https://bvilhjal.github.io/ltpred/tutorial/) and asks 15
+questions in five parts on a simulated register whose genetic liability is
 known, closing with observed-to-liability-scale transformations (Lee et al.
-2011; 2012) and effective sample sizes. It needs Python with NumPy, SciPy and
+2011; 2012), effective sample sizes, a 0/1 family-history baseline and
+iPSYCH-style ascertainment. It needs Python with NumPy, SciPy and
 [ltpred](https://github.com/bvilhjal/ltpred) installed from source; the worked
 answers execute in about a minute.
 
