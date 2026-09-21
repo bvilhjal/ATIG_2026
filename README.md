@@ -1,11 +1,12 @@
 # ATIG 2026 — reproducible teaching code
 
 Lecture simulations and practical exercises, organized by teaching date.
-Version **0.3.3** includes the [PCA practical](https://bvilhjal.github.io/ATIG_2026/teaching_days/2026-09-10/PCA/PCA_tutorial.html)
-in its own folder for 10 September,
-with student and worked-answer handouts, rendered HTML, and validation records.
-The population-structure lecture produces **23 numbered figure families** in
-PNG, PDF and SVG, with calculated data and numerical checks.
+Version **0.4.0** adds the [LT-FH exercise](https://bvilhjal.github.io/ATIG_2026/teaching_days/2026-09-24/LTFH/LTFH_exercise.html)
+for 24 September, a Python practical on family-history liability scores with
+student and worked-answer notebooks. The [PCA practical](https://bvilhjal.github.io/ATIG_2026/teaching_days/2026-09-10/PCA/PCA_tutorial.html)
+for 10 September has student and worked-answer handouts, rendered HTML, and
+validation records. The population-structure lecture produces **23 numbered
+figure families** in PNG, PDF and SVG, with calculated data and numerical checks.
 
 ## Teaching days
 
@@ -13,6 +14,7 @@ PNG, PDF and SVG, with calculated data and numerical checks.
 |---|---|---|
 | [8 September 2026](teaching_days/2026-09-08/README.md) | [Population structure](teaching_days/2026-09-08/population_structure/README.md) | Lecture simulations and figures. |
 | [10 September 2026](teaching_days/2026-09-10/README.md) | [PCA exercise](https://bvilhjal.github.io/ATIG_2026/teaching_days/2026-09-10/PCA/PCA_tutorial.html) | 1000 Genomes practical, student handout, worked answers and validation records. |
+| [24 September 2026](teaching_days/2026-09-24/README.md) | [LT-FH exercise](https://bvilhjal.github.io/ATIG_2026/teaching_days/2026-09-24/LTFH/LTFH_exercise.html) | Simulated-register practical with ltpred, student and worked-answer notebooks. |
 
 **Table 1.** Teaching days currently represented in this repository.
 
@@ -25,6 +27,19 @@ or [worked answers](https://bvilhjal.github.io/ATIG_2026/teaching_days/2026-09-1
 directly in your browser. The practical keeps 14 questions in four stages and
 uses the public 1000 Genomes reference panel. A complete run took about 20 minutes on
 two cores; the current teaching refresh passed 28 checks.
+
+## LT-FH practical
+
+Open the [student notebook](teaching_days/2026-09-24/LTFH/LTFH_exercise.ipynb)
+in Jupyter, or consult the [worked answers](teaching_days/2026-09-24/LTFH/LTFH_exercise_answers.ipynb).
+Read the [student exercise](https://bvilhjal.github.io/ATIG_2026/teaching_days/2026-09-24/LTFH/LTFH_exercise.html)
+or [worked answers](https://bvilhjal.github.io/ATIG_2026/teaching_days/2026-09-24/LTFH/LTFH_exercise_answers.html)
+directly in your browser. The practical follows the
+[ltpred tutorial](https://bvilhjal.github.io/ltpred/tutorial/) and asks 10
+questions in three parts on a simulated register whose genetic liability is
+known. It needs Python with NumPy, SciPy and
+[ltpred](https://github.com/bvilhjal/ltpred) installed from source; the worked
+answers execute in about a minute.
 
 ## Reproduce the lecture figures
 
@@ -68,7 +83,8 @@ figure IDs are independent of slide and equation numbers in an editable lecture.
 The lecture's genotype and phenotype examples are synthetic. Two small published
 numerical summaries are explicitly labelled and cited. The PCA practical uses
 public 1000 Genomes data and includes derived scores, plots and validation
-records. Lecture files, course participant data, downloaded paper panels and
+records. The LT-FH practical uses only simulated registers. Lecture files,
+course participant data, downloaded paper panels and
 private course documents are not stored here.
 
 The code is teaching material, not a production GWAS pipeline. A single selected
