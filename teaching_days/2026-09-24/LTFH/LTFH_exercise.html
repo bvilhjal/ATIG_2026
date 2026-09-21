@@ -7820,12 +7820,13 @@ exercise you measure two of them on the same register: what a wrong
 liability-scale heritability does to the score (Part A), and how far a
 posterior mean genetic liability is from a disease risk (Part B). Part C
 estimates the heritability from the register itself with a tetrachoric
-correlation.</p>
+correlation, and Part D moves an observed-scale GWAS h² — and the effective
+sample sizes behind it — onto the liability scale.</p>
 <p>Everything is compared against the true genetic liability the simulation drew;
-no real data are used. Budget one hour for Parts A and B; Part C is homework.</p>
+no real data are used. Budget one hour for Parts A and B; Parts C and D are homework.</p>
 <p>Before running each part, write down what you expect; afterwards, explain one
 checkpoint number in your own words. Keep code and answers in this notebook.
-Your final product is the Q10 note distinguishing what the score shows from
+Your final product is the Q13 note distinguishing what the score shows from
 what it cannot establish.</p>
 <p>The model is LT-FH++ (<a href="https://doi.org/10.1016/j.ajhg.2022.01.009">Pedersen et al. 2022</a>),
 which extends LT-FH (<a href="https://doi.org/10.1038/s41588-020-0613-6">Hujoel et al. 2020</a>)
@@ -8414,15 +8415,188 @@ assumes about shared environment, and how the register was sampled.</p>
 </div>
 </div>
 </div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=93ee98ce">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h2 id="Part-D.-Scales-and-effective-sample-sizes-(homework)">Part D. Scales and effective sample sizes (homework)<a class="anchor-link" href="#Part-D.-Scales-and-effective-sample-sizes-(homework)">¶</a></h2><p>A real analysis rarely starts on the liability scale: GREML or LDSC on a
+case/control GWAS reports h² on the observed 0/1 scale, and oversampling cases
+makes that scale depend on the sample's case proportion P. The bridge is the
+transformation of <a href="https://doi.org/10.1016/j.ajhg.2011.02.002">Lee et al. 2011</a>
+(extended in <a href="https://doi.org/10.1002/gepi.21614">Lee et al. 2012</a>): with
+prevalence K and z = φ(Φ⁻¹(1 − K)),</p>
+<p>h²_liab = h²_obs · K²(1 − K)² / (z² · P(1 − P)),</p>
+<p>where the P factor applies only to designs that oversample cases. ltpred
+ships it as <code>observed_to_liability_h2</code> and its inverse
+<code>liability_to_observed_h2</code>. The same P(1 − P) sets the study's effective
+sample size Neff = 4 N₁ N₀ / N: information about a binary outcome scales
+with N · P(1 − P), which is why GWAS oversample cases and report Neff, not N.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=0a01bb35">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="Q10:-What-observed-scale-h%C2%B2-should-each-design-expect-here?">Q10: What observed-scale h² should each design expect here?<a class="anchor-link" href="#Q10:-What-observed-scale-h%C2%B2-should-each-design-expect-here?">¶</a></h3><p>The truth is h² = 0.5 with K = 0.10. Use <code>liability_to_observed_h2</code> to compute
+the h² each design would report: (i) the register as sampled (81 cases among
+984, so P = 81/984), (ii) a balanced case/control study of the same 984
+people, and (iii) a population sample, where the P factor does not apply.
+Convert each back with <code>observed_to_liability_h2</code> and check that you recover
+0.5.</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=2ff35276">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">ltpred</span><span class="w"> </span><span class="kn">import</span> <span class="n">observed_to_liability_h2</span><span class="p">,</span> <span class="n">liability_to_observed_h2</span>
+
+<span class="n">designs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"register as sampled"</span><span class="p">:</span> <span class="o">...</span><span class="p">,</span>   <span class="c1"># P = 81/984</span>
+           <span class="s2">"balanced case/control"</span><span class="p">:</span> <span class="o">...</span><span class="p">,</span>
+           <span class="s2">"population sample"</span><span class="p">:</span> <span class="o">...</span><span class="p">}</span>     <span class="c1"># no oversampling: prop_cases=None</span>
+<span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">P</span> <span class="ow">in</span> <span class="n">designs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="n">obs</span> <span class="o">=</span> <span class="o">...</span>                           <span class="c1"># liability_to_observed_h2(H2, CIP_K, P)</span>
+    <span class="n">back</span> <span class="o">=</span> <span class="o">...</span>                          <span class="c1"># observed_to_liability_h2(obs, CIP_K, P)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">name</span><span class="si">:</span><span class="s2">20s</span><span class="si">}</span><span class="s2"> P=</span><span class="si">{</span><span class="o">...</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">  h2_obs=</span><span class="si">{</span><span class="o">...</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">  round trip=</span><span class="si">{</span><span class="o">...</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=9dcf39ab">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p><strong>Checkpoint.</strong> 0.14, 0.48 and 0.17 all round-trip to 0.5 exactly. The three
+designs measure the same disease, yet their observed-scale h² differ by more
+than a factor of three.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=b50cda84">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="Q11:-The-register's-GWAS-reports-h%C2%B2-=-0.14.-Feed-it-to-the-scorer-unconverted-%E2%80%94-what-happens?">Q11: The register's GWAS reports h² = 0.14. Feed it to the scorer unconverted — what happens?<a class="anchor-link" href="#Q11:-The-register's-GWAS-reports-h%C2%B2-=-0.14.-Feed-it-to-the-scorer-unconverted-%E2%80%94-what-happens?">¶</a></h3><p>Score the register exactly as in Part A, but at the observed-scale value from
+Q10 (i) instead of a liability-scale h². Report the correlation with
+<code>cohort.genetic</code> and the calibration slope. Which Part A row does this
+imitate, and why is no error raised? Optional: convert the balanced design's
+h² from Q10 while forgetting the P factor, and try to score at the result.</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=7ff6e656">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">obs_register</span> <span class="o">=</span> <span class="o">...</span>                       <span class="c1"># liability_to_observed_h2(H2, CIP_K, 81/984)</span>
+<span class="n">s</span> <span class="o">=</span> <span class="n">estimate_liabilities</span><span class="p">(</span>
+    <span class="n">cohort</span><span class="o">.</span><span class="n">ids</span><span class="p">,</span> <span class="n">cohort</span><span class="o">.</span><span class="n">father</span><span class="p">,</span> <span class="n">cohort</span><span class="o">.</span><span class="n">mother</span><span class="p">,</span> <span class="n">probands</span><span class="o">=</span><span class="n">cohort</span><span class="o">.</span><span class="n">ids</span><span class="p">,</span>
+    <span class="n">status</span><span class="o">=</span><span class="n">cohort</span><span class="o">.</span><span class="n">status</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">),</span> <span class="n">age</span><span class="o">=</span><span class="n">cohort</span><span class="o">.</span><span class="n">age</span><span class="p">,</span> <span class="n">use</span><span class="o">=</span><span class="s2">"gwas"</span><span class="p">,</span>
+    <span class="n">cip_ages</span><span class="o">=</span><span class="n">AGE_GRID</span><span class="p">,</span> <span class="n">cip_values</span><span class="o">=</span><span class="n">TRUE_CIP</span><span class="p">,</span> <span class="n">k_pop</span><span class="o">=</span><span class="n">CIP_K</span><span class="p">,</span>
+    <span class="n">h2</span><span class="o">=...</span><span class="p">)</span>                              <span class="c1"># the unconverted observed-scale value</span>
+<span class="n">e</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">est</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"corr = </span><span class="si">{</span><span class="o">...</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">  slope = </span><span class="si">{</span><span class="o">...</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=690af92d">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p><strong>Checkpoint.</strong> Correlation ≈ 0.55 but slope ≈ 2.5 — the over-shrunk regime
+of Part A's h² = 0.2 row, only worse. The forgotten P factor turns 0.48 into
+1.39, which the scorer rejects outright: h² must be in (0, 1].</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=fd253841">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="Q12:-How-much-information-does-each-design-carry?">Q12: How much information does each design carry?<a class="anchor-link" href="#Q12:-How-much-information-does-each-design-carry?">¶</a></h3><p>Compute Neff = 4 N₁ N₀ / N for the register as sampled, the same 984 people
+balanced 492/492, a biobank GWAS with 5,000 cases and 45,000 controls, and a
+consortium with 50,000 cases and 150,000 controls. Express Neff/N through P
+alone. Why do GWAS oversample cases to roughly 1:1 to 1:4 instead of
+genotyping population samples, and why does the Lee transformation need P
+while Part C's tetrachoric correlation did not?</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=a4139c95">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">n_case</span><span class="p">,</span> <span class="n">n_ctrl</span> <span class="ow">in</span> <span class="p">[(</span><span class="s2">"register as sampled"</span><span class="p">,</span> <span class="o">...</span><span class="p">,</span> <span class="o">...</span><span class="p">),</span>
+                             <span class="p">(</span><span class="s2">"balanced"</span><span class="p">,</span> <span class="mi">492</span><span class="p">,</span> <span class="mi">492</span><span class="p">),</span>
+                             <span class="p">(</span><span class="s2">"biobank"</span><span class="p">,</span> <span class="mi">5_000</span><span class="p">,</span> <span class="mi">45_000</span><span class="p">),</span>
+                             <span class="p">(</span><span class="s2">"consortium"</span><span class="p">,</span> <span class="mi">50_000</span><span class="p">,</span> <span class="mi">150_000</span><span class="p">)]:</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">n_case</span> <span class="o">+</span> <span class="n">n_ctrl</span>
+    <span class="n">neff</span> <span class="o">=</span> <span class="o">...</span>                           <span class="c1"># 4 * n_case * n_ctrl / n</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">name</span><span class="si">:</span><span class="s2">20s</span><span class="si">}</span><span class="s2"> N=</span><span class="si">{</span><span class="n">n</span><span class="si">:</span><span class="s2">6d</span><span class="si">}</span><span class="s2">  P=</span><span class="si">{</span><span class="n">n_case</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">n</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">  "</span>
+          <span class="sa">f</span><span class="s2">"Neff=</span><span class="si">{</span><span class="n">neff</span><span class="si">:</span><span class="s2">7.0f</span><span class="si">}</span><span class="s2">  Neff/N=</span><span class="si">{</span><span class="n">neff</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">n</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=ff34208d">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p><strong>Checkpoint.</strong> 297, 984, 18,000 and 150,000, with Neff/N = 4P(1 − P). The
+tetrachoric inferred its threshold from the pairs' own marginal rates — a
+population sample — while an observed-scale h² is defined on the sample's 0/1
+scale and must be told how that sample was drawn.</p>
+</div>
+</div>
+</div>
+</div>
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=12c125cf">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Q10:-Analysis-note.">Q10: Analysis note.<a class="anchor-link" href="#Q10:-Analysis-note.">¶</a></h3><p>In at most 150 words, state what the family-history score estimates, what it
+<h3 id="Q13:-Analysis-note.">Q13: Analysis note.<a class="anchor-link" href="#Q13:-Analysis-note.">¶</a></h3><p>In at most 150 words, state what the family-history score estimates, what it
 showed in this exercise, and what it cannot establish. Cite one number from each
-of Parts A and B and, if you did it, Part C.</p>
+of Parts A and B and, if you did them, Parts C and D.</p>
 </div>
 </div>
 </div>

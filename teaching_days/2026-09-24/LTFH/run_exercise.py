@@ -1,7 +1,7 @@
 """ATiG 2026, 24 September: LT-FH exercise with ltpred -- every answer, as a script.
 
 Rebuilds tutorial steps 1, 3 and 4 with the tutorial's seeds, then prints the
-answers to Parts A, B and C of ``LTFH_exercise.ipynb``. Needs Python >= 3.9
+answers to Parts A-D of ``LTFH_exercise.ipynb``. Needs Python >= 3.9
 with NumPy, SciPy and ltpred >= 0.7.0 installed from source
 (https://github.com/bvilhjal/ltpred); no other files, same on Windows, macOS
 and Linux. Runs from any directory in about a minute; Part C factorises a
@@ -14,7 +14,8 @@ import scipy
 from scipy.stats import norm, rankdata
 
 import ltpred
-from ltpred import (estimate_liabilities, simulate_pedigree,
+from ltpred import (estimate_liabilities, liability_to_observed_h2,
+                    observed_to_liability_h2, simulate_pedigree,
                     simulate_register_liabilities)
 from ltpred.tetrachoric import tetrachoric
 
@@ -129,6 +130,32 @@ big = simulate_register_liabilities(
     np.random.default_rng(1), big_ids, big_fa, big_mo,
     h2=H2, cip_ages=AGE_GRID, cip_values=TRUE_CIP, eval_age=EVAL_AGE)
 report("larger register  ", big)
+
+# --------------------------- Part D: scales and effective sample sizes
+print("\nPart D -- observed scale, liability scale, effective sample size")
+n_cases = int(cohort.status.sum())
+for name, P in (("register as sampled", n_cases / len(cohort.ids)),
+                ("balanced case/control", 0.5), ("population sample", None)):
+    obs = liability_to_observed_h2(H2, CIP_K, P)
+    back = observed_to_liability_h2(obs, CIP_K, P)
+    print(f"Q10: {name:20s} P={CIP_K if P is None else P:.3f}  "
+          f"h2_obs={float(obs):.4f}  round trip={float(back):.4f}")
+obs_register = float(liability_to_observed_h2(
+    H2, CIP_K, n_cases / len(cohort.ids)))
+e_raw = np.asarray(score(obs_register).est)
+print(f"Q11: unconverted h2={obs_register:.4f}: "
+      f"corr={np.corrcoef(e_raw, truth)[0, 1]:.4f} "
+      f"slope={np.polyfit(e_raw, truth, 1)[0]:.3f}")
+print(f"    balanced h2 without the P factor -> {float(observed_to_liability_h2(liability_to_observed_h2(H2, CIP_K, 0.5), CIP_K)):.2f}"
+      "  (>1, rejected by the scorer)")
+for name, n_case, n_ctrl in (("register as sampled", n_cases, len(cohort.ids) - n_cases),
+                             ("balanced 492/492", 492, 492),
+                             ("biobank 5k/45k", 5_000, 45_000),
+                             ("consortium 50k/150k", 50_000, 150_000)):
+    n = n_case + n_ctrl
+    print(f"Q12: {name:20s} N={n:6d}  P={n_case / n:.3f}  "
+          f"Neff={4 * n_case * n_ctrl / n:8.0f}  "
+          f"Neff/N={4 * (n_case / n) * (n_ctrl / n):.3f}")
 
 print(f"\nPython {platform.python_version()}  NumPy {np.__version__}  "
       f"SciPy {scipy.__version__}  ltpred {ltpred.__version__}")
