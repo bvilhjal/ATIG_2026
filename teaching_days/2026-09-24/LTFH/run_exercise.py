@@ -15,7 +15,7 @@ print("ltpred", ltpred.__version__)
 from ltpred import simulate_pedigree, simulate_register_liabilities
 
 H2 = 0.5                                      # liability-scale heritability
-CIP_K, CIP_MID, CIP_SLOPE = 0.10, 60.0, 1.0 / 8.0
+CIP_K, CIP_MID, CIP_SLOPE = 0.10, 60.0, 1.0 / 8.0   # logistic onset curve: 10% lifetime, half of it by age 60
 EVAL_AGE = 70.0                               # everyone is followed to here
 INDEX_AGE = 40.0                              # the prospective cut in step 4
 
@@ -195,7 +195,6 @@ def parent_offspring_status(reg):
     for kid, fa, mo in zip(reg.ids, reg.father, reg.mother):
         for par in (fa, mo):
             if par in idx:
-
                 parent.append(reg.status[idx[par]])
                 child.append(reg.status[idx[kid]])
 

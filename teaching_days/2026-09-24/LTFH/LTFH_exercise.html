@@ -7880,7 +7880,7 @@ the checkpoints match its printouts. Part A uses this register.</p>
 <p>The tutorial register has 81 diagnoses, and 71 of them fall after age 40. That
 is enough to see an effect and not enough to measure one, so the fourth cell
 builds a five-times larger register, <code>big</code>, and scores it the same two ways.
-Parts B to D use <code>big</code>.</p>
+Parts B to E use <code>big</code>.</p>
 </div>
 </div>
 </div>
@@ -7895,7 +7895,7 @@ Parts B to D use <code>big</code>.</p>
 <div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">ltpred</span><span class="w"> </span><span class="kn">import</span> <span class="n">simulate_pedigree</span><span class="p">,</span> <span class="n">simulate_register_liabilities</span>
 
 <span class="n">H2</span> <span class="o">=</span> <span class="mf">0.5</span>                                      <span class="c1"># liability-scale heritability</span>
-<span class="n">CIP_K</span><span class="p">,</span> <span class="n">CIP_MID</span><span class="p">,</span> <span class="n">CIP_SLOPE</span> <span class="o">=</span> <span class="mf">0.10</span><span class="p">,</span> <span class="mf">60.0</span><span class="p">,</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="mf">8.0</span>
+<span class="n">CIP_K</span><span class="p">,</span> <span class="n">CIP_MID</span><span class="p">,</span> <span class="n">CIP_SLOPE</span> <span class="o">=</span> <span class="mf">0.10</span><span class="p">,</span> <span class="mf">60.0</span><span class="p">,</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="mf">8.0</span>   <span class="c1"># logistic onset curve: 10% lifetime, half of it by age 60</span>
 <span class="n">EVAL_AGE</span> <span class="o">=</span> <span class="mf">70.0</span>                               <span class="c1"># everyone is followed to here</span>
 <span class="n">INDEX_AGE</span> <span class="o">=</span> <span class="mf">40.0</span>                              <span class="c1"># the prospective cut in step 4</span>
 
@@ -8216,7 +8216,7 @@ each h² and draw the fitted line.</p>
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Part-B.-Who-becomes-a-case-between-40-and-70?">Part B. Who becomes a case between 40 and 70?<a class="anchor-link" href="#Part-B.-Who-becomes-a-case-between-40-and-70?">¶</a></h2><p><img alt="Liability thresholds at 40 and 70. Higher liability is earlier onset. Prospective probands are still left of T40." src="figures/thresholds.png"/></p>
+<h2 id="Part-B.-Who-becomes-a-case-between-40-and-70?">Part B. Who becomes a case between 40 and 70?<a class="anchor-link" href="#Part-B.-Who-becomes-a-case-between-40-and-70?">¶</a></h2><p><img alt="Liability thresholds at 40 and 70. Higher liability is earlier onset. Prospective probands are still left of T40; an incident case has crossed T70." src="figures/thresholds.png"/></p>
 <p>Step 4's correlation, 0.31, is not the accuracy of predicting a later case. Measure it on <code>big</code>. Probands in <code>big_pred</code> are still left of T40. An incident case is one of them who has crossed T70 by age 70.</p>
 </div>
 </div>
@@ -8508,7 +8508,6 @@ and 2ρ ± 2 SE for <code>cohort</code> and for <code>big</code>.</p>
     <span class="k">for</span> <span class="n">kid</span><span class="p">,</span> <span class="n">fa</span><span class="p">,</span> <span class="n">mo</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">reg</span><span class="o">.</span><span class="n">ids</span><span class="p">,</span> <span class="n">reg</span><span class="o">.</span><span class="n">father</span><span class="p">,</span> <span class="n">reg</span><span class="o">.</span><span class="n">mother</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">par</span> <span class="ow">in</span> <span class="p">(</span><span class="n">fa</span><span class="p">,</span> <span class="n">mo</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">par</span> <span class="ow">in</span> <span class="n">idx</span><span class="p">:</span>
-
                 <span class="n">parent</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="o">...</span><span class="p">);</span> <span class="n">child</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>   <span class="c1"># statuses of the pair</span>
 
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">parent</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">child</span><span class="p">)</span>
@@ -8626,9 +8625,9 @@ should be back near 0.5.</p>
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Part-E.-Which-scale-is-h%C2%B2-on?-(homework)">Part E. Which scale is h² on? (homework)<a class="anchor-link" href="#Part-E.-Which-scale-is-h%C2%B2-on?-(homework)">¶</a></h2><p><img alt="A liability split into a 0/1 outcome. The right tail, 10% when K = 0.10, is the cases." src="figures/observed_scale.png"/></p>
+<h2 id="Part-E.-Which-scale-is-h%C2%B2-on?-(homework)">Part E. Which scale is h² on? (homework)<a class="anchor-link" href="#Part-E.-Which-scale-is-h%C2%B2-on?-(homework)">¶</a></h2><p><img alt="A liability split into a 0/1 outcome. The right tail is the cases, 10% when K = 0.10. Everyone on one side receives the same y." src="figures/observed_scale.png"/></p>
 <p>GREML and LD-score regression report h² on the 0/1 scale. Oversampling cases makes that number depend on the sample case proportion P. With prevalence K and z = φ(Φ⁻¹(1 − K)) (<a href="https://doi.org/10.1016/j.ajhg.2011.02.002">Lee et al. 2011</a>; <a href="https://doi.org/10.1002/gepi.21614">2012</a>),</p>
-<p>h²_liab = h²_obs · K²(1 − K)² / (z² · P(1 − P)),</p>
+<p>h²_liab = h²_obs · K²(1 − K)² / (z² · P(1 − P)).</p>
 <p>In a population sample, P = K. <code>observed_to_liability_h2</code> and <code>liability_to_observed_h2</code> are this map and its inverse. The same P(1 − P) sets Neff = 4 N₁ N₀ / N.</p>
 <p>K here is the lifetime prevalence 0.10 given to the scorer. "Diagnosed by 70" has prevalence about 0.078. An h² for that phenotype has to use 0.078.</p>
 </div>
