@@ -7813,44 +7813,15 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="What-you-will-learn">What you will learn<a class="anchor-link" href="#What-you-will-learn">¶</a></h2><p>The <a href="https://bvilhjal.github.io/ltpred/tutorial/">ltpred tutorial</a> builds a simulated register whose genetic liability
-is known, scores every person from family history, and ends with a list of
-shortcuts it took but never measured. This exercise measures them. Everything is
-compared with the true genetic liability the simulation drew; no real data are
-used.</p>
-<p>In class (Parts A and B, one hour after the tutorial):</p>
+<h2 id="What-you-will-learn">What you will learn<a class="anchor-link" href="#What-you-will-learn">¶</a></h2><p>The <a href="https://bvilhjal.github.io/ltpred/tutorial/">ltpred tutorial</a> builds a simulated register whose genetic liability is known. This exercise measures the shortcuts that tutorial names. No real data are used.</p>
+<p>In class (Parts A and B, one hour):</p>
 <ul>
-<li><strong>Part A. What does a wrong h² do?</strong> The scorer's heritability sets the scale
-of the score but barely touches its ranking.</li>
-<li><strong>Part B. Who becomes a case between 40 and 70?</strong> A posterior mean liability
-is not a risk; with its posterior variance it becomes one, and its predictive
-accuracy is far from its correlation with liability.</li>
+<li><strong>A.</strong> A wrong h² rescales the score. The ranking barely moves.</li>
+<li><strong>B.</strong> The score is a posterior mean, not a risk. Correlation with liability is not accuracy.</li>
 </ul>
-<p>Homework (Parts C to E):</p>
-<ul>
-<li><strong>Part C. What the score buys</strong> over the usual 0/1 "any affected first-degree
-relative" indicator.</li>
-<li><strong>Part D. Where h² comes from:</strong> a tetrachoric cross-check on the register,
-why it works here, and what an iPSYCH-style case-cohort does to it.</li>
-<li><strong>Part E. Which scale h² is on:</strong> the observed-to-liability transformation of
-Lee et al. and the effective sample size behind a case/control GWAS.</li>
-</ul>
-<p>Before running each part, write down what you expect. Afterwards, check the
-printout against the checkpoint and explain one number in your own words. Keep
-code and answers in this notebook. Your final product is the Q15 note that
-distinguishes what the score shows from what it cannot establish.</p>
-<p>The model is LT-FH++ (<a href="https://doi.org/10.1016/j.ajhg.2022.01.009">Pedersen et al. 2022</a>),
-which extends LT-FH (<a href="https://doi.org/10.1038/s41588-020-0613-6">Hujoel et al. 2020</a>)
-with age of onset. ADuLT (<a href="https://doi.org/10.1038/s41467-023-41210-z">Pedersen et al. 2023</a>)
-is the same personalised construction without family history. The scores in this
-exercise are computed with the deterministic Pearson–Aitken engine of PA-FGRS
-(<a href="https://doi.org/10.1016/j.ajhg.2024.09.009">Dybdahl Krebs et al. 2024</a>). Across
-five psychiatric disorders, PA-FGRS and polygenic scores were weakly correlated yet
-complementary (<a href="https://doi.org/10.1016/j.ajhg.2025.11.016">Dybdahl Krebs et al. 2026</a>),
-as two noisy estimates of one additive genetic liability should be; Part B's
-ceiling shows the same logic from the other side. ltpred's
-<a href="https://bvilhjal.github.io/ltpred/algorithm/">algorithm page</a> states the model and its
-<a href="https://bvilhjal.github.io/ltpred/algorithm/#connection-to-selection-index-and-blup">connection to selection-index prediction</a>.</p>
+<p>Homework: <strong>C</strong> the score against a 0/1 family-history indicator; <strong>D</strong> h² from parent–offspring pairs, then a case-cohort; <strong>E</strong> observed-scale versus liability-scale h².</p>
+<p>Write what you expect before each part. The product is the Q15 note.</p>
+<p>LT-FH++ (<a href="https://doi.org/10.1016/j.ajhg.2022.01.009">Pedersen et al. 2022</a>) is LT-FH (<a href="https://doi.org/10.1038/s41588-020-0613-6">Hujoel et al. 2020</a>) with age of onset. ADuLT (<a href="https://doi.org/10.1038/s41467-023-41210-z">Pedersen et al. 2023</a>) drops the family history. Scores use the Pearson–Aitken engine of PA-FGRS (<a href="https://doi.org/10.1016/j.ajhg.2024.09.009">Krebs et al. 2024</a>; <a href="https://doi.org/10.1016/j.ajhg.2025.11.016">2026</a>). Model: <a href="https://bvilhjal.github.io/ltpred/algorithm/">algorithm page</a>.</p>
 </div>
 </div>
 </div>
@@ -8257,10 +8228,8 @@ each h² and draw the fitted line.</p>
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Part-B.-Who-becomes-a-case-between-40-and-70?">Part B. Who becomes a case between 40 and 70?<a class="anchor-link" href="#Part-B.-Who-becomes-a-case-between-40-and-70?">¶</a></h2><p>Step 4's answer says that its correlation of 0.31 "is not the accuracy of
-predicting who becomes a case after 40". Measure that accuracy on <code>big</code>. The
-probands in <code>big_pred</code> were disease-free at 40; an <em>incident</em> case is one of them
-diagnosed by 70, which the simulation knows through <code>big.onset</code>.</p>
+<h2 id="Part-B.-Who-becomes-a-case-between-40-and-70?">Part B. Who becomes a case between 40 and 70?<a class="anchor-link" href="#Part-B.-Who-becomes-a-case-between-40-and-70?">¶</a></h2><p><img alt="Liability thresholds at 40 and 70. Higher liability is earlier onset. Prospective probands are still left of T40." src="figures/thresholds.png"/></p>
+<p>Step 4's correlation, 0.31, is not the accuracy of predicting a later case. Measure it on <code>big</code>. Probands in <code>big_pred</code> are still left of T40. An incident case is one of them who has crossed T70 by age 70.</p>
 </div>
 </div>
 </div>
@@ -8365,9 +8334,7 @@ above 0.5 and clearly apart.</p>
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Q6:-Why-is-the-ceiling-below-1-although-it-is-the-truth?-Where-does-the-gap-between-the-prospective-score-and-the-ceiling-come-from?-What-does-the-third-AUC-say-about-use=%22gwas%22-in-a-prospective-claim?">Q6: Why is the ceiling below 1 although it is the truth? Where does the gap between the prospective score and the ceiling come from? What does the third AUC say about <code>use="gwas"</code> in a prospective claim?<a class="anchor-link" href="#Q6:-Why-is-the-ceiling-below-1-although-it-is-the-truth?-Where-does-the-gap-between-the-prospective-score-and-the-ceiling-come-from?-What-does-the-third-AUC-say-about-use=%22gwas%22-in-a-prospective-claim?">¶</a></h3><p>Use the decomposition from Part 0: on <code>big</code>, Var(score) + mean posterior variance
-= 0.129 + 0.359 = 0.488 = Var(g), so the <code>use="gwas"</code> data identified about a
-quarter of the genetic variance and left three quarters as posterior uncertainty.</p>
+<h3 id="Q6:-Why-is-the-ceiling-below-1-although-it-is-the-truth?-Where-does-the-gap-between-the-prospective-score-and-the-ceiling-come-from?-What-does-the-third-AUC-say-about-use=%22gwas%22-in-a-prospective-claim?">Q6: Why is the ceiling below 1 although it is the truth? Where does the gap between the prospective score and the ceiling come from? What does the third AUC say about <code>use="gwas"</code> in a prospective claim?<a class="anchor-link" href="#Q6:-Why-is-the-ceiling-below-1-although-it-is-the-truth?-Where-does-the-gap-between-the-prospective-score-and-the-ceiling-come-from?-What-does-the-third-AUC-say-about-use=%22gwas%22-in-a-prospective-claim?">¶</a></h3><p>On <code>big</code>, print <code>big_m.var()</code>, <code>big_est.var()</code> and <code>np.asarray(big_gwas.var).mean()</code>, next to <code>big.genetic.var()</code>. The retrospective score saw each proband's own diagnosis. The prospective score did not.</p>
 </div>
 </div>
 </div>
@@ -8378,16 +8345,9 @@ quarter of the genetic variance and left three quarters as posterior uncertainty
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Q7:-Turn-the-score-into-a-risk-and-check-it-against-the-observed-incidence.">Q7: Turn the score into a risk and check it against the observed incidence.<a class="anchor-link" href="#Q7:-Turn-the-score-into-a-risk-and-check-it-against-the-observed-incidence.">¶</a></h3><p>A posterior mean liability is not a probability, but with its posterior variance
-it becomes one. Under the model, a proband's full liability given the relatives is
-Normal with mean <code>m = big_m</code> and variance <code>s² = big_v + 1 − h²</code>: the residual is
-independent of the relatives because <code>use="prediction"</code> hid the proband's own
-status. With thresholds <code>T_a = Φ⁻¹(1 − CIP(a))</code>, being disease-free at 40 means
-<code>l ≤ T40</code> and being diagnosed by 70 means <code>l &gt; T70</code>, so</p>
+<h3 id="Q7:-Turn-the-score-into-a-risk-and-check-it-against-the-observed-incidence.">Q7: Turn the score into a risk and check it against the observed incidence.<a class="anchor-link" href="#Q7:-Turn-the-score-into-a-risk-and-check-it-against-the-observed-incidence.">¶</a></h3><p><code>big_m</code> is not a probability. Given the relatives, full liability is Normal with mean <code>m = big_m</code> and variance <code>s² = big_v + 1 − h²</code>, because <code>use="prediction"</code> left the proband's own status out. With <code>T_a = Φ⁻¹(1 − CIP(a))</code> as in the figure,</p>
 <p>risk = [Φ((T40 − m)/s) − Φ((T70 − m)/s)] / Φ((T40 − m)/s).</p>
-<p>Compute it for every proband. Compare the mean risk with the incidence from Q4.
-Then split the probands into five equal-size groups by rank of <code>big_m</code> and compare
-observed incidence with mean risk in each group.</p>
+<p>Compute it for every proband. Compare the mean with the Q4 incidence, then within fifths of <code>big_m</code>.</p>
 </div>
 </div>
 </div>
@@ -8424,9 +8384,7 @@ observed incidence with mean risk in each group.</p>
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><strong>Checkpoint.</strong> The mean model risk should agree with the observed incidence to
-within about half a percentage point, and both columns should rise from the lowest
-fifth to the highest. Why does the risk need <code>big_v</code> and not only the score?</p>
+<p><strong>Checkpoint.</strong> Mean risk within about half a percentage point of the incidence. The extreme fifths should separate. Neighbouring middle fifths have a few dozen events and need not. Why does the risk need <code>big_v</code>?</p>
 </div>
 </div>
 </div>
@@ -8513,9 +8471,7 @@ missing from the prospective comparison?</p>
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><strong>Checkpoint.</strong> The score's R² should be several times the indicator's and above
-the proband's own status; the indicator should still beat chance prospectively,
-and fewer people are FH-positive at 40 than at 70.</p>
+<p><strong>Checkpoint.</strong> Retrospectively the score's R² should beat own status and the indicator. Prospectively the AUC gap should be much smaller. Fewer people are FH-positive at 40 than at 70.</p>
 </div>
 </div>
 </div>
@@ -8682,20 +8638,11 @@ should be back near 0.5.</p>
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Part-E.-Which-scale-is-h%C2%B2-on?-(homework)">Part E. Which scale is h² on? (homework)<a class="anchor-link" href="#Part-E.-Which-scale-is-h%C2%B2-on?-(homework)">¶</a></h2><p>A real analysis rarely starts on the liability scale: GREML or LD-score
-regression on a case/control GWAS reports h² on the observed 0/1 scale, and
-oversampling cases makes that scale depend on the sample's case proportion P. The
-bridge is the transformation of <a href="https://doi.org/10.1016/j.ajhg.2011.02.002">Lee et al. 2011</a>
-(extended in <a href="https://doi.org/10.1002/gepi.21614">Lee et al. 2012</a>): with
-prevalence K and z = φ(Φ⁻¹(1 − K)),</p>
+<h2 id="Part-E.-Which-scale-is-h%C2%B2-on?-(homework)">Part E. Which scale is h² on? (homework)<a class="anchor-link" href="#Part-E.-Which-scale-is-h%C2%B2-on?-(homework)">¶</a></h2><p><img alt="A liability split into a 0/1 outcome. The right tail, 10% when K = 0.10, is the cases." src="figures/observed_scale.png"/></p>
+<p>GREML and LD-score regression report h² on the 0/1 scale. Oversampling cases makes that number depend on the sample case proportion P. With prevalence K and z = φ(Φ⁻¹(1 − K)) (<a href="https://doi.org/10.1016/j.ajhg.2011.02.002">Lee et al. 2011</a>; <a href="https://doi.org/10.1002/gepi.21614">2012</a>),</p>
 <p>h²_liab = h²_obs · K²(1 − K)² / (z² · P(1 − P)),</p>
-<p>where the P factor applies only to designs that oversample cases; in a population
-sample P = K. ltpred ships it as <code>observed_to_liability_h2</code> and its inverse
-<code>liability_to_observed_h2</code>. The same P(1 − P) sets a case/control study's
-effective sample size, Neff = 4 N₁ N₀ / N.</p>
-<p>Throughout, K is the lifetime prevalence 0.10 that the scorer uses. A GWAS of
-"diagnosed by 70" would have to use that phenotype's own prevalence, 0.078 here,
-which is one more place where an h² can arrive on the wrong footing.</p>
+<p>In a population sample, P = K. <code>observed_to_liability_h2</code> and <code>liability_to_observed_h2</code> are this map and its inverse. The same P(1 − P) sets Neff = 4 N₁ N₀ / N.</p>
+<p>K here is the lifetime prevalence 0.10 given to the scorer. "Diagnosed by 70" has prevalence about 0.078. An h² for that phenotype has to use 0.078.</p>
 </div>
 </div>
 </div>
