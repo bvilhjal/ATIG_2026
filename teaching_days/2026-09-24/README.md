@@ -17,8 +17,9 @@ calibrated absolute risk by rank fifth. Homework (Parts C to E): the score
 against a 0/1 family-history indicator; heritability from parent–offspring
 pairs by tetrachoric correlation, and what an iPSYCH-style case-cohort does to
 it; and the observed-to-liability-scale transformation of Lee et al. (2011;
-2012) with effective sample sizes. The notebook's Setup section installs Git, Python 3.12 or 3.13, NumPy and
-SciPy on macOS and Windows, then ltpred from source (not on PyPI).
+2012) with effective sample sizes. Install Git, Python, NumPy, SciPy and ltpred from the
+[setup page](https://bvilhjal.github.io/ATIG_2026/setup.html)
+(macOS, Windows, or Anaconda).
 No data files and no R; nothing needs more than 1 GB of memory. The handouts
 were executed on 21 September with ltpred 0.7.0 on simulated registers whose
 genetic liability is known.

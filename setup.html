@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ATIG 2026 — Python setup</title>
+<style>
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; max-width: 42rem; margin: 2rem auto; padding: 0 1.25rem 3rem; line-height: 1.5; color: #1c1c1a; }
+  h1 { font-size: 1.6rem; font-weight: 650; }
+  h2 { font-size: 1.15rem; margin-top: 1.8rem; }
+  code, pre { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.92rem; }
+  pre { background: #f4f4f2; padding: 0.8rem 1rem; overflow-x: auto; }
+  a { color: #1a4f86; }
+</style>
+</head>
+<body>
+<h1>Python setup</h1>
+<p>For the <a href="teaching_days/2026-09-24/LTFH/LTFH_exercise.html">LT-FH exercise</a>. You need Python 3.12 or 3.13, Git, NumPy and SciPy. ltpred is not on PyPI. Use the python.org steps for your system, or the Anaconda steps, which are the same on both. Numba only speeds ltpred up. Matplotlib is only for the worked answers. No compiler, no R, and no data files. Open a new terminal after each installer. The prompt must show <code>(ltpred-class)</code> before the ltpred commands.</p>
+
+<h2>macOS</h2>
+<p>Install Git, then Python from <a href="https://www.python.org/downloads/">python.org</a>. Use that Python. If <code>pip</code> reports a certificate error, run <strong>Install Certificates.command</strong> in <code>/Applications/Python 3.13/</code>.</p>
+<pre>xcode-select --install
+python3 -m venv ~/ltpred-class
+source ~/ltpred-class/bin/activate
+python -m pip install --upgrade pip
+python -m pip install numpy scipy numba jupyter</pre>
+
+<h2>Windows</h2>
+<p>Install Git from <a href="https://git-scm.com/download/win">git-scm.com/download/win</a>. Install Python from <a href="https://www.python.org/downloads/">python.org</a> and tick <strong>Add python.exe to PATH</strong>. If <code>python</code> opens the Microsoft Store, use <code>py</code>. In PowerShell:</p>
+<pre>py -3.13 -m venv $HOME\ltpred-class
+$HOME\ltpred-class\Scripts\Activate.ps1
+python -m pip install --upgrade pip
+python -m pip install numpy scipy numba jupyter</pre>
+<p>If activation is blocked, run <code>Set-ExecutionPolicy -Scope CurrentUser RemoteSigned</code> once and activate again.</p>
+
+<h2>Anaconda</h2>
+<p>Skip the two sections above. Install Anaconda from <a href="https://www.anaconda.com/download">anaconda.com/download</a>. Miniconda is the same commands with a smaller download. On Windows, open <strong>Anaconda Prompt</strong>. On macOS, open Terminal.</p>
+<pre>conda create -n ltpred-class -c conda-forge python=3.13 numpy scipy numba jupyter matplotlib git -y
+conda activate ltpred-class</pre>
+
+<h2>ltpred</h2>
+<p>With <code>(ltpred-class)</code> active:</p>
+<pre>git clone https://github.com/bvilhjal/ltpred.git
+cd ltpred
+python -m pip install -e ".[fast]"
+python -m jupyter lab</pre>
+<p>If Numba did not install, use <code>python -m pip install -e .</code> instead. On the python.org path, the worked answers also need <code>python -m pip install matplotlib</code>.</p>
+<p>Open the exercise from Jupyter and run the setup cell. It should print <code>ltpred 0.7.0</code> or newer. Part 0 takes about a minute and needs under 1 GB of memory.</p>
+<p><a href="README.md">Course index</a> · <a href="teaching_days/2026-09-24/LTFH/LTFH_exercise.html">LT-FH exercise</a></p>
+</body>
+</html>
