@@ -7832,19 +7832,29 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Setup">Setup<a class="anchor-link" href="#Setup">¶</a></h2><p>Python 3.9 or newer with NumPy and SciPy, and ltpred, which is not yet on PyPI
-and is installed from source. The commands are the same on Windows, macOS and
-Linux; no compiler, no R and no data files are needed (the worked answers also
-use Matplotlib):</p>
-<div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/bvilhjal/ltpred.git
-<span class="nb">cd</span><span class="w"> </span>ltpred
-pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">".[fast]"</span><span class="w">      </span><span class="c1"># plain  pip install -e .  works too; numba only speeds it up</span>
+<h2 id="Setup">Setup<a class="anchor-link" href="#Setup">¶</a></h2><p>Python 3.12 or 3.13, Git, NumPy and SciPy. ltpred is not on PyPI. Numba only speeds it up; Matplotlib is only for the worked answers. No compiler, no R, and no data files. Open a new terminal after each installer. The prompt must show <code>(ltpred-class)</code> before the ltpred commands.</p>
+<h3 id="macOS">macOS<a class="anchor-link" href="#macOS">¶</a></h3><p>Install Git, then Python from <a href="https://www.python.org/downloads/">python.org</a>. Use that Python. If <code>pip</code> reports a certificate error, run <strong>Install Certificates.command</strong> in <code>/Applications/Python 3.13/</code>.</p>
+<div class="highlight"><pre><span></span>xcode-select --install
+python3 -m venv ~/ltpred-class
+source ~/ltpred-class/bin/activate
+python -m pip install --upgrade pip
+python -m pip install numpy scipy numba jupyter
 </pre></div>
-<p>Part 0 rebuilds the tutorial register from fixed seeds and adds a larger one,
-so a fresh session is enough. Part 0 takes about a minute and nothing in the
-exercise needs more than 1 GB of memory. Executed with ltpred 0.7.0 (commit
-<code>2d85ce9</code>); the printouts are identical under NumPy 1.26 to 2.5. Run the cell
-below to confirm your install.</p>
+<h3 id="Windows">Windows<a class="anchor-link" href="#Windows">¶</a></h3><p>Install Git from <a href="https://git-scm.com/download/win">git-scm.com/download/win</a>. Install Python from <a href="https://www.python.org/downloads/">python.org</a> and tick <strong>Add python.exe to PATH</strong>. If <code>python</code> opens the Microsoft Store, use <code>py</code>. In PowerShell:</p>
+<div class="highlight"><pre><span></span>py -3.13 -m venv $HOME\ltpred-class
+$HOME\ltpred-class\Scripts\Activate.ps1
+python -m pip install --upgrade pip
+python -m pip install numpy scipy numba jupyter
+</pre></div>
+<p>If activation is blocked, run <code>Set-ExecutionPolicy -Scope CurrentUser RemoteSigned</code> once and activate again.</p>
+<h3 id="ltpred">ltpred<a class="anchor-link" href="#ltpred">¶</a></h3><p>With <code>(ltpred-class)</code> active:</p>
+<div class="highlight"><pre><span></span>git clone https://github.com/bvilhjal/ltpred.git
+cd ltpred
+python -m pip install -e ".[fast]"
+python -m jupyter lab
+</pre></div>
+<p>If Numba did not install, use <code>python -m pip install -e .</code> instead. The worked answers also need <code>python -m pip install matplotlib</code>.</p>
+<p>Part 0 rebuilds the tutorial register from fixed seeds and adds a larger one, so a fresh session is enough. Part 0 takes about a minute and nothing in the exercise needs more than 1 GB of memory. Executed with ltpred 0.7.0 (commit <code>2d85ce9</code>); the printouts are identical under NumPy 1.26 to 2.5. Run the cell below to confirm your install.</p>
 </div>
 </div>
 </div>
