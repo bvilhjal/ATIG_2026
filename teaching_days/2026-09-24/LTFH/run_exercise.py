@@ -180,18 +180,30 @@ ax.set_title(f"corr = {corr(est, g):.2f}")
 plt.show()
 
 print("\n== Q7")
-fig, axes = plt.subplots(1, 3, figsize=(12, 3.8), sharex=True, sharey=True)
-for ax, h2 in zip(axes, (0.2, 0.5, 0.8)):
-    e, v = score(h2)                           # rescore everyone under this h2
-    b = np.polyfit(e, g, 1)[0]                 # slope of g regressed on e
-    print(f"h2 = {h2}: corr {corr(e, g):.3f}, slope {b:.2f}")
-    ax.scatter(e, g, s=2, alpha=0.3)
-    ax.axline((0, 0), slope=1, ls="--", color="grey")   # slope 1: calibrated
-    ax.axline((0, 0), slope=b, color="C1")              # the fitted slope
-    ax.set_title(f"assumed h² = {h2}\ncorr {corr(e, g):.3f}, slope {b:.2f}")
-    ax.set_xlabel("score")
-axes[0].set_ylabel("true g")
+# people still undiagnosed at 70 with both parents recorded: their own record is the same,
+# so any difference in their scores comes from the family
+undiagnosed = ~reg.status & has_parents
+n_dx = np.array([sum(reg.status[row[p]] for p in (f, m) if p in row)
+                 for f, m in zip(reg.father, reg.mother)])            # diagnosed parents: 0, 1 or 2
+parent_onset = np.array([min([reg.onset[row[p]] for p in (f, m) if p in row and reg.status[row[p]]], default=np.nan)
+                         for f, m in zip(reg.father, reg.mother)])    # age of the (first) diagnosed parent
+one = undiagnosed & (n_dx == 1)                                              # exactly one diagnosed parent
+
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(10, 3.8), sharey=True)
+ax1.boxplot([est[undiagnosed & (n_dx == k)] for k in (0, 1, 2)])     # the scores of the people in undiagnosed with k diagnosed parents
+ax1.set_xticks([1, 2, 3], ["0", "1", "2"])
+ax1.set_xlabel("diagnosed parents")
+ax1.set_ylabel("score")
+ax2.boxplot([est[one & (parent_onset < 50)], est[one & (parent_onset >= 50) & (parent_onset < 60)],
+             est[one & (parent_onset >= 60)]])
+ax2.set_xticks([1, 2, 3], ["before 50", "50 to 59", "60 to 70"])
+ax2.set_xlabel("age at which the parent was diagnosed")
 plt.show()
+for k in (0, 1, 2):
+    print(f"{k} diagnosed parents: n = {(undiagnosed & (n_dx == k)).sum()}, mean score {est[undiagnosed & (n_dx == k)].mean():.2f}")
+for label, lo, hi in (("before 50", 0, 50), ("50 to 59", 50, 60), ("60 to 70", 60, 71)):
+    sel = one & (parent_onset >= lo) & (parent_onset < hi)
+    print(f"parent diagnosed {label}: n = {sel.sum()}, mean score {est[sel].mean():.2f}")
 
 y = reg.status[free40]      # diagnosed between 40 and 70, one entry per person in est40
 print(f"{y.sum()} of {len(y)} people undiagnosed at 40 were diagnosed by 70")
@@ -302,6 +314,11 @@ ax.legend()
 plt.show()
 print(f"population sample {float(liability_to_observed_h2(H2, K, None)):.3f}, "
       f"1:1 study {float(liability_to_observed_h2(H2, K, 0.5)):.3f}")
+
+h2_pop = float(liability_to_observed_h2(H2, K, None))    # what a population GWAS would report
+e, v = score(h2_pop)                                    # score everyone with it, unconverted
+print(f"scored with h² = {h2_pop:.2f}: corr(score, g) = {corr(e, g):.3f} (0.529 with 0.5), "
+      f"slope of g on the score = {np.polyfit(e, g, 1)[0]:.2f} (1 = calibrated)")
 
 import platform, scipy
 print(f"Python {platform.python_version()}, NumPy {np.__version__}, "
