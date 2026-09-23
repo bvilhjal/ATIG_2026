@@ -7796,7 +7796,7 @@ a.anchor-link {
 <!-- End of mermaid configuration --></head>
 <body class="jp-Notebook" data-jp-theme-light="true" data-jp-theme-name="JupyterLab Light">
 <main>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=ac95ee93">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=4c9f931b">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7807,7 +7807,7 @@ a.anchor-link {
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=8915ee59">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=c5dee931">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7818,37 +7818,34 @@ a.anchor-link {
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=02dbfa08">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=1fffe2e6">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <h2 id="What-you-will-learn">What you will learn<a class="anchor-link" href="#What-you-will-learn">¶</a></h2><p>You score a simulated register with <a href="https://github.com/bvilhjal/ltpred">ltpred</a>'s
-family-history method and compare the scores with the true genetic liability, which a
-simulation lets you see. Five parts, 15 questions:</p>
+family-history method, LT-FH++, and compare the scores with the true genetic liability,
+which a simulation lets you see. You make six plots along the way.</p>
 <ul>
-<li><strong>In class (about an hour):</strong> Part 0 (10 min) sets up; <strong>A</strong> (20 min): a wrong
-heritability h² rescales the score but barely changes its ranking; <strong>B</strong> (30 min): the
-score is not a risk, so how well does it predict who is diagnosed later?</li>
-<li><strong>Homework:</strong> <strong>C</strong> the score against a simple yes/no family-history indicator;
-<strong>D</strong> estimating h² from parents and children; <strong>E</strong> the two scales on which h² is
-reported.</li>
+<li><strong>In class (about an hour):</strong> Part 0 (10 min) builds and plots the scores; <strong>A</strong> (20 min):
+what a wrong heritability h² does; <strong>B</strong> (30 min): how well the score predicts who is
+diagnosed later.</li>
+<li><strong>Homework:</strong> <strong>C</strong> the score against a yes/no family history; <strong>D</strong> heritability from
+parents and children; <strong>E</strong> the two scales on which h² is reported.</li>
 </ul>
 <p>Work in pairs, ideally one person with a biology and one with a bioinformatics
-background: questions marked <strong>Discuss</strong> are for talking through together. Before each
-part, write down what you expect.</p>
+background. Questions marked <strong>Discuss</strong> are for talking through together.</p>
 <p><strong>Background.</strong> LT-FH (<a href="https://doi.org/10.1038/s41588-020-0613-6">Hujoel et al. 2020</a>)
-turns relatives' diagnoses into an estimate of a person's genetic liability;
-LT-FH++ (<a href="https://doi.org/10.1016/j.ajhg.2022.01.009">Pedersen et al. 2022</a>) adds age of
-onset. ltpred computes it with the Pearson–Aitken method of PA-FGRS
-(<a href="https://doi.org/10.1016/j.ajhg.2024.09.009">Krebs et al. 2024</a>). The model is on the
-<a href="https://bvilhjal.github.io/ltpred/algorithm/">algorithm page</a>.</p>
+turns relatives' diagnoses into an estimate of a person's genetic liability; LT-FH++
+(<a href="https://doi.org/10.1016/j.ajhg.2022.01.009">Pedersen et al. 2022</a>) adds age of onset
+through age-dependent thresholds. ltpred computes it with the Pearson–Aitken method of
+PA-FGRS (<a href="https://doi.org/10.1016/j.ajhg.2024.09.009">Krebs et al. 2024</a>).</p>
 </div>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=275320e3">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=748e55f6">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7857,13 +7854,12 @@ onset. ltpred computes it with the Pearson–Aitken method of PA-FGRS
 <h2 id="The-idea-in-five-sentences">The idea in five sentences<a class="anchor-link" href="#The-idea-in-five-sentences">¶</a></h2><ol>
 <li>Everyone has a <strong>liability</strong> to the disease: an unobserved quantity that adds up a
 genetic part and an environmental part and follows a bell curve in the population.</li>
-<li>People whose liability passes a <strong>threshold</strong> get the disease. The threshold falls with
-age, so the higher your liability, the earlier you are diagnosed.</li>
+<li>People whose liability passes a <strong>threshold</strong> get the disease. In LT-FH++ the threshold
+falls with age, so the higher your liability, the earlier you are diagnosed.</li>
 <li><strong>Heritability h²</strong> is the share of liability variance that is genetic. Relatives share
 genes, so their diagnoses carry information about your genetic liability.</li>
-<li><strong>LT-FH</strong> turns the relatives' diagnoses and ages into a best estimate of your genetic
-liability (the <em>score</em>), with a measure of its uncertainty. The score can replace a
-yes/no phenotype in a GWAS, or feed a risk prediction.</li>
+<li><strong>LT-FH++</strong> turns the relatives' diagnoses and ages into a best estimate of your genetic
+liability (the <em>score</em>), with a measure of its uncertainty.</li>
 <li>Real data never reveal the true genetic liability. A simulation does, so here you can
 check how good the score is.</li>
 </ol>
@@ -7888,16 +7884,12 @@ check how good the score is.</li>
 <td>fraction who get the disease in a lifetime; 0.10 here</td>
 </tr>
 <tr>
-<td>cumulative incidence (CIP)</td>
+<td>cumulative incidence</td>
 <td>fraction diagnosed by a given age; rises from 0 to K</td>
 </tr>
 <tr>
 <td>score, posterior mean</td>
 <td>best estimate of <code>g</code> given the family's records</td>
-</tr>
-<tr>
-<td>posterior variance</td>
-<td>how uncertain that estimate is</td>
 </tr>
 <tr>
 <td>AUC</td>
@@ -7921,7 +7913,7 @@ check how good the score is.</li>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=ee21f85f">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=ff1148d0">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7930,10 +7922,9 @@ check how good the score is.</li>
 <h2 id="How-to-use-this-notebook">How to use this notebook<a class="anchor-link" href="#How-to-use-this-notebook">¶</a></h2><ol>
 <li>Click <strong>Open in Colab</strong> above, then <strong>File → Save a copy in Drive</strong> and work in your copy.</li>
 <li>Run the cells in order with <strong>Shift+Enter</strong>. If Colab restarts, start again from the top.</li>
-<li>Where a cell has <code>...</code>, replace it with one expression; the comment says what.
-<strong>Checkpoints</strong> tell you what you should see.</li>
+<li>Where a cell has <code>...</code>, replace it with one expression; the comment says what. Every
+plot is ready to run once its <code>...</code> is filled. <strong>Checkpoints</strong> say what you should see.</li>
 </ol>
-<p>The names you will use throughout:</p>
 <table>
 <thead>
 <tr>
@@ -7951,8 +7942,8 @@ check how good the score is.</li>
 <td>each person's true genetic liability</td>
 </tr>
 <tr>
-<td><code>est</code>, <code>var</code></td>
-<td>everyone's score and its posterior variance, using all records</td>
+<td><code>est</code></td>
+<td>everyone's score, using all records</td>
 </tr>
 <tr>
 <td><code>free40</code></td>
@@ -7960,16 +7951,15 @@ check how good the score is.</li>
 </tr>
 <tr>
 <td><code>est40</code>, <code>var40</code></td>
-<td>the score as known at 40, for those people</td>
+<td>the score as known at 40, and its uncertainty, for those people</td>
 </tr>
 <tr>
-<td><code>score(h2)</code>, <code>score_at_40(h2)</code></td>
-<td>rescore the register under any assumed h²</td>
+<td><code>score(h2)</code></td>
+<td>rescores everyone under an assumed h²</td>
 </tr>
 </tbody>
 </table>
-<h3 id="The-Python-you-need">The Python you need<a class="anchor-link" href="#The-Python-you-need">¶</a></h3><p>New to Python? These four patterns cover every blank. Each task also has a <strong>Hint</strong>.</p>
-<table>
+<h3 id="The-Python-you-need">The Python you need<a class="anchor-link" href="#The-Python-you-need">¶</a></h3><table>
 <thead>
 <tr>
 <th>Code</th>
@@ -7979,19 +7969,23 @@ check how good the score is.</li>
 <tbody>
 <tr>
 <td><code>x[mask]</code></td>
-<td>keeps the entries of array <code>x</code> where the True/False array <code>mask</code> is True</td>
+<td>keeps the entries of <code>x</code> where the True/False array <code>mask</code> is True</td>
 </tr>
 <tr>
-<td><code>a &amp; b</code></td>
-<td>True where both <code>a</code> and <code>b</code> are True</td>
+<td><code>a &amp; b</code>, <code>~a</code></td>
+<td>True where both are True; True where <code>a</code> is False</td>
 </tr>
 <tr>
 <td><code>x.mean()</code>, <code>x.sum()</code></td>
 <td>average and total; on True/False arrays, the share and count of True</td>
 </tr>
 <tr>
-<td><code>x ** 2</code></td>
-<td>squares every entry</td>
+<td><code>[f(x) for x in xs]</code></td>
+<td>a list with <code>f</code> applied to each element of <code>xs</code></td>
+</tr>
+<tr>
+<td><code>ax.scatter(x, y)</code>, <code>ax.hist(x)</code>, <code>ax.bar(names, values)</code>, <code>ax.plot(x, y)</code></td>
+<td>the four plots you will make</td>
 </tr>
 </tbody>
 </table>
@@ -7999,19 +7993,19 @@ check how good the score is.</li>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=391f13b8">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=1ee66ea3">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Setup">Setup<a class="anchor-link" href="#Setup">¶</a></h2><p>The first cell installs ltpred; the second loads it and defines two helpers, <code>corr</code> and
-<code>auc</code>. (On your own computer instead of Colab? See the
-<a href="https://bvilhjal.github.io/ATIG_2026/setup.html">setup page</a>.)</p>
+<h2 id="Setup">Setup<a class="anchor-link" href="#Setup">¶</a></h2><p>The first cell installs ltpred; the second loads it, loads matplotlib for plotting and
+defines two small helpers, <code>corr</code> and <code>auc</code>. (On your own computer instead of Colab? See
+the <a href="https://bvilhjal.github.io/ATIG_2026/setup.html">setup page</a>.)</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs celltag_skip-execution" id="cell-id=41d8fbda">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs celltag_skip-execution" id="cell-id=0fe385c2">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8025,7 +8019,7 @@ check how good the score is.</li>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=b8bf31ba">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=0a02f3db">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8035,6 +8029,7 @@ check how good the score is.</li>
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="kn">import</span> <span class="n">norm</span><span class="p">,</span> <span class="n">rankdata</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">ltpred</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">ltpred</span><span class="w"> </span><span class="kn">import</span> <span class="n">simulate_pedigree</span><span class="p">,</span> <span class="n">simulate_register_liabilities</span><span class="p">,</span> <span class="n">estimate_liabilities</span>
@@ -8072,18 +8067,16 @@ check how good the score is.</li>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=9e765ba2">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=441ced65">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Part-0.-A-register-where-the-truth-is-known">Part 0. A register where the truth is known<a class="anchor-link" href="#Part-0.-A-register-where-the-truth-is-known">¶</a></h2><p>The cell below simulates three generations of families (5,075 people) and gives each
-person a liability: a genetic part <code>g</code> with variance h² = 0.5 plus a non-genetic part.
-A person is diagnosed at the age their liability crosses an age-dependent threshold, so
-high liability means early onset. Everyone is followed to age 70. This is the model of
-the <a href="https://bvilhjal.github.io/ltpred/tutorial/">ltpred tutorial</a>, five times larger.</p>
-<p><code>reg</code> holds what a real register would, plus the truth:</p>
+<h2 id="Part-0.-A-register-where-the-truth-is-known">Part 0. A register where the truth is known<a class="anchor-link" href="#Part-0.-A-register-where-the-truth-is-known">¶</a></h2><p>The cell below simulates three generations of families (5,075 people). Each person gets
+a liability: a genetic part <code>g</code> with variance h² = 0.5 plus a non-genetic part. A person
+is diagnosed at the age their liability crosses an age-dependent threshold (the LT-FH++
+model), and everyone is followed to age 70.</p>
 <table>
 <thead>
 <tr>
@@ -8117,7 +8110,7 @@ the <a href="https://bvilhjal.github.io/ltpred/tutorial/">ltpred tutorial</a>, f
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=af871dd8">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=0ebcb185">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8157,7 +8150,7 @@ var(g) = 0.493   (target 0.5)
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=b0021a2c">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=ff5b612a">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8168,20 +8161,19 @@ var(g) = 0.493   (target 0.5)
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=cbe45b81">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=a96bcf68">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <h3 id="The-scorer-in-one-call">The scorer in one call<a class="anchor-link" href="#The-scorer-in-one-call">¶</a></h3><p><code>estimate_liabilities</code> takes the pedigree, everyone's diagnosis and age, the incidence
-curve and h², and returns for each proband the <strong>posterior mean</strong> of their genetic
-liability given the relatives' records (<code>.est</code>), with its <strong>posterior variance</strong>
-(<code>.var</code>). The comments explain each argument.</p>
+curve and h², and returns each person's score (<code>.est</code>) with its uncertainty (<code>.var</code>).
+The comments explain each argument.</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=f74c4ded">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=0d2f2d4d">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8221,34 +8213,19 @@ var(score) = 0.129  +  mean posterior variance = 0.359  =  0.488
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=5f4044d9">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=23930571">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><strong>Checkpoint.</strong> Correlation 0.522. The variance of the scores plus the average posterior
-variance comes back to about var(g): the data explain part of each person's genetic
-liability and the posterior variance holds the rest. Part A asks what happens to this
-sum when h² is wrong.</p>
+<h3 id="The-helpers-used-below">The helpers used below<a class="anchor-link" href="#The-helpers-used-below">¶</a></h3><p><code>score(h2)</code> repeats that call under any assumed h². <code>score_at_40(h2)</code> scores the people
+still undiagnosed at 40 <strong>as of their 40th birthday</strong>, hiding their own status and every
+later record: the honest setting for predicting who is diagnosed later.</p>
 </div>
 </div>
 </div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=da814d75">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Two-helpers-used-in-every-question">Two helpers used in every question<a class="anchor-link" href="#Two-helpers-used-in-every-question">¶</a></h3><p><code>score(h2)</code> repeats the call above under any assumed h². <code>score_at_40(h2)</code> scores the
-people still undiagnosed at 40 <strong>as of their 40th birthday</strong>: <code>use="prediction"</code> hides
-their own status and every record made after that date. This is the honest setting for
-predicting who is diagnosed later.</p>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=d54ebc8c">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=d588a477">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8300,57 +8277,18 @@ predicting who is diagnosed later.</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=123838e5">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=4e77030a">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><strong>Checkpoint.</strong> 5,037 people are undiagnosed at 40, and their score at 40 correlates
-0.278 with <code>g</code>: weaker than 0.522, because it knows less.</p>
+<h3 id="Q1:-Plot-the-score-against-the-true-genetic-liability.">Q1: Plot the score against the true genetic liability.<a class="anchor-link" href="#Q1:-Plot-the-score-against-the-true-genetic-liability.">¶</a></h3><p>Fill in the two arrays: the score <code>est</code> on the x-axis and the truth <code>g</code> on the y-axis.
+What does a correlation of about 0.5 look like?</p>
 </div>
 </div>
 </div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=a48e023c">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Part-A.-What-does-a-wrong-h%C2%B2-do?">Part A. What does a wrong h² do?<a class="anchor-link" href="#Part-A.-What-does-a-wrong-h%C2%B2-do?">¶</a></h2><p>In a real analysis h² comes from outside (a twin, pedigree or SNP study), on the
-liability scale, and ltpred makes you supply it. Here you can pass a wrong value on
-purpose and compare with the truth.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=8fb736fb">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Q1:-If-you-tell-the-scorer-h%C2%B2-=-0.8-when-the-truth-is-0.5,-do-the-scores-spread-more-or-less?-Does-their-ranking-change?">Q1: If you tell the scorer h² = 0.8 when the truth is 0.5, do the scores spread more or less? Does their ranking change?<a class="anchor-link" href="#Q1:-If-you-tell-the-scorer-h%C2%B2-=-0.8-when-the-truth-is-0.5,-do-the-scores-spread-more-or-less?-Does-their-ranking-change?">¶</a></h3><p>Write your expectation with one sentence of reasoning. Hint: h² is the share of
-liability variance that is genetic, and therefore shared with relatives.</p>
-<p><strong>Discuss</strong> with your partner.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=b4626d49">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Q2:-Score-the-register-under-h%C2%B2-=-0.2,-0.5-and-0.8.">Q2: Score the register under h² = 0.2, 0.5 and 0.8.<a class="anchor-link" href="#Q2:-Score-the-register-under-h%C2%B2-=-0.2,-0.5-and-0.8.">¶</a></h3><p>For each value the loop prints the correlation with <code>g</code>, the variance of the scores, the
-mean posterior variance, their sum, and the <strong>calibration slope</strong>: the slope of <code>g</code>
-regressed on the score. Fill in the two <code>...</code>.</p>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs celltag_skip-execution" id="cell-id=8af83f16">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs celltag_skip-execution" id="cell-id=71f9cc10">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8358,70 +8296,144 @@ regressed on the score. Fill in the two <code>...</code>.</p>
 <div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">"assumed h2   corr  var(score)  mean var    sum  slope"</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">h2</span> <span class="ow">in</span> <span class="p">(</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">):</span>
-    <span class="n">e</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="n">score</span><span class="p">(</span><span class="n">h2</span><span class="p">)</span>
-    <span class="n">c</span> <span class="o">=</span> <span class="o">...</span>          <span class="c1"># correlation of e with the truth g</span>
-    <span class="n">b</span> <span class="o">=</span> <span class="o">...</span>          <span class="c1"># slope of g regressed on e: np.polyfit(e, g, 1)[0]</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">h2</span><span class="si">:</span><span class="s2">10.1f</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">c</span><span class="si">:</span><span class="s2">6.3f</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">e</span><span class="o">.</span><span class="n">var</span><span class="p">()</span><span class="si">:</span><span class="s2">10.3f</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">v</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">9.3f</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">e</span><span class="o">.</span><span class="n">var</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">v</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">6.3f</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">b</span><span class="si">:</span><span class="s2">6.2f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="o">...</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>           <span class="c1"># x: the score est, y: the truth g</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"score (posterior mean)"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"true genetic liability g"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">"corr = </span><span class="si">{</span><span class="n">corr</span><span class="p">(</span><span class="n">est</span><span class="p">,</span><span class="w"> </span><span class="n">g</span><span class="p">)</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=07498bfc">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=caf95858">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <details><summary><b>Hint</b></summary>
-<p>The helpers from Setup do the work: <code>corr(x, y)</code> is a correlation, and <code>np.polyfit(x, y, 1)[0]</code> is the slope of <code>y</code> regressed on <code>x</code>. Here <code>x</code> is the score <code>e</code> and <code>y</code> is the truth <code>g</code>.</p>
+<p><code>ax.scatter(x, y)</code>: here <code>x</code> is <code>est</code> and <code>y</code> is <code>g</code>.</p>
 </details>
 </div>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=2a16d052">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=680aa6a8">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><strong>Checkpoint.</strong> The 0.5 row repeats Part 0. The <code>sum</code> column comes out close to the h²
-you passed in, whichever it was, and one column barely moves at all.</p>
+<p><strong>Checkpoint.</strong> A wide cloud tilted upwards, with the correlation 0.52 in the title.</p>
 </div>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=ea194ab2">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=5459ee38">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Q3:-Which-columns-moved-and-which-did-not?-What-does-a-slope-of-1-mean,-and-why-does-only-the-right-h%C2%B2-give-it?">Q3: Which columns moved and which did not? What does a slope of 1 mean, and why does only the right h² give it?<a class="anchor-link" href="#Q3:-Which-columns-moved-and-which-did-not?-What-does-a-slope-of-1-mean,-and-why-does-only-the-right-h%C2%B2-give-it?">¶</a></h3><p>A score is <em>calibrated</em> when the truth regressed on it has slope 1: among people scored
-0.3, the true liability averages 0.3.</p>
+<h2 id="Part-A.-What-does-a-wrong-h%C2%B2-do?">Part A. What does a wrong h² do?<a class="anchor-link" href="#Part-A.-What-does-a-wrong-h%C2%B2-do?">¶</a></h2><p>In a real analysis h² comes from outside (a twin, pedigree or SNP study) and you supply
+it. Here you can pass a wrong value on purpose and compare with the truth.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=207eab02">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="Q2:-If-you-tell-the-scorer-h%C2%B2-=-0.8-when-the-truth-is-0.5,-do-the-scores-spread-more-or-less?-Does-their-ranking-change?">Q2: If you tell the scorer h² = 0.8 when the truth is 0.5, do the scores spread more or less? Does their ranking change?<a class="anchor-link" href="#Q2:-If-you-tell-the-scorer-h%C2%B2-=-0.8-when-the-truth-is-0.5,-do-the-scores-spread-more-or-less?-Does-their-ranking-change?">¶</a></h3><p>Write down your expectation with one sentence of reasoning. Hint: h² is the share of
+liability variance that is genetic, and therefore shared with relatives.</p>
 <p><strong>Discuss</strong> with your partner.</p>
 </div>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=131c2070">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=b5aa480a">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="Q3:-Plot-the-truth-against-the-score-for-h%C2%B2-=-0.2,-0.5-and-0.8.">Q3: Plot the truth against the score for h² = 0.2, 0.5 and 0.8.<a class="anchor-link" href="#Q3:-Plot-the-truth-against-the-score-for-h%C2%B2-=-0.2,-0.5-and-0.8.">¶</a></h3><p>Each panel shows the fitted line of <code>g</code> on the score (orange) and the dashed diagonal.
+Fill in the slope. A score is <strong>calibrated</strong> when the slope is 1: among people scored 0.3,
+the true liability averages 0.3. Which assumed h² gives slope 1, and what happens to the
+correlation?</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs celltag_skip-execution" id="cell-id=eae496f0">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mf">3.8</span><span class="p">),</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">ax</span><span class="p">,</span> <span class="n">h2</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">axes</span><span class="p">,</span> <span class="p">(</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">)):</span>
+    <span class="n">e</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="n">score</span><span class="p">(</span><span class="n">h2</span><span class="p">)</span>                           <span class="c1"># rescore everyone under this h2</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="o">...</span>                                    <span class="c1"># slope of g regressed on e: np.polyfit(e, g, 1)[0]</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">axline</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">slope</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">"--"</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"grey"</span><span class="p">)</span>   <span class="c1"># slope 1: calibrated</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">axline</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">slope</span><span class="o">=</span><span class="n">b</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"C1"</span><span class="p">)</span>              <span class="c1"># the fitted slope</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">"assumed h² = </span><span class="si">{</span><span class="n">h2</span><span class="si">}</span><span class="se">\n</span><span class="s2">corr </span><span class="si">{</span><span class="n">corr</span><span class="p">(</span><span class="n">e</span><span class="p">,</span><span class="w"> </span><span class="n">g</span><span class="p">)</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">, slope </span><span class="si">{</span><span class="n">b</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"score"</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"true g"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=cd96f5cd">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<details><summary><b>Hint</b></summary>
+<p>The comment gives the expression: <code>np.polyfit(e, g, 1)[0]</code> is the slope of <code>g</code> regressed on <code>e</code>.</p>
+</details>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=f5066594">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p><strong>Checkpoint.</strong> The correlations in the three titles are almost equal; the slopes are
+not.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=48ce50c2">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <h2 id="Part-B.-Who-is-diagnosed-between-40-and-70?">Part B. Who is diagnosed between 40 and 70?<a class="anchor-link" href="#Part-B.-Who-is-diagnosed-between-40-and-70?">¶</a></h2><p><img alt="Liability thresholds at 40 and 70. Higher liability is earlier onset. People still undiagnosed at 40 are left of T40; those diagnosed by 70 have crossed T70." src="https://bvilhjal.github.io/ATIG_2026/teaching_days/2026-09-24/LTFH/figures/thresholds.png"/></p>
-<p>A correlation with <code>g</code> is not the accuracy of predicting a later diagnosis. Here you
-measure that accuracy directly, using the score at 40 (<code>est40</code>) and what happened next.</p>
+<p>A correlation with <code>g</code> is not the accuracy of predicting a later diagnosis. Here you use
+the score at 40 (<code>est40</code>) and what happened next.</p>
 </div>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=679f536a">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=319afb33">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8432,7 +8444,7 @@ measure that accuracy directly, using the score at 40 (<code>est40</code>) and w
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs celltag_skip-execution" id="cell-id=c0234c6c">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs celltag_skip-execution" id="cell-id=53864889">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8448,7 +8460,7 @@ measure that accuracy directly, using the score at 40 (<code>est40</code>) and w
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=555d98e9">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=80c207b4">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8461,32 +8473,30 @@ measure that accuracy directly, using the score at 40 (<code>est40</code>) and w
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=0f46da70">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=782d0e9a">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><strong>Checkpoint.</strong> A few hundred cases among 5,037 people, an incidence a little below the
-register's 7.2%.</p>
+<p><strong>Checkpoint.</strong> A few hundred cases among 5,037 people.</p>
 </div>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=3a3d98b6">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=db46390f">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Q5:-Compute-the-AUC-of-three-predictors-of-that-outcome,-on-the-same-people.">Q5: Compute the AUC of three predictors of that outcome, on the same people.<a class="anchor-link" href="#Q5:-Compute-the-AUC-of-three-predictors-of-that-outcome,-on-the-same-people.">¶</a></h3><p>The AUC is the chance that a random case scores above a random non-case (0.5 is a coin
-flip, 1 is perfect). Compare: the score at 40, <code>est40</code>; the true genetic liability <code>g</code>,
-the best any genetic predictor could do; and the <code>use="gwas"</code> score <code>est</code>, which saw each
-person's own diagnosis. <strong>Before running</strong>, order the three.</p>
+<h3 id="Q5:-Plot-the-scores-of-the-later-cases-and-the-non-cases,-and-compute-the-AUC.">Q5: Plot the scores of the later cases and the non-cases, and compute the AUC.<a class="anchor-link" href="#Q5:-Plot-the-scores-of-the-later-cases-and-the-non-cases,-and-compute-the-AUC.">¶</a></h3><p>Fill in the cases' scores for the histogram and <code>g</code> for the same people in the AUC.
+How much do the two histograms overlap? Why is even the true <code>g</code> below AUC 1, and why is
+the <code>use="gwas"</code> score (which saw each person's own diagnosis) near-perfect?</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs celltag_skip-execution" id="cell-id=beed392b">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs celltag_skip-execution" id="cell-id=ed9fb589">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8494,168 +8504,137 @@ person's own diagnosis. <strong>Before running</strong>, order the three.</p>
 <div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"AUC score at 40             </span><span class="si">{</span><span class="n">auc</span><span class="p">(</span><span class="n">est40</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">)</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"AUC true g                  </span><span class="si">{</span><span class="n">auc</span><span class="p">(</span><span class="o">...</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">)</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>      <span class="c1"># g for the same people</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"AUC use='gwas' score        </span><span class="si">{</span><span class="n">auc</span><span class="p">(</span><span class="o">...</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">)</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>      <span class="c1"># est for the same people</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">est40</span><span class="p">[</span><span class="o">~</span><span class="n">y</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"not diagnosed"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"diagnosed 40 to 70"</span><span class="p">)</span>   <span class="c1"># the cases' scores</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"score at 40"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"AUC score at 40        </span><span class="si">{</span><span class="n">auc</span><span class="p">(</span><span class="n">est40</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">)</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"AUC true g             </span><span class="si">{</span><span class="n">auc</span><span class="p">(</span><span class="o">...</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">)</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>      <span class="c1"># g for the same people</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"AUC use='gwas' score   </span><span class="si">{</span><span class="n">auc</span><span class="p">(</span><span class="n">est</span><span class="p">[</span><span class="n">free40</span><span class="p">],</span><span class="w"> </span><span class="n">y</span><span class="p">)</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=bf348e68">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=400ebd50">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <details><summary><b>Hint</b></summary>
-<p>Select the same people from <code>g</code> and from <code>est</code> with <code>[free40]</code>, so that all three predictors line up with <code>y</code>.</p>
+<p>The non-cases' histogram uses <code>est40[~y]</code>; the cases' uses <code>est40[y]</code>. For the AUC, select <code>g</code> for the same people with <code>[free40]</code>.</p>
 </details>
 </div>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=a4bd0aac">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=ac46838f">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><strong>Checkpoint.</strong> The <code>use="gwas"</code> score sits near 1; if not, you did not restrict it to the
-people in <code>free40</code>. The other two are clearly above 0.5 and clearly apart.</p>
+<p><strong>Checkpoint.</strong> The histograms overlap a lot; the AUCs are roughly 0.6, 0.9 and above
+0.99.</p>
 </div>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=8ac4dae8">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=7f2a91c6">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Q6:-Why-is-even-the-truth-below-AUC-1?-Why-is-the-score-at-40-so-far-below-the-truth?-What-does-the-third-AUC-say-about-using-a-use=%22gwas%22-score-for-prediction?">Q6: Why is even the truth below AUC 1? Why is the score at 40 so far below the truth? What does the third AUC say about using a <code>use="gwas"</code> score for prediction?<a class="anchor-link" href="#Q6:-Why-is-even-the-truth-below-AUC-1?-Why-is-the-score-at-40-so-far-below-the-truth?-What-does-the-third-AUC-say-about-using-a-use=%22gwas%22-score-for-prediction?">¶</a></h3><p>The cell below prints three variances that help.</p>
-<p><strong>Discuss</strong> with your partner.</p>
+<h3 id="Q6:-Turn-the-score-into-a-risk-and-plot-it-against-what-happened.">Q6: Turn the score into a risk and plot it against what happened.<a class="anchor-link" href="#Q6:-Turn-the-score-into-a-risk-and-plot-it-against-what-happened.">¶</a></h3><p>Given the relatives, a person's liability is normal with mean <code>est40</code> and standard
+deviation <code>sd</code>; the risk of diagnosis between 40 and 70 is the chance it lies between the
+thresholds, given it is below the age-40 threshold. The cell computes that risk for you.
+Fill in the mean predicted risk in each fifth of the score, then compare the bars. Does
+the risk match the observed rates? What would a wrong h² do to it?</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=51361db1">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs celltag_skip-execution" id="cell-id=717075fb">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">T40</span><span class="p">,</span> <span class="n">T70</span> <span class="o">=</span> <span class="n">norm</span><span class="o">.</span><span class="n">isf</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">interp</span><span class="p">([</span><span class="mi">40</span><span class="p">,</span> <span class="mi">70</span><span class="p">],</span> <span class="n">AGES</span><span class="p">,</span> <span class="n">CIP</span><span class="p">))</span>    <span class="c1"># LT-FH++ thresholds at ages 40 and 70</span>
+<span class="n">sd</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">var40</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">H2</span><span class="p">)</span>                           <span class="c1"># spread of full liability given the relatives</span>
+<span class="n">below40</span> <span class="o">=</span> <span class="n">norm</span><span class="o">.</span><span class="n">cdf</span><span class="p">((</span><span class="n">T40</span> <span class="o">-</span> <span class="n">est40</span><span class="p">)</span> <span class="o">/</span> <span class="n">sd</span><span class="p">)</span>                 <span class="c1"># P(undiagnosed at 40)</span>
+<span class="n">below70</span> <span class="o">=</span> <span class="n">norm</span><span class="o">.</span><span class="n">cdf</span><span class="p">((</span><span class="n">T70</span> <span class="o">-</span> <span class="n">est40</span><span class="p">)</span> <span class="o">/</span> <span class="n">sd</span><span class="p">)</span>                 <span class="c1"># P(undiagnosed at 70)</span>
+<span class="n">risk</span> <span class="o">=</span> <span class="p">(</span><span class="n">below40</span> <span class="o">-</span> <span class="n">below70</span><span class="p">)</span> <span class="o">/</span> <span class="n">below40</span>                   <span class="c1"># P(diagnosed 40-70 | undiagnosed at 40)</span>
+
+<span class="n">fifths</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array_split</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">est40</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s2">"stable"</span><span class="p">),</span> <span class="mi">5</span><span class="p">)</span>   <span class="c1"># lowest to highest score</span>
+<span class="n">observed</span> <span class="o">=</span> <span class="p">[</span><span class="n">y</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="n">fifths</span><span class="p">]</span>                   <span class="c1"># share diagnosed in each fifth</span>
+<span class="n">predicted</span> <span class="o">=</span> <span class="p">[</span><span class="o">...</span><span class="p">]</span>                                              <span class="c1"># mean risk in each fifth</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="o">-</span> <span class="mf">0.2</span><span class="p">,</span> <span class="n">observed</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"observed"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.2</span><span class="p">,</span> <span class="n">predicted</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"predicted risk"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">),</span> <span class="p">[</span><span class="s2">"lowest"</span><span class="p">,</span> <span class="s2">"2nd"</span><span class="p">,</span> <span class="s2">"middle"</span><span class="p">,</span> <span class="s2">"4th"</span><span class="p">,</span> <span class="s2">"highest"</span><span class="p">])</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"fifth of the score at 40"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"share diagnosed 40 to 70"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"mean predicted risk </span><span class="si">{</span><span class="n">risk</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">   observed </span><span class="si">{</span><span class="n">y</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=cf34ad90">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<details><summary><b>Hint</b></summary>
+<p>Copy the <code>observed</code> line and replace <code>y[idx]</code> with <code>risk[idx]</code>.</p>
+</details>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=821e5e7a">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p><strong>Checkpoint.</strong> Both sets of bars rise from the lowest to the highest fifth, and the mean
+predicted risk is within about half a percentage point of the observed rate.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=71743e95">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h2 id="Part-C.-The-score-against-a-yes/no-family-history-(homework)">Part C. The score against a yes/no family history (homework)<a class="anchor-link" href="#Part-C.-The-score-against-a-yes/no-family-history-(homework)">¶</a></h2><p>A common shortcut is the indicator "any parent or full sibling diagnosed". The cell below
+builds it twice: with follow-up to 70 (<code>fh</code>) and as known on each person's 40th birthday
+(<code>fh40</code>). Run it as is.</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=53fb5749">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
 <div class="jp-InputPrompt jp-InputArea-prompt">In [5]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"var(g)                        </span><span class="si">{</span><span class="n">g</span><span class="o">.</span><span class="n">var</span><span class="p">()</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"var(score), use='gwas'        </span><span class="si">{</span><span class="n">est</span><span class="o">.</span><span class="n">var</span><span class="p">()</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"var(score at 40)              </span><span class="si">{</span><span class="n">est40</span><span class="o">.</span><span class="n">var</span><span class="p">()</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child">
-<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>var(g)                        0.493
-var(score), use='gwas'        0.129
-var(score at 40)              0.040
-</pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=b0bb1b59">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Q7:-Turn-the-score-at-40-into-a-risk-and-check-it-against-what-happened.">Q7: Turn the score at 40 into a risk and check it against what happened.<a class="anchor-link" href="#Q7:-Turn-the-score-at-40-into-a-risk-and-check-it-against-what-happened.">¶</a></h3><p><code>est40</code> is not a probability. Given the relatives, a person's full liability is normal
-with mean <code>est40</code> and standard deviation <code>sd = sqrt(var40 + 1 − h²)</code>. Being undiagnosed
-at 40 means it is below the threshold T40; diagnosis by 70 means it is above T70. So</p>
-<p><strong>risk = [P(below T40) − P(below T70)] / P(below T40)</strong>,</p>
-<p>where P(below T) = Φ((T − est40) / sd). The first lines compute both probabilities,
-<code>below_T40</code> and <code>below_T70</code>; write the risk. The loop then compares risk with the observed rate within
-fifths of the score.</p>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs celltag_skip-execution" id="cell-id=6b047803">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">T40</span><span class="p">,</span> <span class="n">T70</span> <span class="o">=</span> <span class="n">norm</span><span class="o">.</span><span class="n">isf</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">interp</span><span class="p">([</span><span class="mi">40</span><span class="p">,</span> <span class="mi">70</span><span class="p">],</span> <span class="n">AGES</span><span class="p">,</span> <span class="n">CIP</span><span class="p">))</span>   <span class="c1"># liability thresholds at ages 40 and 70</span>
-<span class="n">sd</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">var40</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">H2</span><span class="p">)</span>                          <span class="c1"># spread of full liability given the relatives</span>
-<span class="n">below_T40</span> <span class="o">=</span> <span class="n">norm</span><span class="o">.</span><span class="n">cdf</span><span class="p">((</span><span class="n">T40</span> <span class="o">-</span> <span class="n">est40</span><span class="p">)</span> <span class="o">/</span> <span class="n">sd</span><span class="p">)</span>              <span class="c1"># P(liability &lt; T40): undiagnosed at 40</span>
-<span class="n">below_T70</span> <span class="o">=</span> <span class="n">norm</span><span class="o">.</span><span class="n">cdf</span><span class="p">((</span><span class="n">T70</span> <span class="o">-</span> <span class="n">est40</span><span class="p">)</span> <span class="o">/</span> <span class="n">sd</span><span class="p">)</span>              <span class="c1"># P(liability &lt; T70): undiagnosed at 70</span>
-<span class="n">risk</span> <span class="o">=</span> <span class="o">...</span>                                            <span class="c1"># the formula above</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"mean risk </span><span class="si">{</span><span class="n">risk</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">   observed incidence </span><span class="si">{</span><span class="n">y</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="n">fifths</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array_split</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">est40</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s2">"stable"</span><span class="p">),</span> <span class="mi">5</span><span class="p">)</span>    <span class="c1"># lowest to highest score</span>
-<span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">((</span><span class="s2">"lowest"</span><span class="p">,</span> <span class="s2">"second"</span><span class="p">,</span> <span class="s2">"middle"</span><span class="p">,</span> <span class="s2">"fourth"</span><span class="p">,</span> <span class="s2">"highest"</span><span class="p">),</span> <span class="n">fifths</span><span class="p">):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">name</span><span class="si">:</span><span class="s2">&gt;8</span><span class="si">}</span><span class="s2"> fifth: </span><span class="si">{</span><span class="n">y</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">:</span><span class="s2">3d</span><span class="si">}</span><span class="s2"> cases, observed </span><span class="si">{</span><span class="n">y</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">, "</span>
-          <span class="sa">f</span><span class="s2">"risk </span><span class="si">{</span><span class="n">risk</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=1cb1a7b4">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<details><summary><b>Hint</b></summary>
-<p>Put the two variables <code>below_T40</code> and <code>below_T70</code> into the formula.</p>
-</details>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=5a527c33">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><strong>Checkpoint.</strong> The mean risk is within about half a percentage point of the observed
-incidence, and the lowest and highest fifths clearly differ.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=d34ba95f">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Part-C.-The-score-against-a-0/1-family-history-indicator-(homework)">Part C. The score against a 0/1 family-history indicator (homework)<a class="anchor-link" href="#Part-C.-The-score-against-a-0/1-family-history-indicator-(homework)">¶</a></h2><p>A common shortcut is the yes/no indicator "any parent or full sibling diagnosed". The
-cell below finds each person's parents and full siblings and builds that indicator twice:
-with follow-up to 70 (<code>fh</code>) and as known on each person's 40th birthday (<code>fh40</code>). Run it
-as is.</p>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=0163d327">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [6]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">row</span> <span class="o">=</span> <span class="p">{</span><span class="n">p</span><span class="p">:</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">reg</span><span class="o">.</span><span class="n">ids</span><span class="p">)}</span>          <span class="c1"># id -&gt; row number</span>
@@ -8700,20 +8679,19 @@ as is.</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=3d135abc">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=0187a38f">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Q8:-How-much-does-the-score-improve-on-the-indicator?">Q8: How much does the score improve on the indicator?<a class="anchor-link" href="#Q8:-How-much-does-the-score-improve-on-the-indicator?">¶</a></h3><p>First, how much of <code>g</code> does each explain (R², the squared correlation): own status, the
-indicator <code>fh</code>, and the <code>use="gwas"</code> score? Then, as a prediction: the AUC of <code>fh40</code>
-against the score at 40 for Part B's outcome. Why is own status left out of the second
-comparison?</p>
+<h3 id="Q7:-Plot-how-much-of-g-each-measure-explains.">Q7: Plot how much of <code>g</code> each measure explains.<a class="anchor-link" href="#Q7:-Plot-how-much-of-g-each-measure-explains.">¶</a></h3><p>Fill in R², the squared correlation with <code>g</code>, for own status, the indicator and the
+score. The last line compares the indicator known at 40 with the score at 40 as
+predictors of Part B's outcome. Why is own status left out of that comparison?</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs celltag_skip-execution" id="cell-id=8a72594d">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs celltag_skip-execution" id="cell-id=c92547cb">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8721,17 +8699,21 @@ comparison?</p>
 <div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">((</span><span class="s2">"own status"</span><span class="p">,</span> <span class="n">reg</span><span class="o">.</span><span class="n">status</span><span class="p">),</span> <span class="p">(</span><span class="s2">"FH indicator 0/1"</span><span class="p">,</span> <span class="n">fh</span><span class="p">),</span> <span class="p">(</span><span class="s2">"use='gwas' score"</span><span class="p">,</span> <span class="n">est</span><span class="p">)):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"R2  </span><span class="si">{</span><span class="n">name</span><span class="si">:</span><span class="s2">18s</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="o">...</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>            <span class="c1"># squared correlation with g</span>
-<span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">((</span><span class="s2">"FH indicator at 40"</span><span class="p">,</span> <span class="n">fh40</span><span class="p">[</span><span class="n">free40</span><span class="p">]),</span> <span class="p">(</span><span class="s2">"score at 40"</span><span class="p">,</span> <span class="n">est40</span><span class="p">)):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"AUC </span><span class="si">{</span><span class="n">name</span><span class="si">:</span><span class="s2">18s</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">auc</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">)</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"own status"</span><span class="p">,</span> <span class="s2">"FH indicator"</span><span class="p">,</span> <span class="s2">"score (use='gwas')"</span><span class="p">]</span>
+<span class="n">r2</span> <span class="o">=</span> <span class="p">[</span><span class="o">...</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">(</span><span class="n">reg</span><span class="o">.</span><span class="n">status</span><span class="p">,</span> <span class="n">fh</span><span class="p">,</span> <span class="n">est</span><span class="p">)]</span>      <span class="c1"># R²: the squared correlation of each with g</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mf">3.2</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">names</span><span class="p">,</span> <span class="n">r2</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"R² with the true g"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"prediction at 40: AUC FH indicator </span><span class="si">{</span><span class="n">auc</span><span class="p">(</span><span class="n">fh40</span><span class="p">[</span><span class="n">free40</span><span class="p">],</span><span class="w"> </span><span class="n">y</span><span class="p">)</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">, AUC score </span><span class="si">{</span><span class="n">auc</span><span class="p">(</span><span class="n">est40</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">)</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=5f3fb619">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=9f6bfc19">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8744,37 +8726,35 @@ comparison?</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=fce90895">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=20ca73b8">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><strong>Checkpoint.</strong> With follow-up to 70 the score's R² beats the indicator's clearly.
-Prospectively the gap is much smaller.</p>
+<p><strong>Checkpoint.</strong> The score's bar is clearly the tallest.</p>
 </div>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=9e1584e4">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=568d4b28">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Part-D.-Where-does-h%C2%B2-come-from?-(homework)">Part D. Where does h² come from? (homework)<a class="anchor-link" href="#Part-D.-Where-does-h%C2%B2-come-from?-(homework)">¶</a></h2><p>Part A showed that h² matters. A quick cross-check: h² is about twice the <strong>tetrachoric
-correlation</strong> between parents' and children's diagnoses, the correlation of the
-underlying liabilities inferred from a 2×2 table. The cell below lists every
-parent–child pair as row numbers <code>par</code> and <code>kid</code> and defines <code>table</code>; run it as is.</p>
+<h2 id="Part-D.-Where-does-h%C2%B2-come-from?-(homework)">Part D. Where does h² come from? (homework)<a class="anchor-link" href="#Part-D.-Where-does-h%C2%B2-come-from?-(homework)">¶</a></h2><p>A quick cross-check on h²: it is about twice the <strong>tetrachoric correlation</strong> between
+parents' and children's diagnoses, the correlation of the underlying liabilities inferred
+from a 2×2 table. The cell below lists every parent–child pair; run it as is.</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=af70bf62">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=428b69c6">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [7]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [6]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">ltpred</span><span class="w"> </span><span class="kn">import</span> <span class="n">tetrachoric</span>
@@ -8794,17 +8774,17 @@ parent–child pair as row numbers <code>par</code> and <code>kid</code> and def
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=ca63f0eb">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=06b48d91">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Q9:-Estimate-h%C2%B2-from-the-parent%E2%80%93offspring-pairs.">Q9: Estimate h² from the parent–offspring pairs.<a class="anchor-link" href="#Q9:-Estimate-h%C2%B2-from-the-parent%E2%80%93offspring-pairs.">¶</a></h3>
+<h3 id="Q8:-Estimate-h%C2%B2-from-the-parent%E2%80%93offspring-pairs.">Q8: Estimate h² from the parent–offspring pairs.<a class="anchor-link" href="#Q8:-Estimate-h%C2%B2-from-the-parent%E2%80%93offspring-pairs.">¶</a></h3>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs celltag_skip-execution" id="cell-id=0ded10a4">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs celltag_skip-execution" id="cell-id=c73a07e0">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8822,7 +8802,7 @@ parent–child pair as row numbers <code>par</code> and <code>kid</code> and def
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=8b3dfe4b">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=de14a772">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8835,60 +8815,56 @@ parent–child pair as row numbers <code>par</code> and <code>kid</code> and def
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=69130a31">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=69c09eeb">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><strong>Checkpoint.</strong> An estimate within one standard error of 0.5, and a small first cell
-(pairs where both are diagnosed).</p>
+<p><strong>Checkpoint.</strong> An estimate within one standard error of 0.5.</p>
 </div>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=1af7ec16">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=77de49c6">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Q10:-Why-does-twice-the-tetrachoric-work-here,-and-what-would-break-it-in-a-real-register?">Q10: Why does twice the tetrachoric work here, and what would break it in a real register?<a class="anchor-link" href="#Q10:-Why-does-twice-the-tetrachoric-work-here,-and-what-would-break-it-in-a-real-register?">¶</a></h3><p>Think about the threshold, shared environment, and how the register was sampled.</p>
+<h3 id="Q9:-Why-does-twice-the-tetrachoric-work-here,-and-what-would-break-it-in-a-real-register?">Q9: Why does twice the tetrachoric work here, and what would break it in a real register?<a class="anchor-link" href="#Q9:-Why-does-twice-the-tetrachoric-work-here,-and-what-would-break-it-in-a-real-register?">¶</a></h3><p>Think about the threshold, shared environment, and how the register was sampled.</p>
 <p><strong>Discuss</strong> with your partner.</p>
 </div>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=53949334">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=0350031e">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Part-E.-Which-scale-is-h%C2%B2-on?-(homework)">Part E. Which scale is h² on? (homework)<a class="anchor-link" href="#Part-E.-Which-scale-is-h%C2%B2-on?-(homework)">¶</a></h2><p><img alt="A liability split into a 0/1 outcome. The right tail is the cases, 10% when K = 0.10. Everyone on one side receives the same y." src="https://bvilhjal.github.io/ATIG_2026/teaching_days/2026-09-24/LTFH/figures/observed_scale.png"/></p>
+<h2 id="Part-E.-Which-scale-is-h%C2%B2-on?-(homework)">Part E. Which scale is h² on? (homework)<a class="anchor-link" href="#Part-E.-Which-scale-is-h%C2%B2-on?-(homework)">¶</a></h2><p><img alt="A liability split into a 0/1 outcome. The right tail is the cases, 10% when K = 0.10." src="https://bvilhjal.github.io/ATIG_2026/teaching_days/2026-09-24/LTFH/figures/observed_scale.png"/></p>
 <p>GWAS methods such as GREML and LD-score regression report h² on the observed 0/1 scale,
-and that number depends on the sample's case proportion P. With prevalence K and
-z = φ(Φ⁻¹(1 − K)) (<a href="https://doi.org/10.1016/j.ajhg.2011.02.002">Lee et al. 2011</a>):</p>
-<p><strong>h²_liab = h²_obs · K²(1 − K)² / (z² · P(1 − P))</strong>,</p>
-<p>with P = K in a population sample. ltpred's <code>liability_to_observed_h2</code> and
-<code>observed_to_liability_h2</code> apply this formula and its inverse.</p>
+and that number depends on the sample's case proportion P
+(<a href="https://doi.org/10.1016/j.ajhg.2011.02.002">Lee et al. 2011</a>). ltpred's
+<code>liability_to_observed_h2(h2, K, P)</code> converts a liability-scale h² to the observed scale.</p>
 </div>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=444729dc">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=aa36cfae">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Q11:-What-observed-scale-h%C2%B2-would-each-design-report?">Q11: What observed-scale h² would each design report?<a class="anchor-link" href="#Q11:-What-observed-scale-h%C2%B2-would-each-design-report?">¶</a></h3><p>The truth is h² = 0.5 with K = 0.10. Compute the observed-scale value for a population
-sample (<code>P=None</code>), a 1:1 case/control study (P = 0.5) and a 1:4 study (P = 0.2), and
-convert each back.</p>
+<h3 id="Q10:-Plot-the-observed-scale-h%C2%B2-that-studies-with-different-case-fractions-would-report.">Q10: Plot the observed-scale h² that studies with different case fractions would report.<a class="anchor-link" href="#Q10:-Plot-the-observed-scale-h%C2%B2-that-studies-with-different-case-fractions-would-report.">¶</a></h3><p>Fill in the list. The truth is h² = 0.5 with K = 0.10. What would a population GWAS
+report, and what would happen if you passed that number to the scorer unconverted?</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs celltag_skip-execution" id="cell-id=d8923b4d">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs celltag_skip-execution" id="cell-id=6f9d95d4">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8896,57 +8872,66 @@ convert each back.</p>
 <div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">ltpred</span><span class="w"> </span><span class="kn">import</span> <span class="n">liability_to_observed_h2</span><span class="p">,</span> <span class="n">observed_to_liability_h2</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">ltpred</span><span class="w"> </span><span class="kn">import</span> <span class="n">liability_to_observed_h2</span>
 
-<span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">P</span> <span class="ow">in</span> <span class="p">((</span><span class="s2">"population sample"</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span> <span class="p">(</span><span class="s2">"1:1 case/control"</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span> <span class="p">(</span><span class="s2">"1:4 case/control"</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">)):</span>
-    <span class="n">obs</span> <span class="o">=</span> <span class="o">...</span>        <span class="c1"># liability_to_observed_h2(H2, K, P)</span>
-    <span class="n">back</span> <span class="o">=</span> <span class="o">...</span>       <span class="c1"># observed_to_liability_h2(obs, K, P)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">name</span><span class="si">:</span><span class="s2">18s</span><span class="si">}</span><span class="s2"> h2_obs = </span><span class="si">{</span><span class="nb">float</span><span class="p">(</span><span class="n">obs</span><span class="p">)</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">   converted back = </span><span class="si">{</span><span class="nb">float</span><span class="p">(</span><span class="n">back</span><span class="p">)</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="n">Ps</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.02</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>                <span class="c1"># case fraction in the sample</span>
+<span class="n">h2_obs</span> <span class="o">=</span> <span class="p">[</span><span class="o">...</span><span class="p">]</span>                                 <span class="c1"># observed-scale h² for each P: liability_to_observed_h2(H2, K, P)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">Ps</span><span class="p">,</span> <span class="n">h2_obs</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">H2</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">"--"</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"grey"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"liability scale: 0.5"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">K</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">":"</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"C1"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"population sample: P = K"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"case fraction in the sample, P"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">"observed-scale h²"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"population sample </span><span class="si">{</span><span class="nb">float</span><span class="p">(</span><span class="n">liability_to_observed_h2</span><span class="p">(</span><span class="n">H2</span><span class="p">,</span><span class="w"> </span><span class="n">K</span><span class="p">,</span><span class="w"> </span><span class="kc">None</span><span class="p">))</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">, "</span>
+      <span class="sa">f</span><span class="s2">"1:1 study </span><span class="si">{</span><span class="nb">float</span><span class="p">(</span><span class="n">liability_to_observed_h2</span><span class="p">(</span><span class="n">H2</span><span class="p">,</span><span class="w"> </span><span class="n">K</span><span class="p">,</span><span class="w"> </span><span class="mf">0.5</span><span class="p">))</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=407c9d03">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=5ba7411d">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <details><summary><b>Hint</b></summary>
-<p>The comments give each call; <code>P</code> is set by the loop.</p>
+<p><code>[float(liability_to_observed_h2(H2, K, P)) for P in Ps]</code>: one value per case fraction.</p>
 </details>
 </div>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=cb0bfb4d">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=2ded99e0">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><strong>Checkpoint.</strong> All three convert back to 0.500, and the observed values differ by more
-than a factor of two.</p>
+<p><strong>Checkpoint.</strong> A curve well below 0.5 at P = K that rises towards the middle; 0.171 for
+a population sample.</p>
 </div>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=fc69b25d">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=f99de248">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Q12:-Analysis-note.">Q12: Analysis note.<a class="anchor-link" href="#Q12:-Analysis-note.">¶</a></h3><p>In at most 100 words: what does the family-history score estimate, what did it show in
+<h3 id="Q11:-Analysis-note.">Q11: Analysis note.<a class="anchor-link" href="#Q11:-Analysis-note.">¶</a></h3><p>In at most 100 words: what does the family-history score estimate, what did it show in
 this exercise, and what can it not establish? Cite one number from each part you did.</p>
 <p><strong>Discuss</strong> with your partner.</p>
 </div>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=c4cb49df">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=8e67b700">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>

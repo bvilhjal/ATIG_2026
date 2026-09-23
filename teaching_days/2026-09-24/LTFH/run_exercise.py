@@ -1,10 +1,13 @@
 """ATiG 2026, 24 September: LT-FH exercise with ltpred -- every answer as one script.
 
-Prints the answers to LTFH_exercise.ipynb in order (the figures are only in the
-notebook). Needs Python >= 3.9 with NumPy, SciPy and ltpred; runs in under a minute.
+Prints the answers to LTFH_exercise.ipynb in order; the plots are drawn only in the
+notebook. Needs Python >= 3.9 with NumPy, SciPy, matplotlib and ltpred; under a minute.
 """
+import matplotlib
+matplotlib.use("Agg")                          # no windows: plots are for the notebook
 import numpy as np
 from scipy.stats import norm, rankdata
+import matplotlib.pyplot as plt
 
 import ltpred
 from ltpred import simulate_pedigree, simulate_register_liabilities, estimate_liabilities
@@ -76,42 +79,66 @@ def score_at_40(h2):
 est40, var40 = score_at_40(H2)
 print(f"{free40.sum()} people undiagnosed at 40; corr(score at 40, g) = {corr(est40, g[free40]):.3f}")
 
-print("\n== Q2")
-by_h2 = {}                                   # kept for the figure below
-print("assumed h2   corr  var(score)  mean var    sum  slope")
-for h2 in (0.2, 0.5, 0.8):
-    e, v = score(h2)
-    c = corr(e, g)
-    b = np.polyfit(e, g, 1)[0]
-    by_h2[h2] = e
-    print(f"{h2:10.1f} {c:6.3f} {e.var():10.3f} {v.mean():9.3f} {e.var() + v.mean():6.3f} {b:6.2f}")
+print("\n== Q1")
+fig, ax = plt.subplots(figsize=(5, 4))
+ax.scatter(est, g, s=3, alpha=0.4)             # x: the score est, y: the truth g
+ax.set_xlabel("score (posterior mean)")
+ax.set_ylabel("true genetic liability g")
+ax.set_title(f"corr = {corr(est, g):.2f}")
+plt.show()
+
+print("\n== Q3")
+fig, axes = plt.subplots(1, 3, figsize=(12, 3.8), sharex=True, sharey=True)
+for ax, h2 in zip(axes, (0.2, 0.5, 0.8)):
+    e, v = score(h2)                           # rescore everyone under this h2
+    b = np.polyfit(e, g, 1)[0]                 # slope of g regressed on e
+    print(f"h2 = {h2}: corr {corr(e, g):.3f}, slope {b:.2f}")
+    ax.scatter(e, g, s=2, alpha=0.3)
+    ax.axline((0, 0), slope=1, ls="--", color="grey")   # slope 1: calibrated
+    ax.axline((0, 0), slope=b, color="C1")              # the fitted slope
+    ax.set_title(f"assumed h² = {h2}\ncorr {corr(e, g):.3f}, slope {b:.2f}")
+    ax.set_xlabel("score")
+axes[0].set_ylabel("true g")
+plt.show()
 
 print("\n== Q4")
 y = reg.status[free40]       # everyone in est40 was undiagnosed at 40, so "by 70" means "40 to 70"
 print(f"{y.sum()} incident cases among {len(y)} people ({y.mean():.1%})")
 
 print("\n== Q5")
-print(f"AUC score at 40             {auc(est40, y):.3f}")
-print(f"AUC true g                  {auc(g[free40], y):.3f}")
-print(f"AUC use='gwas' score        {auc(est[free40], y):.3f}")
+fig, ax = plt.subplots(figsize=(6, 3.5))
+ax.hist(est40[~y], bins=40, density=True, alpha=0.5, label="not diagnosed")
+ax.hist(est40[y], bins=40, density=True, alpha=0.5, label="diagnosed 40 to 70")   # the cases' scores
+ax.set_xlabel("score at 40")
+ax.legend()
+plt.show()
+
+print(f"AUC score at 40        {auc(est40, y):.3f}")
+print(f"AUC true g             {auc(g[free40], y):.3f}")
+print(f"AUC use='gwas' score   {auc(est[free40], y):.3f}")
 
 print("\n== Q6")
-print(f"var(g)                        {g.var():.3f}")
-print(f"var(score), use='gwas'        {est.var():.3f}")
-print(f"var(score at 40)              {est40.var():.3f}")
+T40, T70 = norm.isf(np.interp([40, 70], AGES, CIP))    # LT-FH++ thresholds at ages 40 and 70
+sd = np.sqrt(var40 + 1 - H2)                           # spread of full liability given the relatives
+below40 = norm.cdf((T40 - est40) / sd)                 # P(undiagnosed at 40)
+below70 = norm.cdf((T70 - est40) / sd)                 # P(undiagnosed at 70)
+risk = (below40 - below70) / below40                   # P(diagnosed 40-70 | undiagnosed at 40)
 
-print("\n== Q7")
-T40, T70 = norm.isf(np.interp([40, 70], AGES, CIP))   # liability thresholds at ages 40 and 70
-sd = np.sqrt(var40 + 1 - H2)                          # spread of full liability given the relatives
-below_T40 = norm.cdf((T40 - est40) / sd)              # P(liability < T40): undiagnosed at 40
-below_T70 = norm.cdf((T70 - est40) / sd)              # P(liability < T70): undiagnosed at 70
-risk = (below_T40 - below_T70) / below_T40
+fifths = np.array_split(np.argsort(est40, kind="stable"), 5)   # lowest to highest score
+observed = [y[idx].mean() for idx in fifths]                   # share diagnosed in each fifth
+predicted = [risk[idx].mean() for idx in fifths]               # mean risk in each fifth
 
-print(f"mean risk {risk.mean():.3f}   observed incidence {y.mean():.3f}")
-fifths = np.array_split(np.argsort(est40, kind="stable"), 5)    # lowest to highest score
-for name, idx in zip(("lowest", "second", "middle", "fourth", "highest"), fifths):
-    print(f"{name:>8} fifth: {y[idx].sum():3d} cases, observed {y[idx].mean():.3f}, "
-          f"risk {risk[idx].mean():.3f}")
+fig, ax = plt.subplots(figsize=(6, 3.5))
+ax.bar(np.arange(5) - 0.2, observed, width=0.4, label="observed")
+ax.bar(np.arange(5) + 0.2, predicted, width=0.4, label="predicted risk")
+ax.set_xticks(range(5), ["lowest", "2nd", "middle", "4th", "highest"])
+ax.set_xlabel("fifth of the score at 40")
+ax.set_ylabel("share diagnosed 40 to 70")
+ax.legend()
+plt.show()
+print(f"mean predicted risk {risk.mean():.3f}   observed {y.mean():.3f}")
+for name, o, p in zip(("lowest", "2nd", "middle", "4th", "highest"), observed, predicted):
+    print(f"{name:>8} fifth: observed {o:.3f}, predicted {p:.3f}")
 
 row = {p: i for i, p in enumerate(reg.ids)}          # id -> row number
 children = {}                                        # (father, mother) -> rows of their children
@@ -137,11 +164,16 @@ fh = np.array([reg.status[r].any() for r in fdr])
 fh40 = np.array([(reg.status[r] & (diag_time[r] <= birth40[i])).any() for i, r in enumerate(fdr)])
 print(f"family-history positive: {fh.sum()} by age 70, {fh40.sum()} at their 40th birthday")
 
-print("\n== Q8")
-for name, x in (("own status", reg.status), ("FH indicator 0/1", fh), ("use='gwas' score", est)):
-    print(f"R2  {name:18s} {corr(x, g) ** 2:.3f}")
-for name, x in (("FH indicator at 40", fh40[free40]), ("score at 40", est40)):
-    print(f"AUC {name:18s} {auc(x, y):.3f}")
+print("\n== Q7")
+names = ["own status", "FH indicator", "score (use='gwas')"]
+r2 = [corr(x, g) ** 2 for x in (reg.status, fh, est)]      # R²: the squared correlation of each with g
+
+fig, ax = plt.subplots(figsize=(6, 3.2))
+ax.bar(names, r2)
+ax.set_ylabel("R² with the true g")
+plt.show()
+print(f"prediction at 40: AUC FH indicator {auc(fh40[free40], y):.3f}, AUC score {auc(est40, y):.3f}")
+print("R2:", ", ".join(f"{n} {v:.3f}" for n, v in zip(names, r2)))
 
 from ltpred import tetrachoric
 
@@ -155,19 +187,28 @@ def table(a, b):
     """2x2 table of two True/False arrays: both, first only, second only, neither."""
     return np.array([(a & b).sum(), (a & ~b).sum(), (~a & b).sum(), (~a & ~b).sum()])
 
-print("\n== Q9")
+print("\n== Q8")
 p_status, k_status = reg.status[par], reg.status[kid]
 t = tetrachoric(p_status, k_status)
 print(f"{len(par)} pairs, table {table(p_status, k_status)}")
 print(f"h2 = 2 rho = {2 * t.rho:.2f} +/- {2 * t.se:.2f}   (truth {H2})")
 
-print("\n== Q11")
-from ltpred import liability_to_observed_h2, observed_to_liability_h2
+print("\n== Q10")
+from ltpred import liability_to_observed_h2
 
-for name, P in (("population sample", None), ("1:1 case/control", 0.5), ("1:4 case/control", 0.2)):
-    obs = liability_to_observed_h2(H2, K, P)
-    back = observed_to_liability_h2(obs, K, P)
-    print(f"{name:18s} h2_obs = {float(obs):.3f}   converted back = {float(back):.3f}")
+Ps = np.linspace(0.02, 0.6, 50)                # case fraction in the sample
+h2_obs = [float(liability_to_observed_h2(H2, K, P)) for P in Ps]   # observed-scale h² for each P
+
+fig, ax = plt.subplots(figsize=(6, 3.5))
+ax.plot(Ps, h2_obs)
+ax.axhline(H2, ls="--", color="grey", label="liability scale: 0.5")
+ax.axvline(K, ls=":", color="C1", label="population sample: P = K")
+ax.set_xlabel("case fraction in the sample, P")
+ax.set_ylabel("observed-scale h²")
+ax.legend()
+plt.show()
+print(f"population sample {float(liability_to_observed_h2(H2, K, None)):.3f}, "
+      f"1:1 study {float(liability_to_observed_h2(H2, K, 0.5)):.3f}")
 
 import platform, scipy
 print(f"Python {platform.python_version()}, NumPy {np.__version__}, "

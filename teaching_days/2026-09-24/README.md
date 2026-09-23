@@ -12,18 +12,18 @@ Choose *File → Save a copy in Drive*, then run the cells in order.
 - [`run_exercise.py`](LTFH/run_exercise.py) prints every answer without Jupyter.
 
 Written for master's students with mixed biology and bioinformatics backgrounds,
-working in pairs. A five-sentence primer and a glossary cover the liability model;
-a four-line Python cheat sheet and a hint under every coding task cover the code,
-where each student cell asks for one or two expressions marked `...`. Questions
-marked **Discuss** are for the pair. The 12 questions in five parts use one
-simulated register of 5,075 people whose genetic liability is known (the model of
-the [ltpred tutorial](https://bvilhjal.github.io/ltpred/tutorial/), five times
-larger). In class (Part 0 and Parts A and B, about an hour): what a wrong
-heritability does to the score, and how well the score predicts who is diagnosed
-later, as AUC and as calibrated risk by fifth of the score. Homework (Parts C to E,
-one or two questions each): the score against a yes/no family-history indicator;
-heritability from parent–offspring pairs by tetrachoric correlation; and observed-
-versus liability-scale heritability (Lee et al. 2011). In Colab the first cell installs ltpred 0.7.1; to run it on
+working in pairs. A five-sentence primer and a glossary cover the liability model, and a
+short Python cheat sheet and a hint under every coding task cover the code. The 11
+questions use one simulated register of 5,075 people whose genetic liability is known;
+students make six plots, each from a ready template with one `...` to fill: the score
+against the truth, calibration under three assumed heritabilities, score histograms for
+later cases and non-cases, predicted against observed risk by fifth of the score, R² of
+own status, a yes/no family history and the score, and observed-scale heritability
+against the case fraction. In class (Part 0 and Parts A and B, about an hour): what a
+wrong heritability does, and how well the score predicts later diagnosis. Homework
+(Parts C to E): the family-history baseline, heritability from parent–offspring pairs by
+tetrachoric correlation, and observed- versus liability-scale heritability (Lee et al.
+2011). In Colab the first cell installs ltpred 0.7.1; to run it on
 your own computer instead, follow the
 [setup page](https://bvilhjal.github.io/ATIG_2026/setup.html). No data files and no R;
 the notebook runs in under a minute. The handouts were executed on 23 September with ltpred 0.7.1.
