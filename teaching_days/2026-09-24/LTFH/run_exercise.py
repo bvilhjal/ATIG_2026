@@ -1,10 +1,6 @@
-"""ATiG 2026, 24 September: LT-FH exercise with ltpred -- every answer as one script.
-
-Prints the answers to LTFH_exercise.ipynb in order; the plots are drawn only in the
-notebook. Needs Python >= 3.9 with NumPy, SciPy, matplotlib and ltpred; under a minute.
-"""
+"""ATiG 2026, 24 September: LT-FH exercise, all answers as one script (plots are drawn only in the notebook)."""
 import matplotlib
-matplotlib.use("Agg")                          # no windows: plots are for the notebook
+matplotlib.use("Agg")
 import numpy as np
 from scipy.stats import norm, rankdata
 import matplotlib.pyplot as plt
@@ -183,7 +179,7 @@ ax.set_ylabel("true genetic liability g")
 ax.set_title(f"corr = {corr(est, g):.2f}")
 plt.show()
 
-print("\n== Q8")
+print("\n== Q7")
 fig, axes = plt.subplots(1, 3, figsize=(12, 3.8), sharex=True, sharey=True)
 for ax, h2 in zip(axes, (0.2, 0.5, 0.8)):
     e, v = score(h2)                           # rescore everyone under this h2
@@ -197,11 +193,10 @@ for ax, h2 in zip(axes, (0.2, 0.5, 0.8)):
 axes[0].set_ylabel("true g")
 plt.show()
 
-print("\n== Q9")
-y = reg.status[free40]       # everyone in est40 was undiagnosed at 40, so "by 70" means "40 to 70"
-print(f"{y.sum()} incident cases among {len(y)} people ({y.mean():.1%})")
+y = reg.status[free40]      # diagnosed between 40 and 70, one entry per person in est40
+print(f"{y.sum()} of {len(y)} people undiagnosed at 40 were diagnosed by 70")
 
-print("\n== Q10")
+print("\n== Q8")
 fig, ax = plt.subplots(figsize=(6, 3.5))
 ax.hist(est40[~y], bins=40, density=True, alpha=0.5, label="not diagnosed")
 ax.hist(est40[y], bins=40, density=True, alpha=0.5, label="diagnosed 40 to 70")   # the cases' scores
@@ -213,7 +208,7 @@ print(f"AUC score at 40        {auc(est40, y):.3f}")
 print(f"AUC true g             {auc(g[free40], y):.3f}")
 print(f"AUC use='gwas' score   {auc(est[free40], y):.3f}")
 
-print("\n== Q11")
+print("\n== Q9")
 cip40 = np.where(male, np.interp(40, AGES, CIP_M), np.interp(40, AGES, CIP_F))[free40]
 cip70 = np.where(male, np.interp(70, AGES, CIP_M), np.interp(70, AGES, CIP_F))[free40]
 T40, T70 = norm.isf(cip40), norm.isf(cip70)            # each person's LT-FH++ thresholds at 40 and 70
@@ -262,7 +257,7 @@ fh = np.array([reg.status[r].any() for r in fdr])
 fh40 = np.array([(reg.status[r] & (diag_time[r] <= birth40[i])).any() for i, r in enumerate(fdr)])
 print(f"family-history positive: {fh.sum()} by age 70, {fh40.sum()} at their 40th birthday")
 
-print("\n== Q12")
+print("\n== Q10")
 names = ["own status", "FH indicator", "score (use='gwas')"]
 r2 = [corr(x, g) ** 2 for x in (reg.status, fh, est)]      # R²: the squared correlation of each with g
 
@@ -285,13 +280,13 @@ def table(a, b):
     """2x2 table of two True/False arrays: both, first only, second only, neither."""
     return np.array([(a & b).sum(), (a & ~b).sum(), (~a & b).sum(), (~a & ~b).sum()])
 
-print("\n== Q13")
+print("\n== Q11")
 p_status, k_status = reg.status[par], reg.status[kid]
 t = tetrachoric(p_status, k_status)
 print(f"{len(par)} pairs, table {table(p_status, k_status)}")
 print(f"h2 = 2 rho = {2 * t.rho:.2f} +/- {2 * t.se:.2f}   (truth {H2})")
 
-print("\n== Q15")
+print("\n== Q13")
 from ltpred import liability_to_observed_h2
 
 Ps = np.linspace(0.02, 0.6, 50)                # case fraction in the sample

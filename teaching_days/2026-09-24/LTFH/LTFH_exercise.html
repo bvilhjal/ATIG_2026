@@ -7796,18 +7796,18 @@ a.anchor-link {
 <!-- End of mermaid configuration --></head>
 <body class="jp-Notebook" data-jp-theme-light="true" data-jp-theme-name="JupyterLab Light">
 <main>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=6ea186eb">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=cfd5c5cb">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h1 id="ATiG-2026:-LT-FH-exercise-using-ltpred">ATiG 2026: LT-FH exercise using ltpred<a class="anchor-link" href="#ATiG-2026:-LT-FH-exercise-using-ltpred">¶</a></h1>
+<h1 id="ATiG-2026:-LT-FH-exercise">ATiG 2026: LT-FH exercise<a class="anchor-link" href="#ATiG-2026:-LT-FH-exercise">¶</a></h1>
 </div>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=77e29805">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=2baed770">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7818,204 +7818,43 @@ a.anchor-link {
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=7f130224">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=feab702f">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="What-you-will-learn">What you will learn<a class="anchor-link" href="#What-you-will-learn">¶</a></h2><p>You score a simulated register with <a href="https://github.com/bvilhjal/ltpred">ltpred</a>'s
-family-history method, LT-FH++, and compare the scores with the true genetic liability,
-which a simulation lets you see. You make eleven plots along the way, starting with
-five that describe the data before any model is fitted.</p>
-<ul>
-<li><strong>In class (about 65 minutes):</strong> Part 0 (25 min) describes the register and scores it; <strong>A</strong> (15 min):
-what a wrong heritability h² does; <strong>B</strong> (25 min): how well the score predicts who is
-diagnosed later.</li>
-<li><strong>Homework:</strong> <strong>C</strong> the score against a yes/no family history; <strong>D</strong> heritability from
-parents and children; <strong>E</strong> the two scales on which h² is reported.</li>
-</ul>
-<p>Work in pairs, ideally one person with a biology and one with a bioinformatics
-background. Questions marked <strong>Discuss</strong> are for talking through together.</p>
-<p><strong>Background.</strong> LT-FH (<a href="https://doi.org/10.1038/s41588-020-0613-6">Hujoel et al. 2020</a>)
-turns relatives' diagnoses into an estimate of a person's genetic liability; LT-FH++
-(<a href="https://doi.org/10.1016/j.ajhg.2022.01.009">Pedersen et al. 2022</a>) adds age of onset
-through age-dependent thresholds. ltpred computes it with the Pearson–Aitken method of
-PA-FGRS (<a href="https://doi.org/10.1016/j.ajhg.2024.09.009">Krebs et al. 2024</a>).</p>
+<p>In this exercise you simulate a disease register in which the true genetic liability of
+every person is known, describe the data, score everyone with LT-FH++ using the Python
+package <a href="https://github.com/bvilhjal/ltpred">ltpred</a>, and check the scores against the
+truth.</p>
+<p>Open the notebook in Colab, choose <em>File → Save a copy in Drive</em>, and run the cells in
+order. Where a cell contains <code>...</code>, replace it with the expression described in the
+comment next to it; a hint is given under each cell. Work in pairs. Parts 0, A and B are
+for the class (about an hour); parts C to E are homework.</p>
+<p>Background: under the liability-threshold model a person is diagnosed when their
+liability, a genetic part <code>g</code> plus an environmental part, crosses a threshold. In
+LT-FH++ (<a href="https://doi.org/10.1016/j.ajhg.2022.01.009">Pedersen et al. 2022</a>) the
+threshold depends on age and sex, and the score is the expected value of <code>g</code> given the
+diagnoses and ages of a person and their relatives. See the slides from 22 September.</p>
+<p>Python you will need: <code>x[mask]</code> keeps the entries of <code>x</code> where <code>mask</code> is True; <code>a &amp; b</code> and
+<code>~a</code> combine and negate True/False arrays; <code>.mean()</code> of a True/False array is the share of
+True values; <code>[f(x) for x in xs]</code> applies <code>f</code> to each element of a list.</p>
 </div>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=ef9799e6">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=70fad827">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="The-idea-in-five-sentences">The idea in five sentences<a class="anchor-link" href="#The-idea-in-five-sentences">¶</a></h2><ol>
-<li>Everyone has a <strong>liability</strong> to the disease: an unobserved quantity that adds up a
-genetic part and an environmental part and follows a bell curve in the population.</li>
-<li>People whose liability passes a <strong>threshold</strong> get the disease. In LT-FH++ the threshold
-falls with age and can differ by sex, so the higher your liability, the earlier you are
-diagnosed.</li>
-<li><strong>Heritability h²</strong> is the share of liability variance that is genetic. Relatives share
-genes, so their diagnoses carry information about your genetic liability.</li>
-<li><strong>LT-FH++</strong> turns the relatives' diagnoses and ages into a best estimate of your genetic
-liability (the <em>score</em>), with a measure of its uncertainty.</li>
-<li>Real data never reveal the true genetic liability. A simulation does, so here you can
-check how good the score is.</li>
-</ol>
-<table>
-<thead>
-<tr>
-<th>Term</th>
-<th>Meaning here</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>liability</td>
-<td>the unobserved disease predisposition; genetic part <code>g</code> plus the rest</td>
-</tr>
-<tr>
-<td>h² (liability scale)</td>
-<td>share of liability variance due to additive genes; 0.5 here</td>
-</tr>
-<tr>
-<td>K, prevalence</td>
-<td>fraction who get the disease in a lifetime: 12% of men, 8% of women, 10% overall</td>
-</tr>
-<tr>
-<td>cumulative incidence (CIP)</td>
-<td>fraction diagnosed by a given age; rises from 0 to K</td>
-</tr>
-<tr>
-<td>Kaplan–Meier</td>
-<td>the standard estimate of cumulative incidence from follow-up data</td>
-</tr>
-<tr>
-<td>score, posterior mean</td>
-<td>best estimate of <code>g</code> given the family's records</td>
-</tr>
-<tr>
-<td>AUC</td>
-<td>chance that a random case scores higher than a random non-case (0.5 = coin flip)</td>
-</tr>
-<tr>
-<td>calibration slope</td>
-<td>slope of the truth regressed on the score; 1 means the score's scale is right</td>
-</tr>
-<tr>
-<td>tetrachoric correlation</td>
-<td>correlation of two liabilities, inferred from two yes/no variables</td>
-</tr>
-<tr>
-<td>observed scale</td>
-<td>h² measured on the 0/1 diagnosis itself instead of on the liability</td>
-</tr>
-</tbody>
-</table>
+<h2 id="Setup">Setup<a class="anchor-link" href="#Setup">¶</a></h2>
 </div>
 </div>
 </div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=4c38e3fa">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="How-to-use-this-notebook">How to use this notebook<a class="anchor-link" href="#How-to-use-this-notebook">¶</a></h2><ol>
-<li>Click <strong>Open in Colab</strong> above, then <strong>File → Save a copy in Drive</strong> and work in your copy.</li>
-<li>Run the cells in order with <strong>Shift+Enter</strong>. If Colab restarts, start again from the top.</li>
-<li>Where a cell has <code>...</code>, replace it with one expression; the comment says what. Every
-plot is ready to run once its <code>...</code> is filled. <strong>Checkpoints</strong> say what you should see.</li>
-</ol>
-<table>
-<thead>
-<tr>
-<th>Name</th>
-<th>What it is</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>reg</code></td>
-<td>the simulated register (one row per person)</td>
-</tr>
-<tr>
-<td><code>male</code>, <code>sex</code></td>
-<td>each person's sex (True/False, and "M"/"F")</td>
-</tr>
-<tr>
-<td><code>g</code></td>
-<td>each person's true genetic liability</td>
-</tr>
-<tr>
-<td><code>est</code></td>
-<td>everyone's score, using all records</td>
-</tr>
-<tr>
-<td><code>free40</code></td>
-<td>True for people still undiagnosed at 40</td>
-</tr>
-<tr>
-<td><code>est40</code>, <code>var40</code></td>
-<td>the score as known at 40, and its uncertainty, for those people</td>
-</tr>
-<tr>
-<td><code>score(h2)</code></td>
-<td>rescores everyone under an assumed h²</td>
-</tr>
-</tbody>
-</table>
-<h3 id="The-Python-you-need">The Python you need<a class="anchor-link" href="#The-Python-you-need">¶</a></h3><table>
-<thead>
-<tr>
-<th>Code</th>
-<th>What it does</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>x[mask]</code></td>
-<td>keeps the entries of <code>x</code> where the True/False array <code>mask</code> is True</td>
-</tr>
-<tr>
-<td><code>a &amp; b</code>, <code>~a</code></td>
-<td>True where both are True; True where <code>a</code> is False</td>
-</tr>
-<tr>
-<td><code>x.mean()</code>, <code>x.sum()</code></td>
-<td>average and total; on True/False arrays, the share and count of True</td>
-</tr>
-<tr>
-<td><code>[f(x) for x in xs]</code></td>
-<td>a list with <code>f</code> applied to each element of <code>xs</code></td>
-</tr>
-<tr>
-<td><code>ax.step(x, y)</code>, <code>ax.scatter(x, y)</code>, <code>ax.hist(x)</code>, <code>ax.bar(names, values)</code>, <code>ax.plot(x, y)</code></td>
-<td>the plots you will make</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=13558319">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Setup">Setup<a class="anchor-link" href="#Setup">¶</a></h2><p>The first cell installs ltpred; the second loads it, loads matplotlib for plotting and
-defines two small helpers, <code>corr</code> and <code>auc</code>. (On your own computer instead of Colab? See
-the <a href="https://bvilhjal.github.io/ATIG_2026/setup.html">setup page</a>.)</p>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs celltag_skip-execution" id="cell-id=0226a02d">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs celltag_skip-execution" id="cell-id=b2a6edb0">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8029,7 +7868,7 @@ the <a href="https://bvilhjal.github.io/ATIG_2026/setup.html">setup page</a>.)</
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=b020f406">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=73429a80">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8080,57 +7919,23 @@ the <a href="https://bvilhjal.github.io/ATIG_2026/setup.html">setup page</a>.)</
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=d45a319b">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=da76c261">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Part-0.-A-register-where-the-truth-is-known">Part 0. A register where the truth is known<a class="anchor-link" href="#Part-0.-A-register-where-the-truth-is-known">¶</a></h2><p>The cell below simulates three generations of families (5,075 people). Each person gets
-a liability: a genetic part <code>g</code> with variance h² = 0.5 plus a non-genetic part. A person
-is diagnosed at the age their liability crosses an age- and sex-dependent threshold (the
-LT-FH++ model): the disease is more common, and starts earlier, in men. Everyone is
-followed to age 70. Fathers are men and mothers women; people who never became parents
-get a random sex. The cell simulates the liabilities once and reads each person's
-records off their own sex's incidence curve; run it as is.</p>
-<table>
-<thead>
-<tr>
-<th>Field</th>
-<th>Meaning</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>reg.ids</code>, <code>reg.father</code>, <code>reg.mother</code></td>
-<td>the pedigree</td>
-</tr>
-<tr>
-<td><code>reg.status</code></td>
-<td>diagnosed by age 70 (True/False)</td>
-</tr>
-<tr>
-<td><code>male</code></td>
-<td>True for men</td>
-</tr>
-<tr>
-<td><code>reg.age</code></td>
-<td>age at diagnosis, or 70 for the undiagnosed</td>
-</tr>
-<tr>
-<td><code>reg.onset</code>, <code>reg.birth_time</code></td>
-<td>age at onset (<code>inf</code> if never) and calendar time of birth</td>
-</tr>
-<tr>
-<td><code>reg.genetic</code></td>
-<td>the true genetic liability, stored as <code>g</code></td>
-</tr>
-</tbody>
-</table>
+<h2 id="Part-0:-The-data">Part 0: The data<a class="anchor-link" href="#Part-0:-The-data">¶</a></h2><p>The next cell simulates three generations of families. The disease affects 12% of men
+and 8% of women by old age, h² = 0.5, and everyone is followed to age 70. Fathers are men
+and mothers women; the others are given a random sex. <code>reg</code> holds the pedigree
+(<code>reg.ids</code>, <code>reg.father</code>, <code>reg.mother</code>), whether each person was diagnosed by 70
+(<code>reg.status</code>), the age at diagnosis (<code>reg.onset</code>), the age at the end of follow-up
+(<code>reg.age</code>), the birth year (<code>reg.birth_time</code>) and the true genetic liability, stored as
+<code>g</code>.</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=620198eb">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=f53bd2c8">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8186,41 +7991,17 @@ diagnosed: men 9.0%, women 5.5%
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=f7c9376c">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=3cfbb1a9">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><strong>Checkpoint.</strong> 5,075 people (2,482 men), 366 diagnosed: 9.0% of men and 5.5% of women.</p>
+<h3 id="Q1:-When-were-people-born,-and-how-large-are-the-families?">Q1: When were people born, and how large are the families?<a class="anchor-link" href="#Q1:-When-were-people-born,-and-how-large-are-the-families?">¶</a></h3>
 </div>
 </div>
 </div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=bc036cfa">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Describe-the-register">Describe the register<a class="anchor-link" href="#Describe-the-register">¶</a></h3><p>Start as you would with real data: what does the register hold, and who gets the
-disease? The next five questions are plots of the data themselves.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=abd5f925">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Q1:-Plot-when-people-were-born-and-how-large-the-families-are.">Q1: Plot when people were born and how large the families are.<a class="anchor-link" href="#Q1:-Plot-when-people-were-born-and-how-large-the-families-are.">¶</a></h3><p>Fill in the two counts. How many generations does the register cover, and how many
-children does a typical couple have?</p>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs celltag_skip-execution" id="cell-id=c96df19c">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs celltag_skip-execution" id="cell-id=c3a9505f">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8247,41 +8028,30 @@ children does a typical couple have?</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=9e04864a">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=59c4fabd">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<details><summary><b>Hint</b></summary>
-<p>The comments name the counts: <code>n_born</code> for the left panel and <code>n_couples</code> for the right.</p>
+<details><summary>Hint</summary>
+<p><code>n_born</code> and <code>n_couples</code>.</p>
 </details>
 </div>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=c0e3143a">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=31e39661">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><strong>Checkpoint.</strong> Three birth years, and families of one to four children.</p>
+<h3 id="Q2:-At-what-ages-are-men-and-women-diagnosed?">Q2: At what ages are men and women diagnosed?<a class="anchor-link" href="#Q2:-At-what-ages-are-men-and-women-diagnosed?">¶</a></h3>
 </div>
 </div>
 </div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=17aa1d84">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Q2:-Plot-the-age-at-diagnosis-for-men-and-for-women.">Q2: Plot the age at diagnosis for men and for women.<a class="anchor-link" href="#Q2:-Plot-the-age-at-diagnosis-for-men-and-for-women.">¶</a></h3><p>Fill in the women's ages at diagnosis. Are men diagnosed more often, earlier, or both?</p>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs celltag_skip-execution" id="cell-id=aac444c6">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs celltag_skip-execution" id="cell-id=e0120bf5">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8305,61 +8075,33 @@ children does a typical couple have?</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=93d16169">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=d8013dae">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<details><summary><b>Hint</b></summary>
-<p>Copy the men's line and swap <code>male</code> for <code>~male</code>: <code>reg.onset[~male &amp; reg.status]</code>.</p>
+<details><summary>Hint</summary>
+<p><code>reg.onset[~male &amp; reg.status]</code></p>
 </details>
 </div>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=84e0b219">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=04d0e1bb">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><strong>Checkpoint.</strong> More male than female cases; most diagnoses between 40 and 70.</p>
+<h3 id="Q3:-Plot-the-Kaplan%E2%80%93Meier-survival-and-the-cumulative-incidence-by-sex.">Q3: Plot the Kaplan–Meier survival and the cumulative incidence by sex.<a class="anchor-link" href="#Q3:-Plot-the-Kaplan%E2%80%93Meier-survival-and-the-cumulative-incidence-by-sex.">¶</a></h3><p>The survival curve S(t) is the share still undiagnosed at age t; the cumulative incidence
+is 1 − S(t). <code>kaplan_meier_cip(entry, exit, event)</code> estimates the cumulative incidence. Everyone enters at
+birth and leaves at diagnosis or at 70. Compare the observed curves with the true ones
+(dashed).</p>
 </div>
 </div>
 </div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=1f8cd21b">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Survival-and-cumulative-incidence">Survival and cumulative incidence<a class="anchor-link" href="#Survival-and-cumulative-incidence">¶</a></h3><p>Two curves describe when people are diagnosed. The <strong>survival curve</strong> S(t) is the share
-still undiagnosed at each age; it falls from 100%. The <strong>cumulative incidence</strong> (CIP) is
-its mirror image, 1 − S(t): the share diagnosed by each age, rising from 0. Both are
-estimated with the <strong>Kaplan–Meier</strong> method, which also handles people whose follow-up
-ends early. ltpred has it: <code>kaplan_meier_cip(entry ages, exit ages, events)</code> returns the
-cumulative incidence (<code>.ages</code>, <code>.values</code>). Here everyone enters at birth (age 0) and
-leaves at diagnosis or at 70.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=007704bf">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Q3:-Plot-the-Kaplan%E2%80%93Meier-survival-and-the-cumulative-incidence-by-sex.">Q3: Plot the Kaplan–Meier survival and the cumulative incidence by sex.<a class="anchor-link" href="#Q3:-Plot-the-Kaplan%E2%80%93Meier-survival-and-the-cumulative-incidence-by-sex.">¶</a></h3><p>Fill in the exit ages and the events for the people in <code>keep</code>. The left panel is the
-classic falling Kaplan–Meier curve, the right panel the same fit as cumulative
-incidence. Do the observed curves follow the true (dashed) ones? Why would one curve for
-everyone be a problem?</p>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs celltag_skip-execution" id="cell-id=365c808d">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs celltag_skip-execution" id="cell-id=b793a9a4">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8389,43 +8131,30 @@ everyone be a problem?</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=0a94be2a">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=4947a3e2">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<details><summary><b>Hint</b></summary>
-<p>The comment names them: <code>reg.age[keep]</code> (age at diagnosis, or 70) and <code>reg.status[keep]</code> (True if diagnosed).</p>
+<details><summary>Hint</summary>
+<p><code>reg.age[keep]</code> and <code>reg.status[keep]</code>.</p>
 </details>
 </div>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=cb690b43">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=a7e6b696">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><strong>Checkpoint.</strong> On the left two falling curves, the men's lower; on the right the same fits rising, each close to its dashed curve.</p>
+<h3 id="Q4:-Does-a-diagnosed-parent-change-the-cumulative-incidence?">Q4: Does a diagnosed parent change the cumulative incidence?<a class="anchor-link" href="#Q4:-Does-a-diagnosed-parent-change-the-cumulative-incidence?">¶</a></h3>
 </div>
 </div>
 </div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=ec2399af">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Q4:-Plot-the-cumulative-incidence-for-people-with-and-without-a-diagnosed-parent.">Q4: Plot the cumulative incidence for people with and without a diagnosed parent.<a class="anchor-link" href="#Q4:-Plot-the-cumulative-incidence-for-people-with-and-without-a-diagnosed-parent.">¶</a></h3><p>The cell finds who has a diagnosed parent. Fill in the comparison group: people whose
-parents are in the register but neither was diagnosed. What do the curves tell you before
-any model is fitted?</p>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs celltag_skip-execution" id="cell-id=c9b7db2b">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs celltag_skip-execution" id="cell-id=a1d5679e">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8453,42 +8182,30 @@ any model is fitted?</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=22c64f4c">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=101e8ca1">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<details><summary><b>Hint</b></summary>
-<p>People with recorded parents are <code>has_parents</code>; neither diagnosed is <code>~parent_dx</code>. Combine them with <code>&amp;</code>.</p>
+<details><summary>Hint</summary>
+<p><code>has_parents &amp; ~parent_dx</code></p>
 </details>
 </div>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=f8968be0">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=e3da0a17">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><strong>Checkpoint.</strong> The curve for a diagnosed parent rises clearly above the other.</p>
+<h3 id="Q5:-How-different-is-the-true-g-of-cases-and-non-cases?">Q5: How different is the true <code>g</code> of cases and non-cases?<a class="anchor-link" href="#Q5:-How-different-is-the-true-g-of-cases-and-non-cases?">¶</a></h3><p>This can only be plotted in a simulation.</p>
 </div>
 </div>
 </div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=ad388879">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Q5:-Plot-the-true-genetic-liability-of-cases-and-non-cases.">Q5: Plot the true genetic liability of cases and non-cases.<a class="anchor-link" href="#Q5:-Plot-the-true-genetic-liability-of-cases-and-non-cases.">¶</a></h3><p>Only a simulation can draw this plot: real data never reveal <code>g</code>. Fill in the cases'
-values. Do cases have a higher <code>g</code>? Does a high <code>g</code> mean you will be diagnosed?</p>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs celltag_skip-execution" id="cell-id=54fe97c7">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs celltag_skip-execution" id="cell-id=3f1f616b">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8510,44 +8227,33 @@ values. Do cases have a higher <code>g</code>? Does a high <code>g</code> mean y
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=be8eabf7">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=38bdfd4a">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<details><summary><b>Hint</b></summary>
-<p>The non-cases use <code>g[~reg.status]</code>; the cases use <code>g[reg.status]</code>.</p>
+<details><summary>Hint</summary>
+<p><code>g[reg.status]</code></p>
 </details>
 </div>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=46b9a191">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=13fa3bb3">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><strong>Checkpoint.</strong> The cases' histogram sits well to the right, but the two overlap.</p>
+<h3 id="Scoring">Scoring<a class="anchor-link" href="#Scoring">¶</a></h3><p><code>estimate_liabilities</code> returns each person's score (<code>.est</code>, the expected <code>g</code> given the
+records) and its variance (<code>.var</code>). <code>strata=sex</code> gives each sex its own incidence curve.
+The helpers below rescore everyone under another h² (<code>score</code>) and score people as of their
+40th birthday, using only records made before it (<code>score_at_40</code>).</p>
 </div>
 </div>
 </div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=f42372eb">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="The-scorer-in-one-call">The scorer in one call<a class="anchor-link" href="#The-scorer-in-one-call">¶</a></h3><p><code>estimate_liabilities</code> takes the pedigree, everyone's diagnosis and age, the incidence
-curves and h², and returns each person's score (<code>.est</code>) with its uncertainty (<code>.var</code>).
-<code>strata=sex</code> with <code>cip_by_stratum</code> gives each sex its own curve, as Q3 showed it needs.
-The comments explain each argument.</p>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=b2f8b903">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=b2f003b1">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8588,20 +8294,7 @@ var(score) = 0.128  +  mean posterior variance = 0.359  =  0.488
 </div>
 </div>
 </div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=bdb8555b">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="The-helpers-used-below">The helpers used below<a class="anchor-link" href="#The-helpers-used-below">¶</a></h3><p><code>score(h2)</code> repeats that call under any assumed h². <code>score_at_40(h2)</code> scores the people
-still undiagnosed at 40 <strong>as of their 40th birthday</strong>, hiding their own status and every
-later record: the honest setting for predicting who is diagnosed later.</p>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=e32a5091">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=1d4430cb">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8653,18 +8346,17 @@ later record: the honest setting for predicting who is diagnosed later.</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=8fcb9403">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=12a376e7">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Q6:-Plot-the-score-against-the-true-genetic-liability.">Q6: Plot the score against the true genetic liability.<a class="anchor-link" href="#Q6:-Plot-the-score-against-the-true-genetic-liability.">¶</a></h3><p>Fill in the two arrays: the score <code>est</code> on the x-axis and the truth <code>g</code> on the y-axis.
-What does a correlation of about 0.5 look like?</p>
+<h3 id="Q6:-Plot-the-score-against-the-true-g.">Q6: Plot the score against the true <code>g</code>.<a class="anchor-link" href="#Q6:-Plot-the-score-against-the-true-g.">¶</a></h3>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs celltag_skip-execution" id="cell-id=b95ba44b">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs celltag_skip-execution" id="cell-id=aec8647e">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8684,69 +8376,32 @@ What does a correlation of about 0.5 look like?</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=b7f0df19">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=495db24c">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<details><summary><b>Hint</b></summary>
-<p><code>ax.scatter(x, y)</code>: here <code>x</code> is <code>est</code> and <code>y</code> is <code>g</code>.</p>
+<details><summary>Hint</summary>
+<p><code>ax.scatter(est, g, ...)</code></p>
 </details>
 </div>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=6b6a0036">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=1ca7701b">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><strong>Checkpoint.</strong> A wide cloud tilted upwards, with the correlation 0.53 in the title.</p>
+<h2 id="Part-A:-A-wrong-heritability">Part A: A wrong heritability<a class="anchor-link" href="#Part-A:-A-wrong-heritability">¶</a></h2><h3 id="Q7:-Score-the-register-assuming-h%C2%B2-=-0.2,-0.5-and-0.8.">Q7: Score the register assuming h² = 0.2, 0.5 and 0.8.<a class="anchor-link" href="#Q7:-Score-the-register-assuming-h%C2%B2-=-0.2,-0.5-and-0.8.">¶</a></h3><p>Before running the cell, guess whether the scores spread more or less when h² is set too
+high, and whether their ranking changes. The score is calibrated if the slope of <code>g</code> on
+the score is 1.</p>
 </div>
 </div>
 </div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=51743248">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Part-A.-What-does-a-wrong-h%C2%B2-do?">Part A. What does a wrong h² do?<a class="anchor-link" href="#Part-A.-What-does-a-wrong-h%C2%B2-do?">¶</a></h2><p>In a real analysis h² comes from outside (a twin, pedigree or SNP study) and you supply
-it. Here you can pass a wrong value on purpose and compare with the truth.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=a33fa6c7">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Q7:-If-you-tell-the-scorer-h%C2%B2-=-0.8-when-the-truth-is-0.5,-do-the-scores-spread-more-or-less?-Does-their-ranking-change?">Q7: If you tell the scorer h² = 0.8 when the truth is 0.5, do the scores spread more or less? Does their ranking change?<a class="anchor-link" href="#Q7:-If-you-tell-the-scorer-h%C2%B2-=-0.8-when-the-truth-is-0.5,-do-the-scores-spread-more-or-less?-Does-their-ranking-change?">¶</a></h3><p>Write down your expectation with one sentence of reasoning. Hint: h² is the share of
-liability variance that is genetic, and therefore shared with relatives.</p>
-<p><strong>Discuss</strong> with your partner.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=852d9ba6">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Q8:-Plot-the-truth-against-the-score-for-h%C2%B2-=-0.2,-0.5-and-0.8.">Q8: Plot the truth against the score for h² = 0.2, 0.5 and 0.8.<a class="anchor-link" href="#Q8:-Plot-the-truth-against-the-score-for-h%C2%B2-=-0.2,-0.5-and-0.8.">¶</a></h3><p>Each panel shows the fitted line of <code>g</code> on the score (orange) and the dashed diagonal.
-Fill in the slope. A score is <strong>calibrated</strong> when the slope is 1: among people scored 0.3,
-the true liability averages 0.3. Which assumed h² gives slope 1, and what happens to the
-correlation?</p>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs celltag_skip-execution" id="cell-id=604638de">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs celltag_skip-execution" id="cell-id=43d267a1">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8771,108 +8426,72 @@ correlation?</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=7e2ae965">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=35b73e44">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<details><summary><b>Hint</b></summary>
-<p>The comment gives the expression: <code>np.polyfit(e, g, 1)[0]</code> is the slope of <code>g</code> regressed on <code>e</code>.</p>
+<details><summary>Hint</summary>
+<p><code>np.polyfit(e, g, 1)[0]</code></p>
 </details>
 </div>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=fbd4a00b">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=92016f67">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><strong>Checkpoint.</strong> The correlations in the three titles are almost equal; the slopes are
-not.</p>
+<h2 id="Part-B:-Predicting-later-diagnosis">Part B: Predicting later diagnosis<a class="anchor-link" href="#Part-B:-Predicting-later-diagnosis">¶</a></h2><p><img alt="Liability thresholds at ages 40 and 70." src="https://bvilhjal.github.io/ATIG_2026/teaching_days/2026-09-24/LTFH/figures/thresholds.png"/></p>
+<p>We now use the score at 40 (<code>est40</code>) for the people undiagnosed at 40, and ask who is
+diagnosed between 40 and 70.</p>
 </div>
 </div>
 </div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=bbc2d5a9">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Part-B.-Who-is-diagnosed-between-40-and-70?">Part B. Who is diagnosed between 40 and 70?<a class="anchor-link" href="#Part-B.-Who-is-diagnosed-between-40-and-70?">¶</a></h2><p><img alt="Liability thresholds at 40 and 70. Higher liability is earlier onset. People still undiagnosed at 40 are left of T40; those diagnosed by 70 have crossed T70." src="https://bvilhjal.github.io/ATIG_2026/teaching_days/2026-09-24/LTFH/figures/thresholds.png"/></p>
-<p>A correlation with <code>g</code> is not the accuracy of predicting a later diagnosis. Here you use
-the score at 40 (<code>est40</code>) and what happened next.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=b343f80d">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Q9:-How-many-of-the-people-undiagnosed-at-40-are-diagnosed-by-70?">Q9: How many of the people undiagnosed at 40 are diagnosed by 70?<a class="anchor-link" href="#Q9:-How-many-of-the-people-undiagnosed-at-40-are-diagnosed-by-70?">¶</a></h3><p><code>reg.status</code> means "diagnosed by 70" and <code>free40</code> means "undiagnosed at 40". The result
-<code>y</code> must line up with <code>est40</code>, which has one entry per person in <code>free40</code>.</p>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs celltag_skip-execution" id="cell-id=12953310">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=12698e6a">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [5]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">y</span> <span class="o">=</span> <span class="o">...</span>          <span class="c1"># one boolean per person in est40: diagnosed between 40 and 70</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">y</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">}</span><span class="s2"> incident cases among </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">)</span><span class="si">}</span><span class="s2"> people (</span><span class="si">{</span><span class="n">y</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2">)"</span><span class="p">)</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">y</span> <span class="o">=</span> <span class="n">reg</span><span class="o">.</span><span class="n">status</span><span class="p">[</span><span class="n">free40</span><span class="p">]</span>      <span class="c1"># diagnosed between 40 and 70, one entry per person in est40</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">y</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">}</span><span class="s2"> of </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">)</span><span class="si">}</span><span class="s2"> people undiagnosed at 40 were diagnosed by 70"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=5279098c">
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>331 of 5040 people undiagnosed at 40 were diagnosed by 70
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=6963cf3a">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<details><summary><b>Hint</b></summary>
-<p>Keep the entries of <code>reg.status</code> for the people in <code>free40</code> (the <code>x[mask]</code> pattern). Everyone in <code>free40</code> was undiagnosed at 40, so diagnosed by 70 means diagnosed between 40 and 70.</p>
-</details>
+<h3 id="Q8:-Compare-the-scores-of-later-cases-and-non-cases.">Q8: Compare the scores of later cases and non-cases.<a class="anchor-link" href="#Q8:-Compare-the-scores-of-later-cases-and-non-cases.">¶</a></h3><p>Plot the two histograms and compute the AUC for the score at 40, for the true <code>g</code> and for
+the score that used each person's own diagnosis (<code>use="gwas"</code>).</p>
 </div>
 </div>
 </div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=eeb10c7f">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><strong>Checkpoint.</strong> A few hundred cases among 5,040 people.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=3efec082">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Q10:-Plot-the-scores-of-the-later-cases-and-the-non-cases,-and-compute-the-AUC.">Q10: Plot the scores of the later cases and the non-cases, and compute the AUC.<a class="anchor-link" href="#Q10:-Plot-the-scores-of-the-later-cases-and-the-non-cases,-and-compute-the-AUC.">¶</a></h3><p>Fill in the cases' scores for the histogram and <code>g</code> for the same people in the AUC.
-How much do the two histograms overlap? Why is even the true <code>g</code> below AUC 1, and why is
-the <code>use="gwas"</code> score (which saw each person's own diagnosis) near-perfect?</p>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs celltag_skip-execution" id="cell-id=9fa6d562">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs celltag_skip-execution" id="cell-id=5f096d5d">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8896,46 +8515,31 @@ the <code>use="gwas"</code> score (which saw each person's own diagnosis) near-p
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=9079b738">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=2ee4da36">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<details><summary><b>Hint</b></summary>
-<p>The non-cases' histogram uses <code>est40[~y]</code>; the cases' uses <code>est40[y]</code>. For the AUC, select <code>g</code> for the same people with <code>[free40]</code>.</p>
+<details><summary>Hint</summary>
+<p><code>est40[y]</code> for the histogram and <code>g[free40]</code> for the AUC.</p>
 </details>
 </div>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=a36d1f45">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=feef8ea2">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><strong>Checkpoint.</strong> The histograms overlap a lot; the AUCs are roughly 0.6, 0.9 and above
-0.99.</p>
+<h3 id="Q9:-Convert-the-score-into-a-risk-and-compare-it-with-what-happened.">Q9: Convert the score into a risk and compare it with what happened.<a class="anchor-link" href="#Q9:-Convert-the-score-into-a-risk-and-compare-it-with-what-happened.">¶</a></h3><p>The cell computes each person's risk of diagnosis between 40 and 70 from the score, its
+variance and the thresholds for their sex at 40 and 70.</p>
 </div>
 </div>
 </div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=a09c7a54">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Q11:-Turn-the-score-into-a-risk-and-plot-it-against-what-happened.">Q11: Turn the score into a risk and plot it against what happened.<a class="anchor-link" href="#Q11:-Turn-the-score-into-a-risk-and-plot-it-against-what-happened.">¶</a></h3><p>Given the relatives, a person's liability is normal with mean <code>est40</code> and standard
-deviation <code>sd</code>; the risk of diagnosis between 40 and 70 is the chance it lies between the
-thresholds, given it is below the age-40 threshold. The cell computes that risk for you.
-Fill in the mean predicted risk in each fifth of the score, then compare the bars. Does
-the risk match the observed rates? What would a wrong h² do to it?</p>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs celltag_skip-execution" id="cell-id=d9a4b46c">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs celltag_skip-execution" id="cell-id=e8174465">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8970,49 +8574,36 @@ the risk match the observed rates? What would a wrong h² do to it?</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=378206bf">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=246a2d8d">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<details><summary><b>Hint</b></summary>
-<p>Copy the <code>observed</code> line and replace <code>y[idx]</code> with <code>risk[idx]</code>.</p>
+<details><summary>Hint</summary>
+<p>Copy the <code>observed</code> line with <code>risk[idx]</code> in place of <code>y[idx]</code>.</p>
 </details>
 </div>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=c7c91806">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=a729f955">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><strong>Checkpoint.</strong> Both sets of bars rise from the lowest to the highest fifth, and the mean
-predicted risk is within about half a percentage point of the observed rate.</p>
+<h2 id="Part-C:-The-score-against-a-simple-family-history-(homework)">Part C: The score against a simple family history (homework)<a class="anchor-link" href="#Part-C:-The-score-against-a-simple-family-history-(homework)">¶</a></h2><p>The next cell finds each person's parents and siblings and marks who has a diagnosed one,
+by age 70 (<code>fh</code>) and by their own 40th birthday (<code>fh40</code>).</p>
 </div>
 </div>
 </div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=aa000445">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Part-C.-The-score-against-a-yes/no-family-history-(homework)">Part C. The score against a yes/no family history (homework)<a class="anchor-link" href="#Part-C.-The-score-against-a-yes/no-family-history-(homework)">¶</a></h2><p>A common shortcut is the indicator "any parent or full sibling diagnosed". The cell below
-builds it twice: with follow-up to 70 (<code>fh</code>) and as known on each person's 40th birthday
-(<code>fh40</code>). Run it as is.</p>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=8404b25b">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=c0b44b44">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [5]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [6]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">row</span> <span class="o">=</span> <span class="p">{</span><span class="n">p</span><span class="p">:</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">reg</span><span class="o">.</span><span class="n">ids</span><span class="p">)}</span>          <span class="c1"># id -&gt; row number</span>
@@ -9057,19 +8648,17 @@ builds it twice: with follow-up to 70 (<code>fh</code>) and as known on each per
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=32434091">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=9700ab52">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Q12:-Plot-how-much-of-g-each-measure-explains.">Q12: Plot how much of <code>g</code> each measure explains.<a class="anchor-link" href="#Q12:-Plot-how-much-of-g-each-measure-explains.">¶</a></h3><p>Fill in R², the squared correlation with <code>g</code>, for own status, the indicator and the
-score. The last line compares the indicator known at 40 with the score at 40 as
-predictors of Part B's outcome. Why is own status left out of that comparison?</p>
+<h3 id="Q10:-How-much-of-g-do-own-status,-family-history-and-the-score-explain?">Q10: How much of <code>g</code> do own status, family history and the score explain?<a class="anchor-link" href="#Q10:-How-much-of-g-do-own-status,-family-history-and-the-score-explain?">¶</a></h3>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs celltag_skip-execution" id="cell-id=d82d3a6f">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs celltag_skip-execution" id="cell-id=bfc23fa4">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -9091,48 +8680,36 @@ predictors of Part B's outcome. Why is own status left out of that comparison?</
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=8ca486c3">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=94ec25d0">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<details><summary><b>Hint</b></summary>
-<p>R² is the squared correlation: <code>corr(x, g) ** 2</code>.</p>
+<details><summary>Hint</summary>
+<p><code>corr(x, g) ** 2</code></p>
 </details>
 </div>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=63ef4ee6">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=2ae9a925">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><strong>Checkpoint.</strong> The score's bar is clearly the tallest.</p>
+<h2 id="Part-D:-Heritability-from-parents-and-children-(homework)">Part D: Heritability from parents and children (homework)<a class="anchor-link" href="#Part-D:-Heritability-from-parents-and-children-(homework)">¶</a></h2><p>h² is roughly twice the tetrachoric correlation between the diagnoses of parents and
+children. The next cell lists all parent–child pairs.</p>
 </div>
 </div>
 </div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=ae6c3720">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Part-D.-Where-does-h%C2%B2-come-from?-(homework)">Part D. Where does h² come from? (homework)<a class="anchor-link" href="#Part-D.-Where-does-h%C2%B2-come-from?-(homework)">¶</a></h2><p>A quick cross-check on h²: it is about twice the <strong>tetrachoric correlation</strong> between
-parents' and children's diagnoses, the correlation of the underlying liabilities inferred
-from a 2×2 table. The cell below lists every parent–child pair; run it as is.</p>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=a167ef4a">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=fb5efe87">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [6]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [7]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">ltpred</span><span class="w"> </span><span class="kn">import</span> <span class="n">tetrachoric</span>
@@ -9152,17 +8729,17 @@ from a 2×2 table. The cell below lists every parent–child pair; run it as is.
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=6d15ef3c">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=0062befb">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Q13:-Estimate-h%C2%B2-from-the-parent%E2%80%93offspring-pairs.">Q13: Estimate h² from the parent–offspring pairs.<a class="anchor-link" href="#Q13:-Estimate-h%C2%B2-from-the-parent%E2%80%93offspring-pairs.">¶</a></h3>
+<h3 id="Q11:-Estimate-h%C2%B2-from-the-parent%E2%80%93child-pairs.">Q11: Estimate h² from the parent–child pairs.<a class="anchor-link" href="#Q11:-Estimate-h%C2%B2-from-the-parent%E2%80%93child-pairs.">¶</a></h3>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs celltag_skip-execution" id="cell-id=458f02e6">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs celltag_skip-execution" id="cell-id=0f74ef91">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -9180,69 +8757,54 @@ from a 2×2 table. The cell below lists every parent–child pair; run it as is.
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=7285cc67">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=483b0266">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<details><summary><b>Hint</b></summary>
-<p><code>tetrachoric</code> takes the two True/False arrays: the parents' statuses and the children's.</p>
+<details><summary>Hint</summary>
+<p><code>tetrachoric(p_status, k_status)</code></p>
 </details>
 </div>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=bfaf78fa">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=413d1c39">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><strong>Checkpoint.</strong> An estimate within one standard error of 0.5.</p>
+<h3 id="Q12:-What-would-make-this-estimate-wrong-in-a-real-register?">Q12: What would make this estimate wrong in a real register?<a class="anchor-link" href="#Q12:-What-would-make-this-estimate-wrong-in-a-real-register?">¶</a></h3><p>Think about follow-up, sex, shared environment and how people were sampled.</p>
 </div>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=2251de0d">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=be29cd6b">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Q14:-Why-does-twice-the-tetrachoric-work-here,-and-what-would-break-it-in-a-real-register?">Q14: Why does twice the tetrachoric work here, and what would break it in a real register?<a class="anchor-link" href="#Q14:-Why-does-twice-the-tetrachoric-work-here,-and-what-would-break-it-in-a-real-register?">¶</a></h3><p>Think about the threshold, shared environment, and how the register was sampled.</p>
-<p><strong>Discuss</strong> with your partner.</p>
+<h2 id="Part-E:-Observed-and-liability-scale-(homework)">Part E: Observed and liability scale (homework)<a class="anchor-link" href="#Part-E:-Observed-and-liability-scale-(homework)">¶</a></h2><p><img alt="A liability split into a 0/1 outcome." src="https://bvilhjal.github.io/ATIG_2026/teaching_days/2026-09-24/LTFH/figures/observed_scale.png"/></p>
+<p>GWAS methods report h² on the observed 0/1 scale, which depends on the proportion of
+cases in the sample (<a href="https://doi.org/10.1016/j.ajhg.2011.02.002">Lee et al. 2011</a>).</p>
 </div>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=a1cad88c">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=a70c70dc">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Part-E.-Which-scale-is-h%C2%B2-on?-(homework)">Part E. Which scale is h² on? (homework)<a class="anchor-link" href="#Part-E.-Which-scale-is-h%C2%B2-on?-(homework)">¶</a></h2><p><img alt="A liability split into a 0/1 outcome. The right tail is the cases, 10% when K = 0.10." src="https://bvilhjal.github.io/ATIG_2026/teaching_days/2026-09-24/LTFH/figures/observed_scale.png"/></p>
-<p>GWAS methods such as GREML and LD-score regression report h² on the observed 0/1 scale,
-and that number depends on the sample's case proportion P
-(<a href="https://doi.org/10.1016/j.ajhg.2011.02.002">Lee et al. 2011</a>). ltpred's
-<code>liability_to_observed_h2(h2, K, P)</code> converts a liability-scale h² to the observed scale.</p>
+<h3 id="Q13:-Plot-the-observed-scale-h%C2%B2-against-the-case-fraction-for-a-true-h%C2%B2-of-0.5.">Q13: Plot the observed-scale h² against the case fraction for a true h² of 0.5.<a class="anchor-link" href="#Q13:-Plot-the-observed-scale-h%C2%B2-against-the-case-fraction-for-a-true-h%C2%B2-of-0.5.">¶</a></h3>
 </div>
 </div>
 </div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=7900d916">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Q15:-Plot-the-observed-scale-h%C2%B2-that-studies-with-different-case-fractions-would-report.">Q15: Plot the observed-scale h² that studies with different case fractions would report.<a class="anchor-link" href="#Q15:-Plot-the-observed-scale-h%C2%B2-that-studies-with-different-case-fractions-would-report.">¶</a></h3><p>Fill in the list. The truth is h² = 0.5 with K = 0.10. What would a population GWAS
-report, and what would happen if you passed that number to the scorer unconverted?</p>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs celltag_skip-execution" id="cell-id=e8b9c826">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs celltag_skip-execution" id="cell-id=a72dd24a">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -9271,53 +8833,27 @@ report, and what would happen if you passed that number to the scorer unconverte
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=ea9cef4d">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=a3133c18">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<details><summary><b>Hint</b></summary>
-<p><code>[float(liability_to_observed_h2(H2, K, P)) for P in Ps]</code>: one value per case fraction.</p>
+<details><summary>Hint</summary>
+<p><code>[float(liability_to_observed_h2(H2, K, P)) for P in Ps]</code></p>
 </details>
 </div>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=6b428f7e">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=115034f2">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><strong>Checkpoint.</strong> A curve well below 0.5 at P = K that rises towards the middle; 0.171 for
-a population sample.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=05b39971">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Q16:-Analysis-note.">Q16: Analysis note.<a class="anchor-link" href="#Q16:-Analysis-note.">¶</a></h3><p>In at most 100 words: what does the family-history score estimate, what did it show in
-this exercise, and what can it not establish? Cite one number from each part you did.</p>
-<p><strong>Discuss</strong> with your partner.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=fa04002f">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<hr/>
-<p>Part of <a href="https://github.com/bvilhjal/ATIG_2026">ATIG 2026</a>, teaching day
-<a href="https://github.com/bvilhjal/ATIG_2026/tree/main/teaching_days/2026-09-24">24 September</a>.</p>
+<h3 id="Q14:-Summarise">Q14: Summarise<a class="anchor-link" href="#Q14:-Summarise">¶</a></h3><p>In about 100 words, say what the score estimates, what you found, and what it cannot
+tell you.</p>
 </div>
 </div>
 </div>
