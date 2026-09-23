@@ -1,12 +1,11 @@
 # ATIG 2026 — reproducible teaching code
 
 Lecture simulations and practical exercises, organized by teaching date.
-Version **0.5.0** simplifies the
-[LT-FH exercise](https://bvilhjal.github.io/ATIG_2026/teaching_days/2026-09-24/LTFH/LTFH_exercise.html):
-one simulated register instead of two, the scoring call shown once with every
-argument explained, two helpers reused by every question, and student cells that
-ask for one or two marked expressions. The questions and answers are unchanged in
-substance. Python setup lives on its own [setup page](setup.html). The [PCA practical](https://bvilhjal.github.io/ATIG_2026/teaching_days/2026-09-10/PCA/PCA_tutorial.html)
+Version **0.5.1** runs the
+[LT-FH exercise](https://bvilhjal.github.io/ATIG_2026/teaching_days/2026-09-24/LTFH/LTFH_exercise.html)
+in [Google Colab](https://colab.research.google.com/github/bvilhjal/ATIG_2026/blob/main/teaching_days/2026-09-24/LTFH/LTFH_exercise.ipynb), with nothing to install: the first
+cell installs ltpred 0.7.1. One simulated register, the scoring call explained once,
+and two helpers reused by every question keep the code short. Python setup lives on its own [setup page](setup.html). The [PCA practical](https://bvilhjal.github.io/ATIG_2026/teaching_days/2026-09-10/PCA/PCA_tutorial.html)
 for 10 September has student and worked-answer handouts, rendered HTML, and
 validation records. The population-structure lecture produces **23 numbered
 figure families** in PNG, PDF and SVG, with calculated data and numerical checks.
@@ -33,8 +32,9 @@ two cores; the current teaching refresh passed 28 checks.
 
 ## LT-FH practical
 
-Open the [student notebook](teaching_days/2026-09-24/LTFH/LTFH_exercise.ipynb)
-in Jupyter, or consult the [worked answers](teaching_days/2026-09-24/LTFH/LTFH_exercise_answers.ipynb).
+[Open it in Google Colab](https://colab.research.google.com/github/bvilhjal/ATIG_2026/blob/main/teaching_days/2026-09-24/LTFH/LTFH_exercise.ipynb) (nothing to install), or
+open the [student notebook](teaching_days/2026-09-24/LTFH/LTFH_exercise.ipynb)
+in your own Jupyter, or consult the [worked answers](teaching_days/2026-09-24/LTFH/LTFH_exercise_answers.ipynb).
 Read the [student exercise](https://bvilhjal.github.io/ATIG_2026/teaching_days/2026-09-24/LTFH/LTFH_exercise.html)
 or [worked answers](https://bvilhjal.github.io/ATIG_2026/teaching_days/2026-09-24/LTFH/LTFH_exercise_answers.html)
 directly in your browser. The practical follows the
@@ -43,7 +43,7 @@ questions in five parts on a simulated register whose genetic liability is
 known: a wrong heritability, prediction and calibrated risk, a 0/1
 family-history baseline, tetrachoric heritability under population and
 case-cohort sampling, and observed-to-liability-scale transformations (Lee et
-al. 2011; 2012) with effective sample sizes. It needs Python with NumPy, SciPy
+al. 2011; 2012) with effective sample sizes. Run locally, it needs Python with NumPy, SciPy
 and [ltpred](https://github.com/bvilhjal/ltpred) installed from source; the
 worked answers execute in under a minute.
 

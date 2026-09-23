@@ -7796,7 +7796,7 @@ a.anchor-link {
 <!-- End of mermaid configuration --></head>
 <body class="jp-Notebook" data-jp-theme-light="true" data-jp-theme-name="JupyterLab Light">
 <main>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=738a8f73">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=3de94507">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7807,7 +7807,18 @@ a.anchor-link {
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=5e4f9853">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=c8c5ae61">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p><a href="https://colab.research.google.com/github/bvilhjal/ATIG_2026/blob/main/teaching_days/2026-09-24/LTFH/LTFH_exercise.ipynb"><img alt="Open In Colab" src="https://colab.research.google.com/assets/colab-badge.svg"/></a></p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=b4b8e55e">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7834,18 +7845,18 @@ onset. ltpred computes it with the Pearson–Aitken method of PA-FGRS
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=527a5d69">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=91e592ae">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="How-to-use-this-notebook">How to use this notebook<a class="anchor-link" href="#How-to-use-this-notebook">¶</a></h2><ul>
-<li>Run the cells from top to bottom. Part 0 builds everything the questions use.</li>
-<li><strong>Your cells contain <code>...</code>.</strong> Replace each <code>...</code> with one expression; the comment
-next to it says what. Every other line runs as given.</li>
-<li><strong>Checkpoints</strong> say what you should see, so you know you are on track.</li>
-</ul>
+<h2 id="How-to-use-this-notebook">How to use this notebook<a class="anchor-link" href="#How-to-use-this-notebook">¶</a></h2><ol>
+<li>Click <strong>Open in Colab</strong> above, then <strong>File → Save a copy in Drive</strong> and work in your copy.</li>
+<li>Run the cells in order with <strong>Shift+Enter</strong>. If Colab restarts, start again from the top.</li>
+<li>Where a cell has <code>...</code>, replace it with one expression; the comment says what.
+<strong>Checkpoints</strong> tell you what you should see.</li>
+</ol>
 <p>The names you will use throughout:</p>
 <table>
 <thead>
@@ -7885,20 +7896,33 @@ next to it says what. Every other line runs as given.</li>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=03135c41">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=fa9649d9">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Setup">Setup<a class="anchor-link" href="#Setup">¶</a></h2><p>Install Python, NumPy, SciPy and ltpred from the
-<a href="https://bvilhjal.github.io/ATIG_2026/setup.html">setup page</a> (macOS, Windows or Anaconda),
-then run the cell below. It also defines two small helpers, <code>corr</code> and <code>auc</code>. The whole
-notebook runs in under a minute with less than 1 GB of memory.</p>
+<h2 id="Setup">Setup<a class="anchor-link" href="#Setup">¶</a></h2><p>The first cell installs ltpred; the second loads it and defines two helpers, <code>corr</code> and
+<code>auc</code>. (On your own computer instead of Colab? See the
+<a href="https://bvilhjal.github.io/ATIG_2026/setup.html">setup page</a>.)</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=24998c31">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs celltag_skip-execution" id="cell-id=e035f39f">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">pip</span> install -q git+https://github.com/bvilhjal/ltpred@v0.7.1     # installs ltpred (about 30 s)
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=c4107009">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7945,7 +7969,7 @@ notebook runs in under a minute with less than 1 GB of memory.</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=f75f86e8">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=daffc49b">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7990,7 +8014,7 @@ the <a href="https://bvilhjal.github.io/ltpred/tutorial/">ltpred tutorial</a>, f
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=489c88cc">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=7a99754e">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8030,7 +8054,7 @@ var(g) = 0.493   (target 0.5)
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=33437ce9">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=39e2bd8e">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8041,7 +8065,7 @@ var(g) = 0.493   (target 0.5)
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=40a5d5a3">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=2785ffa4">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8054,7 +8078,7 @@ liability given the relatives' records (<code>.est</code>), with its <strong>pos
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=ff892845">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=b5e5dabe">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8094,7 +8118,7 @@ var(score) = 0.129  +  mean posterior variance = 0.359  =  0.488
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=bf8a78bd">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=3643d9e2">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8108,7 +8132,7 @@ sum when h² is wrong.</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=e52ea45d">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=9a4e5aa4">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8121,7 +8145,7 @@ predicting who is diagnosed later.</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=1c832204">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=17e4f9d0">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8173,7 +8197,7 @@ predicting who is diagnosed later.</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=6f2bef87">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=3e066fd9">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8185,7 +8209,7 @@ predicting who is diagnosed later.</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=fd37ecb2">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=d5b5b116">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8198,7 +8222,7 @@ purpose and compare with the truth.</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=6d02f01a">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=b0333274">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8210,7 +8234,7 @@ liability variance that is genetic, and therefore shared with relatives.</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=aced81db">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=26aad20d">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8222,7 +8246,7 @@ regressed on the score. Fill in the two <code>...</code>.</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs celltag_skip-execution" id="cell-id=6f36c0f3">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs celltag_skip-execution" id="cell-id=92f8ffa9">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8242,7 +8266,7 @@ regressed on the score. Fill in the two <code>...</code>.</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=f11123e6">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=69145758">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8254,7 +8278,7 @@ you passed in, whichever it was, and one column barely moves at all.</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=9c1cdc39">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=9b758c48">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8266,20 +8290,20 @@ you passed in, whichever it was, and one column barely moves at all.</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=04c1a5ef">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=1e05bb51">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Part-B.-Who-is-diagnosed-between-40-and-70?">Part B. Who is diagnosed between 40 and 70?<a class="anchor-link" href="#Part-B.-Who-is-diagnosed-between-40-and-70?">¶</a></h2><p><img alt="Liability thresholds at 40 and 70. Higher liability is earlier onset. People still undiagnosed at 40 are left of T40; those diagnosed by 70 have crossed T70." src="figures/thresholds.png"/></p>
+<h2 id="Part-B.-Who-is-diagnosed-between-40-and-70?">Part B. Who is diagnosed between 40 and 70?<a class="anchor-link" href="#Part-B.-Who-is-diagnosed-between-40-and-70?">¶</a></h2><p><img alt="Liability thresholds at 40 and 70. Higher liability is earlier onset. People still undiagnosed at 40 are left of T40; those diagnosed by 70 have crossed T70." src="https://bvilhjal.github.io/ATIG_2026/teaching_days/2026-09-24/LTFH/figures/thresholds.png"/></p>
 <p>A correlation with <code>g</code> is not the accuracy of predicting a later diagnosis. Here you
 measure that accuracy directly, using the score at 40 (<code>est40</code>) and what happened next.</p>
 </div>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=54f32ec6">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=06010dd0">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8290,7 +8314,7 @@ measure that accuracy directly, using the score at 40 (<code>est40</code>) and w
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs celltag_skip-execution" id="cell-id=e6d8ff52">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs celltag_skip-execution" id="cell-id=9ff3f923">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8306,7 +8330,7 @@ measure that accuracy directly, using the score at 40 (<code>est40</code>) and w
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=6f5ef370">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=cd07737f">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8318,7 +8342,7 @@ register's 7.2%.</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=13810e7b">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=ecaf202a">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8331,7 +8355,7 @@ person's own diagnosis. <strong>Before running</strong>, order the three.</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs celltag_skip-execution" id="cell-id=292bf8d0">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs celltag_skip-execution" id="cell-id=7c7fdc0f">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8348,7 +8372,7 @@ person's own diagnosis. <strong>Before running</strong>, order the three.</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=f4018838">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=b6516421">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8360,7 +8384,7 @@ people in <code>free40</code>. The other two are clearly above 0.5 and clearly a
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=f7f5d730">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=a90bf3b7">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8370,7 +8394,7 @@ people in <code>free40</code>. The other two are clearly above 0.5 and clearly a
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=e19609cd">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=400ba861">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8402,7 +8426,7 @@ var(score at 40)              0.040
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=fce41444">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=66f15ee9">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8418,7 +8442,7 @@ fifths of the score.</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs celltag_skip-execution" id="cell-id=a4b9944f">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs celltag_skip-execution" id="cell-id=8737b59e">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8442,7 +8466,7 @@ fifths of the score.</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=cc0f05f8">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=befccb54">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8454,7 +8478,7 @@ incidence, and the lowest and highest fifths clearly differ.</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=18fb9ba7">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=5497d400">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8465,7 +8489,7 @@ finds each person's first-degree relatives (FDRs); run it as is.</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=d586c5c8">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=bc2e862c">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8497,7 +8521,7 @@ finds each person's first-degree relatives (FDRs); run it as is.</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=bf225154">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=89185429">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8511,7 +8535,7 @@ they were diagnosed <strong>by the person's 40th birthday</strong>, that is <cod
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs celltag_skip-execution" id="cell-id=67f35a85">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs celltag_skip-execution" id="cell-id=94eb1987">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8535,7 +8559,7 @@ they were diagnosed <strong>by the person's 40th birthday</strong>, that is <cod
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=03aba2d5">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=eb9fa8a3">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8547,7 +8571,7 @@ Prospectively the gap is much smaller.</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=93f81b7f">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=efba1eab">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8560,7 +8584,7 @@ parent–child pair as row numbers <code>par</code> and <code>kid</code> and def
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=de81d9ab">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=b6a621db">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8587,7 +8611,7 @@ parent–child pair as row numbers <code>par</code> and <code>kid</code> and def
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=d76489ac">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=848d16ba">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8597,7 +8621,7 @@ parent–child pair as row numbers <code>par</code> and <code>kid</code> and def
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs celltag_skip-execution" id="cell-id=ccbafda2">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs celltag_skip-execution" id="cell-id=17229845">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8615,7 +8639,7 @@ parent–child pair as row numbers <code>par</code> and <code>kid</code> and def
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=e64fefd2">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=db44b108">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8627,7 +8651,7 @@ parent–child pair as row numbers <code>par</code> and <code>kid</code> and def
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=cb5127ff">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=1dad6097">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8638,7 +8662,7 @@ parent–child pair as row numbers <code>par</code> and <code>kid</code> and def
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=2bd9aae6">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=d1ded8f4">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8652,7 +8676,7 @@ being sampled (1 for cases, 0.2 otherwise). Fill in the case rate and the weight
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs celltag_skip-execution" id="cell-id=dd553174">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs celltag_skip-execution" id="cell-id=9f36c387">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8678,7 +8702,7 @@ being sampled (1 for cases, 0.2 otherwise). Fill in the case rate and the weight
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=a6392242">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=b7c38f53">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8691,13 +8715,13 @@ near 0.5.</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=39201489">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=748b2f58">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Part-E.-Which-scale-is-h%C2%B2-on?-(homework)">Part E. Which scale is h² on? (homework)<a class="anchor-link" href="#Part-E.-Which-scale-is-h%C2%B2-on?-(homework)">¶</a></h2><p><img alt="A liability split into a 0/1 outcome. The right tail is the cases, 10% when K = 0.10. Everyone on one side receives the same y." src="figures/observed_scale.png"/></p>
+<h2 id="Part-E.-Which-scale-is-h%C2%B2-on?-(homework)">Part E. Which scale is h² on? (homework)<a class="anchor-link" href="#Part-E.-Which-scale-is-h%C2%B2-on?-(homework)">¶</a></h2><p><img alt="A liability split into a 0/1 outcome. The right tail is the cases, 10% when K = 0.10. Everyone on one side receives the same y." src="https://bvilhjal.github.io/ATIG_2026/teaching_days/2026-09-24/LTFH/figures/observed_scale.png"/></p>
 <p>GWAS methods such as GREML and LD-score regression report h² on the observed 0/1 scale,
 and that number depends on the sample's case proportion P. With prevalence K and
 z = φ(Φ⁻¹(1 − K)) (<a href="https://doi.org/10.1016/j.ajhg.2011.02.002">Lee et al. 2011</a>):</p>
@@ -8708,7 +8732,7 @@ z = φ(Φ⁻¹(1 − K)) (<a href="https://doi.org/10.1016/j.ajhg.2011.02.002">L
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=50e5a29a">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=37f499f1">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8720,7 +8744,7 @@ convert each back.</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs celltag_skip-execution" id="cell-id=45f06db3">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs celltag_skip-execution" id="cell-id=2203116d">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8740,7 +8764,7 @@ convert each back.</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=96814ae2">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=d52d1fb7">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8752,7 +8776,7 @@ than a factor of two.</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=fcf2a778">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=1b27754f">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8764,7 +8788,7 @@ forget the P term: what does the scorer do with each?</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs celltag_skip-execution" id="cell-id=e9e694fc">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs celltag_skip-execution" id="cell-id=75067b65">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8786,7 +8810,7 @@ forget the P term: what does the scorer do with each?</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=ebab02a3">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=6a00179a">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8798,7 +8822,7 @@ forgotten-P values one is refused and one is silently accepted.</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=c8977de6">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=2c3ebc27">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8810,7 +8834,7 @@ Neff/N depend on P? Why do case/control GWAS oversample cases?</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs celltag_skip-execution" id="cell-id=fc7538c6">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs celltag_skip-execution" id="cell-id=2793d47e">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8832,7 +8856,7 @@ Neff/N depend on P? Why do case/control GWAS oversample cases?</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=60562be0">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=562e6c18">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8844,7 +8868,7 @@ information of far fewer than its 5,075 people.</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=7debc3fa">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=18b4087f">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8856,7 +8880,7 @@ this exercise, and what can it not establish? Cite one number from each part you
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=bad36f8b">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=16288975">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
