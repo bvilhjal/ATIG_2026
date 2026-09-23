@@ -13,6 +13,7 @@ import ltpred
 from ltpred import (simulate_pedigree, simulate_register_liabilities, estimate_liabilities,
                     kaplan_meier_cip)
 from dataclasses import replace
+from collections import Counter
 print("ltpred", ltpred.__version__)
 
 
@@ -59,19 +60,54 @@ print(f"{len(reg.ids)} people ({male.sum()} men), {reg.status.sum()} diagnosed b
 print(f"diagnosed: men {reg.status[male].mean():.1%}, women {reg.status[~male].mean():.1%}")
 
 print("\n== Q1")
-fig, ax = plt.subplots(figsize=(6.5, 4))
+row = {p: i for i, p in enumerate(reg.ids)}                      # id -> row number
+years, n_born = np.unique(reg.birth_time, return_counts=True)    # people born in each year
+couples = Counter((f, m) for f, m in zip(reg.father, reg.mother) if f in row and m in row)
+sizes, n_couples = np.unique(list(couples.values()), return_counts=True)   # children per couple
+
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(10, 3.5))
+ax1.bar(years, n_born, width=6)       # how many people were born in each year
+ax1.set_xlabel("birth year")
+ax1.set_ylabel("people")
+ax2.bar(sizes, n_couples)             # how many couples have each number of children
+ax2.set_xlabel("children per couple")
+ax2.set_ylabel("couples")
+plt.show()
+print("born per year:", dict(zip(years.astype(int).tolist(), n_born.tolist())))
+print("couples by number of children:", dict(zip(sizes.tolist(), n_couples.tolist())))
+
+print("\n== Q2")
+bins = np.arange(0, 75, 5)                                      # 5-year age bins
+fig, ax = plt.subplots(figsize=(6, 3.5))
+ax.hist(reg.onset[male & reg.status], bins=bins, alpha=0.6, label="men")
+ax.hist(reg.onset[~male & reg.status], bins=bins, alpha=0.6, label="women")   # the women's ages at diagnosis
+ax.set_xlabel("age at diagnosis")
+ax.set_ylabel("cases")
+ax.legend()
+plt.show()
+print(f"cases: {(male & reg.status).sum()} men, {(~male & reg.status).sum()} women; median age at "
+      f"diagnosis {np.median(reg.onset[male & reg.status]):.0f} and {np.median(reg.onset[~male & reg.status]):.0f}")
+
+print("\n== Q3")
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(11, 4))
 for label, keep, cip, colour in (("men", male, CIP_M, "C0"), ("women", ~male, CIP_F, "C1")):
     # Kaplan-Meier: everyone enters at birth and leaves at diagnosis or at 70
     km = kaplan_meier_cip(np.zeros(keep.sum()), reg.age[keep], reg.status[keep])
     print(f"{label}: {km.values[km.ages <= 50][-1]:.1%} diagnosed by 50, {km.values[-1]:.1%} by 70")
-    ax.step(km.ages, 100 * km.values, where="post", color=colour, label=f"{label}: observed")
-    ax.plot(AGES[:71], 100 * cip[:71], ls="--", color=colour, label=f"{label}: true curve")
-ax.set_xlabel("age")
-ax.set_ylabel("% diagnosed by this age")
-ax.legend()
+    ages, inc = np.r_[0, km.ages], np.r_[0, km.values]      # start both curves at age 0
+    ax1.step(ages, 100 * (1 - inc), where="post", color=colour, label=label)   # survival S(t)
+    ax2.step(ages, 100 * inc, where="post", color=colour, label=f"{label}: observed")
+    ax2.plot(AGES[:71], 100 * cip[:71], ls="--", color=colour, label=f"{label}: true curve")
+ax1.set_title("Kaplan-Meier survival S(t)")
+ax1.set_ylabel("% still undiagnosed")
+ax2.set_title("cumulative incidence = 1 - S(t)")
+ax2.set_ylabel("% diagnosed by this age")
+for ax in (ax1, ax2):
+    ax.set_xlabel("age")
+    ax.legend()
 plt.show()
 
-print("\n== Q2")
+print("\n== Q4")
 row = {p: i for i, p in enumerate(reg.ids)}                  # id -> row number
 has_parents = np.array([f in row for f in reg.father])       # parents recorded in the register
 parent_dx = np.array([any(reg.status[row[p]] for p in (f, m) if p in row)
@@ -87,6 +123,16 @@ ax.set_xlabel("age")
 ax.set_ylabel("% diagnosed by this age")
 ax.legend()
 plt.show()
+
+print("\n== Q5")
+fig, ax = plt.subplots(figsize=(6, 3.5))
+ax.hist(g[~reg.status], bins=50, density=True, alpha=0.5, label="not diagnosed by 70")
+ax.hist(g[reg.status], bins=50, density=True, alpha=0.5, label="diagnosed by 70")    # g of the cases
+ax.set_xlabel("true genetic liability g")
+ax.legend()
+plt.show()
+print(f"mean g: cases {g[reg.status].mean():.2f}, non-cases {g[~reg.status].mean():.2f}; "
+      f"of the people with g > 1, {reg.status[g > 1].mean():.0%} were diagnosed")
 
 curves = {"M": (AGES, CIP_M, 0.12), "F": (AGES, CIP_F, 0.08)}   # sex -> (ages, curve, lifetime K)
 
@@ -129,7 +175,7 @@ def score_at_40(h2):
 est40, var40 = score_at_40(H2)
 print(f"{free40.sum()} people undiagnosed at 40; corr(score at 40, g) = {corr(est40, g[free40]):.3f}")
 
-print("\n== Q3")
+print("\n== Q6")
 fig, ax = plt.subplots(figsize=(5, 4))
 ax.scatter(est, g, s=3, alpha=0.4)             # x: the score est, y: the truth g
 ax.set_xlabel("score (posterior mean)")
@@ -137,7 +183,7 @@ ax.set_ylabel("true genetic liability g")
 ax.set_title(f"corr = {corr(est, g):.2f}")
 plt.show()
 
-print("\n== Q5")
+print("\n== Q8")
 fig, axes = plt.subplots(1, 3, figsize=(12, 3.8), sharex=True, sharey=True)
 for ax, h2 in zip(axes, (0.2, 0.5, 0.8)):
     e, v = score(h2)                           # rescore everyone under this h2
@@ -151,11 +197,11 @@ for ax, h2 in zip(axes, (0.2, 0.5, 0.8)):
 axes[0].set_ylabel("true g")
 plt.show()
 
-print("\n== Q6")
+print("\n== Q9")
 y = reg.status[free40]       # everyone in est40 was undiagnosed at 40, so "by 70" means "40 to 70"
 print(f"{y.sum()} incident cases among {len(y)} people ({y.mean():.1%})")
 
-print("\n== Q7")
+print("\n== Q10")
 fig, ax = plt.subplots(figsize=(6, 3.5))
 ax.hist(est40[~y], bins=40, density=True, alpha=0.5, label="not diagnosed")
 ax.hist(est40[y], bins=40, density=True, alpha=0.5, label="diagnosed 40 to 70")   # the cases' scores
@@ -167,7 +213,7 @@ print(f"AUC score at 40        {auc(est40, y):.3f}")
 print(f"AUC true g             {auc(g[free40], y):.3f}")
 print(f"AUC use='gwas' score   {auc(est[free40], y):.3f}")
 
-print("\n== Q8")
+print("\n== Q11")
 cip40 = np.where(male, np.interp(40, AGES, CIP_M), np.interp(40, AGES, CIP_F))[free40]
 cip70 = np.where(male, np.interp(70, AGES, CIP_M), np.interp(70, AGES, CIP_F))[free40]
 T40, T70 = norm.isf(cip40), norm.isf(cip70)            # each person's LT-FH++ thresholds at 40 and 70
@@ -216,7 +262,7 @@ fh = np.array([reg.status[r].any() for r in fdr])
 fh40 = np.array([(reg.status[r] & (diag_time[r] <= birth40[i])).any() for i, r in enumerate(fdr)])
 print(f"family-history positive: {fh.sum()} by age 70, {fh40.sum()} at their 40th birthday")
 
-print("\n== Q9")
+print("\n== Q12")
 names = ["own status", "FH indicator", "score (use='gwas')"]
 r2 = [corr(x, g) ** 2 for x in (reg.status, fh, est)]      # R²: the squared correlation of each with g
 
@@ -239,13 +285,13 @@ def table(a, b):
     """2x2 table of two True/False arrays: both, first only, second only, neither."""
     return np.array([(a & b).sum(), (a & ~b).sum(), (~a & b).sum(), (~a & ~b).sum()])
 
-print("\n== Q10")
+print("\n== Q13")
 p_status, k_status = reg.status[par], reg.status[kid]
 t = tetrachoric(p_status, k_status)
 print(f"{len(par)} pairs, table {table(p_status, k_status)}")
 print(f"h2 = 2 rho = {2 * t.rho:.2f} +/- {2 * t.se:.2f}   (truth {H2})")
 
-print("\n== Q12")
+print("\n== Q15")
 from ltpred import liability_to_observed_h2
 
 Ps = np.linspace(0.02, 0.6, 50)                # case fraction in the sample

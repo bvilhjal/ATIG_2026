@@ -1,12 +1,12 @@
 # ATIG 2026 — reproducible teaching code
 
 Lecture simulations and practical exercises, organized by teaching date.
-Version **0.7.0** starts the
-[LT-FH exercise](https://bvilhjal.github.io/ATIG_2026/teaching_days/2026-09-24/LTFH/LTFH_exercise.html)
-by inspecting the data: Kaplan–Meier cumulative incidence by sex and by family history,
-in a register whose disease differs between men and women and is scored with
-sex-specific LT-FH++ thresholds. 13 questions, eight of them plots made from ready
-templates; it runs in
+Version **0.8.0** has students describe the data before modelling it in the
+[LT-FH exercise](https://bvilhjal.github.io/ATIG_2026/teaching_days/2026-09-24/LTFH/LTFH_exercise.html):
+birth years and family sizes, age at diagnosis, Kaplan–Meier survival next to cumulative
+incidence by sex and by family history, and the true genetic liability of cases, in a
+register scored with sex-specific LT-FH++ thresholds. 16 questions, eleven of them plots
+made from ready templates; it runs in
 [Google Colab](https://colab.research.google.com/github/bvilhjal/ATIG_2026/blob/main/teaching_days/2026-09-24/LTFH/LTFH_exercise.ipynb)
 with nothing to install. Python setup lives on its own [setup page](setup.html). The [PCA practical](https://bvilhjal.github.io/ATIG_2026/teaching_days/2026-09-10/PCA/PCA_tutorial.html)
 for 10 September has student and worked-answer handouts, rendered HTML, and
@@ -41,8 +41,8 @@ in your own Jupyter, or consult the [worked answers](teaching_days/2026-09-24/LT
 Read the [student exercise](https://bvilhjal.github.io/ATIG_2026/teaching_days/2026-09-24/LTFH/LTFH_exercise.html)
 or [worked answers](https://bvilhjal.github.io/ATIG_2026/teaching_days/2026-09-24/LTFH/LTFH_exercise_answers.html)
 directly in your browser. The practical follows the
-[ltpred tutorial](https://bvilhjal.github.io/ltpred/tutorial/) and asks 13
-questions, eight of them plots, in five parts on a simulated register whose genetic liability is
+[ltpred tutorial](https://bvilhjal.github.io/ltpred/tutorial/) and asks 16
+questions, eleven of them plots, in five parts on a simulated register whose genetic liability is
 known: a wrong heritability, prediction and calibrated risk, a yes/no
 family-history baseline, tetrachoric heritability, and observed- versus
 liability-scale heritability (Lee et al. 2011). Run locally, it needs Python with NumPy, SciPy

@@ -13,12 +13,14 @@ Choose *File → Save a copy in Drive*, then run the cells in order.
 
 Written for master's students with mixed biology and bioinformatics backgrounds,
 working in pairs. A five-sentence primer and a glossary cover the liability model, and a
-short Python cheat sheet and a hint under every coding task cover the code. The 13
-questions use one simulated register of 5,075 people whose disease is more common, and
-starts earlier, in men. Part 0 first inspects the raw data with Kaplan–Meier cumulative
-incidence curves, by sex and by whether a parent was diagnosed, then scores everyone with
-sex-specific LT-FH++ thresholds. Students make eight plots, each from a ready template
-with one `...` to fill. In class (Part 0 and Parts A and B, about an hour): the data,
+short Python cheat sheet and a hint under every coding task cover the code. The 16
+questions use one simulated register of 5,075 people whose disease is more common in
+men. Part 0 first describes the raw data in five plots: birth years and family sizes,
+age at diagnosis by sex, Kaplan–Meier survival and cumulative incidence by sex,
+cumulative incidence by whether a parent was diagnosed, and (simulation only) the true
+genetic liability of cases and non-cases. It then scores everyone with sex-specific
+LT-FH++ thresholds. Students make eleven plots, each from a ready template with one
+`...` to fill. In class (Part 0 and Parts A and B, about 65 minutes): the data,
 what a wrong heritability does, and how well the score predicts later diagnosis.
 Homework (Parts C to E): a yes/no family-history baseline, heritability from
 parent–offspring pairs by tetrachoric correlation, and observed- versus liability-scale
