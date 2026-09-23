@@ -1,9 +1,9 @@
 # ATIG 2026 — reproducible teaching code
 
 Lecture simulations and practical exercises, organized by teaching date.
-Version **0.9.0**: a shorter, plainer
+Version **0.10.0**: an easier, plainer
 [LT-FH exercise](https://bvilhjal.github.io/ATIG_2026/teaching_days/2026-09-24/LTFH/LTFH_exercise.html)
-(14 questions, run in
+(14 questions, most plotting code given, run in
 [Colab](https://colab.research.google.com/github/bvilhjal/ATIG_2026/blob/main/teaching_days/2026-09-24/LTFH/LTFH_exercise.ipynb)). Python setup lives on its own [setup page](setup.html). The [PCA practical](https://bvilhjal.github.io/ATIG_2026/teaching_days/2026-09-10/PCA/PCA_tutorial.html)
 for 10 September has student and worked-answer handouts, rendered HTML, and
 validation records. The population-structure lecture produces **23 numbered
