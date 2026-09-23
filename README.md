@@ -1,11 +1,11 @@
 # ATIG 2026 — reproducible teaching code
 
 Lecture simulations and practical exercises, organized by teaching date.
-Version **0.5.2** adapts the
+Version **0.5.3** shortens the
 [LT-FH exercise](https://bvilhjal.github.io/ATIG_2026/teaching_days/2026-09-24/LTFH/LTFH_exercise.html)
-to master's students with mixed biology and bioinformatics backgrounds: a
-five-sentence primer and glossary, a Python cheat sheet, a hint under every coding
-task, pair-discussion questions and optional extensions. It runs in
+to 12 questions with easier code blanks. Written for master's students with mixed
+biology and bioinformatics backgrounds, it has a primer and glossary, a Python cheat
+sheet, a hint under every coding task and pair-discussion questions, and runs in
 [Google Colab](https://colab.research.google.com/github/bvilhjal/ATIG_2026/blob/main/teaching_days/2026-09-24/LTFH/LTFH_exercise.ipynb)
 with nothing to install. Python setup lives on its own [setup page](setup.html). The [PCA practical](https://bvilhjal.github.io/ATIG_2026/teaching_days/2026-09-10/PCA/PCA_tutorial.html)
 for 10 September has student and worked-answer handouts, rendered HTML, and
@@ -40,12 +40,11 @@ in your own Jupyter, or consult the [worked answers](teaching_days/2026-09-24/LT
 Read the [student exercise](https://bvilhjal.github.io/ATIG_2026/teaching_days/2026-09-24/LTFH/LTFH_exercise.html)
 or [worked answers](https://bvilhjal.github.io/ATIG_2026/teaching_days/2026-09-24/LTFH/LTFH_exercise_answers.html)
 directly in your browser. The practical follows the
-[ltpred tutorial](https://bvilhjal.github.io/ltpred/tutorial/) and asks 15
+[ltpred tutorial](https://bvilhjal.github.io/ltpred/tutorial/) and asks 12
 questions in five parts on a simulated register whose genetic liability is
-known: a wrong heritability, prediction and calibrated risk, a 0/1
-family-history baseline, tetrachoric heritability under population and
-case-cohort sampling, and observed-to-liability-scale transformations (Lee et
-al. 2011; 2012) with effective sample sizes. Run locally, it needs Python with NumPy, SciPy
+known: a wrong heritability, prediction and calibrated risk, a yes/no
+family-history baseline, tetrachoric heritability, and observed- versus
+liability-scale heritability (Lee et al. 2011). Run locally, it needs Python with NumPy, SciPy
 and [ltpred](https://github.com/bvilhjal/ltpred) installed from source; the
 worked answers execute in under a minute.
 

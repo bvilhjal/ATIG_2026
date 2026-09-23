@@ -104,7 +104,8 @@ print("\n== Q7")
 T40, T70 = norm.isf(np.interp([40, 70], AGES, CIP))   # liability thresholds at ages 40 and 70
 sd = np.sqrt(var40 + 1 - H2)                          # spread of full liability given the relatives
 below_T40 = norm.cdf((T40 - est40) / sd)              # P(liability < T40): undiagnosed at 40
-risk = (below_T40 - norm.cdf((T70 - est40) / sd)) / below_T40
+below_T70 = norm.cdf((T70 - est40) / sd)              # P(liability < T70): undiagnosed at 70
+risk = (below_T40 - below_T70) / below_T40
 
 print(f"mean risk {risk.mean():.3f}   observed incidence {y.mean():.3f}")
 fifths = np.array_split(np.argsort(est40, kind="stable"), 5)    # lowest to highest score
@@ -131,21 +132,18 @@ fdr = [first_degree(i) for i in range(len(reg.ids))]
 diag_time = reg.birth_time + reg.onset               # calendar time of each diagnosis
 birth40 = reg.birth_time + 40                        # calendar time of each 40th birthday
 
+# yes/no family history: any affected parent or sibling, by 70 and by one's own 40th birthday
+fh = np.array([reg.status[r].any() for r in fdr])
+fh40 = np.array([(reg.status[r] & (diag_time[r] <= birth40[i])).any() for i, r in enumerate(fdr)])
+print(f"family-history positive: {fh.sum()} by age 70, {fh40.sum()} at their 40th birthday")
+
 print("\n== Q8")
-n_fdr = np.array([reg.status[r].sum() for r in fdr])          # affected relatives, follow-up to 70
-n_fdr40 = np.array([(reg.status[r] & (diag_time[r] <= birth40[i])).sum()
-                    for i, r in enumerate(fdr)])              # affected by person i's 40th birthday
-fh, fh40 = n_fdr > 0, n_fdr40 > 0                             # the 0/1 indicators
+for name, x in (("own status", reg.status), ("FH indicator 0/1", fh), ("use='gwas' score", est)):
+    print(f"R2  {name:18s} {corr(x, g) ** 2:.3f}")
+for name, x in (("FH indicator at 40", fh40[free40]), ("score at 40", est40)):
+    print(f"AUC {name:18s} {auc(x, y):.3f}")
 
-for name, x in (("own status", reg.status), ("FH indicator 0/1", fh),
-                ("# affected FDRs", n_fdr), ("use='gwas' score", est)):
-    print(f"R2  {name:22s} {corr(x, g) ** 2:.3f}")
-for name, x in (("FH indicator 0/1 at 40", fh40[free40]),
-                ("# affected FDRs at 40", n_fdr40[free40]), ("score at 40", est40)):
-    print(f"AUC {name:22s} {auc(x, y):.3f}")
-print(f"FH-positive: {fh.sum()} with follow-up to 70, {fh40.sum()} at their 40th birthday")
-
-from ltpred import tetrachoric, tetrachoric_table
+from ltpred import tetrachoric
 
 # every parent-child pair in the register, as row numbers
 pairs = [(row[p], i) for i, (f, m) in enumerate(zip(reg.father, reg.mother))
@@ -153,11 +151,9 @@ pairs = [(row[p], i) for i, (f, m) in enumerate(zip(reg.father, reg.mother))
 par, kid = np.array(pairs).T
 
 
-def table(a, b, w=1):
-    """2x2 table of two boolean arrays: both, first only, second only, neither.
-    Optional weights w count each pair w times."""
-    return np.array([(w * (a & b)).sum(), (w * (a & ~b)).sum(),
-                     (w * (~a & b)).sum(), (w * (~a & ~b)).sum()])
+def table(a, b):
+    """2x2 table of two True/False arrays: both, first only, second only, neither."""
+    return np.array([(a & b).sum(), (a & ~b).sum(), (~a & b).sum(), (~a & ~b).sum()])
 
 print("\n== Q9")
 p_status, k_status = reg.status[par], reg.status[kid]
@@ -166,24 +162,6 @@ print(f"{len(par)} pairs, table {table(p_status, k_status)}")
 print(f"h2 = 2 rho = {2 * t.rho:.2f} +/- {2 * t.se:.2f}   (truth {H2})")
 
 print("\n== Q11")
-keep = reg.status | (np.random.default_rng(20260924).random(len(reg.ids)) < 0.2)   # the sample
-pi = np.where(reg.status, 1.0, 0.2)                    # each person's chance of being sampled
-both = keep[par] & keep[kid]                           # pairs with parent and child both sampled
-p_s, k_s = reg.status[par[both]], reg.status[kid[both]]
-print(f"sampled {keep.sum()} of {len(keep)}: case rate {reg.status[keep].mean():.1%} vs {reg.status.mean():.1%}")
-
-naive = tetrachoric(p_s, k_s)
-print(f"{both.sum()} pairs, table {table(p_s, k_s)} -> naive h2 = {2 * naive.rho:.2f} +/- {2 * naive.se:.2f}")
-
-w = 1 / (pi[par[both]] * pi[kid[both]])               # each pair's weight 1 / (pi_parent * pi_child)
-weighted = np.round(table(p_s, k_s, w)).astype(int)
-print(f"weighted table {weighted} -> h2 = {2 * tetrachoric_table(*weighted).rho:.2f}")
-# The weighted table has the population's size, so its own SE is far too small.
-# Rescaled to the pairs actually observed, it gives an honest one.
-scaled = np.round(weighted / weighted.sum() * both.sum()).astype(int)
-print(f"SE with the {both.sum()} pairs actually sampled: +/- {2 * tetrachoric_table(*scaled).se:.2f}")
-
-print("\n== Q12")
 from ltpred import liability_to_observed_h2, observed_to_liability_h2
 
 for name, P in (("population sample", None), ("1:1 case/control", 0.5), ("1:4 case/control", 0.2)):
@@ -191,31 +169,6 @@ for name, P in (("population sample", None), ("1:1 case/control", 0.5), ("1:4 ca
     back = observed_to_liability_h2(obs, K, P)
     print(f"{name:18s} h2_obs = {float(obs):.3f}   converted back = {float(back):.3f}")
 
-print("\n== Q13")
-h2_obs = float(liability_to_observed_h2(H2, K, None))        # 0.17, on the 0/1 scale
-e, _ = score(h2_obs)                                          # fed to the scorer unconverted
-print(f"h2 = {h2_obs:.2f}: corr = {corr(e, g):.3f}, slope = {np.polyfit(e, g, 1)[0]:.2f}")
-
-for P in (0.5, 0.2):
-    wrong = float(observed_to_liability_h2(liability_to_observed_h2(H2, K, P), K))   # P forgotten
-    try:
-        e, _ = score(wrong)
-        print(f"P = {P}: forgetting P gives h2 = {wrong:.2f}, accepted: "
-              f"corr = {corr(e, g):.3f}, slope = {np.polyfit(e, g, 1)[0]:.2f}")
-    except ValueError as err:
-        print(f"P = {P}: forgetting P gives h2 = {wrong:.2f}, refused: {str(err).split(' -- ')[0]}")
-
-print("\n== Q14")
-n_case = reg.status.sum()
-for name, n1, n0 in (("this register", n_case, len(reg.ids) - n_case),
-                     ("1:1 study", 2_500, 2_500),
-                     ("biobank 1:9", 5_000, 45_000),
-                     ("consortium 1:3", 50_000, 150_000)):
-    n = n1 + n0
-    neff = 4 * n1 * n0 / n
-    print(f"{name:15s} N = {n:7d}   P = {n1 / n:.3f}   Neff = {neff:7.0f}   Neff/N = {neff / n:.2f}")
-
-print("\n== Q15")
 import platform, scipy
 print(f"Python {platform.python_version()}, NumPy {np.__version__}, "
       f"SciPy {scipy.__version__}, ltpred {ltpred.__version__}")
