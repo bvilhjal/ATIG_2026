@@ -13,17 +13,16 @@ Choose *File → Save a copy in Drive*, then run the cells in order.
 
 Written for master's students with mixed biology and bioinformatics backgrounds,
 working in pairs. A five-sentence primer and a glossary cover the liability model, and a
-short Python cheat sheet and a hint under every coding task cover the code. The 11
-questions use one simulated register of 5,075 people whose genetic liability is known;
-students make six plots, each from a ready template with one `...` to fill: the score
-against the truth, calibration under three assumed heritabilities, score histograms for
-later cases and non-cases, predicted against observed risk by fifth of the score, R² of
-own status, a yes/no family history and the score, and observed-scale heritability
-against the case fraction. In class (Part 0 and Parts A and B, about an hour): what a
-wrong heritability does, and how well the score predicts later diagnosis. Homework
-(Parts C to E): the family-history baseline, heritability from parent–offspring pairs by
-tetrachoric correlation, and observed- versus liability-scale heritability (Lee et al.
-2011). In Colab the first cell installs ltpred 0.7.1; to run it on
+short Python cheat sheet and a hint under every coding task cover the code. The 13
+questions use one simulated register of 5,075 people whose disease is more common, and
+starts earlier, in men. Part 0 first inspects the raw data with Kaplan–Meier cumulative
+incidence curves, by sex and by whether a parent was diagnosed, then scores everyone with
+sex-specific LT-FH++ thresholds. Students make eight plots, each from a ready template
+with one `...` to fill. In class (Part 0 and Parts A and B, about an hour): the data,
+what a wrong heritability does, and how well the score predicts later diagnosis.
+Homework (Parts C to E): a yes/no family-history baseline, heritability from
+parent–offspring pairs by tetrachoric correlation, and observed- versus liability-scale
+heritability (Lee et al. 2011). In Colab the first cell installs ltpred 0.7.1; to run it on
 your own computer instead, follow the
 [setup page](https://bvilhjal.github.io/ATIG_2026/setup.html). No data files and no R;
 the notebook runs in under a minute. The handouts were executed on 23 September with ltpred 0.7.1.

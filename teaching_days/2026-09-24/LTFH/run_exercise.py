@@ -10,7 +10,9 @@ from scipy.stats import norm, rankdata
 import matplotlib.pyplot as plt
 
 import ltpred
-from ltpred import simulate_pedigree, simulate_register_liabilities, estimate_liabilities
+from ltpred import (simulate_pedigree, simulate_register_liabilities, estimate_liabilities,
+                    kaplan_meier_cip)
+from dataclasses import replace
 print("ltpred", ltpred.__version__)
 
 
@@ -27,24 +29,72 @@ def auc(score, case):
     n1, n0 = case.sum(), (~case).sum()
     return (r[case].sum() - n1 * (n1 + 1) / 2) / (n1 * n0)
 
-H2 = 0.5                                    # true liability-scale heritability
-K = 0.10                                    # lifetime prevalence
-AGES = np.arange(0, 121.0)                  # ages 0, 1, ..., 120
-CIP = K / (1 + np.exp((60 - AGES) / 8))     # cumulative incidence by age: half of K by age 60
+H2 = 0.5                                        # true liability-scale heritability
+AGES = np.arange(0, 121.0)                      # ages 0, 1, ..., 120
+CIP_M = 0.12 / (1 + np.exp((58 - AGES) / 8))    # men: lifetime 12%, half of it by age 58
+CIP_F = 0.08 / (1 + np.exp((62 - AGES) / 8))    # women: lifetime 8%, half of it by age 62
+K = 0.10                                        # lifetime prevalence, men and women together
 
 ids, father, mother = simulate_pedigree(np.random.default_rng(1), n_founder_pairs=500, gens=2)
-reg = simulate_register_liabilities(np.random.default_rng(1), ids, father, mother,
-                                    h2=H2, cip_ages=AGES, cip_values=CIP, eval_age=70)
-g = reg.genetic                             # the truth, known only because we simulated it
+fathers, mothers = set(father), set(mother)
+coin = np.random.default_rng(2).random(len(ids)) < 0.5  # a random sex for people who never became parents
+male = np.array([p in fathers or (p not in mothers and c) for p, c in zip(ids, coin)])
+sex = np.where(male, "M", "F")
 
-print(f"{len(reg.ids)} people, {reg.status.sum()} diagnosed by age 70 ({reg.status.mean():.1%})")
-print(f"var(g) = {g.var():.3f}   (target {H2})")
+
+def simulate(cip):
+    """The register with one incidence curve for everyone (same seed = same liabilities)."""
+    return simulate_register_liabilities(np.random.default_rng(1), ids, father, mother,
+                                         h2=H2, cip_ages=AGES, cip_values=cip, eval_age=70)
+
+
+as_men, as_women = simulate(CIP_M), simulate(CIP_F)
+# each person's records follow their own sex's curve: sex-specific thresholds, as in LT-FH++
+reg = replace(as_men, status=np.where(male, as_men.status, as_women.status),
+              age=np.where(male, as_men.age, as_women.age),
+              onset=np.where(male, as_men.onset, as_women.onset))
+g = reg.genetic                                 # the truth, known only because we simulated it
+
+print(f"{len(reg.ids)} people ({male.sum()} men), {reg.status.sum()} diagnosed by age 70")
+print(f"diagnosed: men {reg.status[male].mean():.1%}, women {reg.status[~male].mean():.1%}")
+
+print("\n== Q1")
+fig, ax = plt.subplots(figsize=(6.5, 4))
+for label, keep, cip, colour in (("men", male, CIP_M, "C0"), ("women", ~male, CIP_F, "C1")):
+    # Kaplan-Meier: everyone enters at birth and leaves at diagnosis or at 70
+    km = kaplan_meier_cip(np.zeros(keep.sum()), reg.age[keep], reg.status[keep])
+    print(f"{label}: {km.values[km.ages <= 50][-1]:.1%} diagnosed by 50, {km.values[-1]:.1%} by 70")
+    ax.step(km.ages, 100 * km.values, where="post", color=colour, label=f"{label}: observed")
+    ax.plot(AGES[:71], 100 * cip[:71], ls="--", color=colour, label=f"{label}: true curve")
+ax.set_xlabel("age")
+ax.set_ylabel("% diagnosed by this age")
+ax.legend()
+plt.show()
+
+print("\n== Q2")
+row = {p: i for i, p in enumerate(reg.ids)}                  # id -> row number
+has_parents = np.array([f in row for f in reg.father])       # parents recorded in the register
+parent_dx = np.array([any(reg.status[row[p]] for p in (f, m) if p in row)
+                      for f, m in zip(reg.father, reg.mother)])   # a parent diagnosed by 70
+
+fig, ax = plt.subplots(figsize=(6.5, 4))
+for label, keep in (("a diagnosed parent", parent_dx),
+                    ("no diagnosed parent", has_parents & ~parent_dx)):   # parents recorded, neither diagnosed
+    km = kaplan_meier_cip(np.zeros(keep.sum()), reg.age[keep], reg.status[keep])
+    ax.step(km.ages, 100 * km.values, where="post", label=f"{label} (n = {keep.sum()})")
+    print(f"{label}: n = {keep.sum()}, {km.values[-1]:.1%} diagnosed by 70")
+ax.set_xlabel("age")
+ax.set_ylabel("% diagnosed by this age")
+ax.legend()
+plt.show()
+
+curves = {"M": (AGES, CIP_M, 0.12), "F": (AGES, CIP_F, 0.08)}   # sex -> (ages, curve, lifetime K)
 
 scores = estimate_liabilities(
     reg.ids, reg.father, reg.mother,          # the pedigree: who is whose parent
     probands=reg.ids,                         # whom to score: everyone
     status=reg.status, age=reg.age,           # diagnosed by 70? age at diagnosis or at 70
-    cip_ages=AGES, cip_values=CIP, k_pop=K,   # incidence curve: turns an age into a liability threshold
+    strata=sex, cip_by_stratum=curves,        # each sex has its own incidence curve, so its own thresholds
     h2=H2,                                    # heritability: you supply it, the scorer never estimates it
     use="gwas")                               # also use each person's own diagnosis
 
@@ -59,8 +109,8 @@ free40 = reg.onset > 40                     # still undiagnosed on their 40th bi
 def score(h2):
     """Everyone's score from all records up to 70 (use="gwas"): (mean, variance)."""
     s = estimate_liabilities(reg.ids, reg.father, reg.mother, probands=reg.ids,
-                             status=reg.status, age=reg.age,
-                             cip_ages=AGES, cip_values=CIP, k_pop=K, h2=h2, use="gwas")
+                             status=reg.status, age=reg.age, strata=sex, cip_by_stratum=curves,
+                             h2=h2, use="gwas")
     return s.est, s.var
 
 
@@ -69,8 +119,8 @@ def score_at_40(h2):
     people still undiagnosed then: their own status and every later record are hidden."""
     s = estimate_liabilities(reg.ids, reg.father, reg.mother,
                              probands=[p for p, keep in zip(reg.ids, free40) if keep],
-                             status=reg.status, age=reg.age,
-                             cip_ages=AGES, cip_values=CIP, k_pop=K, h2=h2, use="prediction",
+                             status=reg.status, age=reg.age, strata=sex, cip_by_stratum=curves,
+                             h2=h2, use="prediction",
                              birth_time=reg.birth_time,                  # everyone's birth date
                              index_time=(reg.birth_time + 40)[free40])   # each proband's 40th birthday
     return s.est, s.var
@@ -79,7 +129,7 @@ def score_at_40(h2):
 est40, var40 = score_at_40(H2)
 print(f"{free40.sum()} people undiagnosed at 40; corr(score at 40, g) = {corr(est40, g[free40]):.3f}")
 
-print("\n== Q1")
+print("\n== Q3")
 fig, ax = plt.subplots(figsize=(5, 4))
 ax.scatter(est, g, s=3, alpha=0.4)             # x: the score est, y: the truth g
 ax.set_xlabel("score (posterior mean)")
@@ -87,7 +137,7 @@ ax.set_ylabel("true genetic liability g")
 ax.set_title(f"corr = {corr(est, g):.2f}")
 plt.show()
 
-print("\n== Q3")
+print("\n== Q5")
 fig, axes = plt.subplots(1, 3, figsize=(12, 3.8), sharex=True, sharey=True)
 for ax, h2 in zip(axes, (0.2, 0.5, 0.8)):
     e, v = score(h2)                           # rescore everyone under this h2
@@ -101,11 +151,11 @@ for ax, h2 in zip(axes, (0.2, 0.5, 0.8)):
 axes[0].set_ylabel("true g")
 plt.show()
 
-print("\n== Q4")
+print("\n== Q6")
 y = reg.status[free40]       # everyone in est40 was undiagnosed at 40, so "by 70" means "40 to 70"
 print(f"{y.sum()} incident cases among {len(y)} people ({y.mean():.1%})")
 
-print("\n== Q5")
+print("\n== Q7")
 fig, ax = plt.subplots(figsize=(6, 3.5))
 ax.hist(est40[~y], bins=40, density=True, alpha=0.5, label="not diagnosed")
 ax.hist(est40[y], bins=40, density=True, alpha=0.5, label="diagnosed 40 to 70")   # the cases' scores
@@ -117,8 +167,10 @@ print(f"AUC score at 40        {auc(est40, y):.3f}")
 print(f"AUC true g             {auc(g[free40], y):.3f}")
 print(f"AUC use='gwas' score   {auc(est[free40], y):.3f}")
 
-print("\n== Q6")
-T40, T70 = norm.isf(np.interp([40, 70], AGES, CIP))    # LT-FH++ thresholds at ages 40 and 70
+print("\n== Q8")
+cip40 = np.where(male, np.interp(40, AGES, CIP_M), np.interp(40, AGES, CIP_F))[free40]
+cip70 = np.where(male, np.interp(70, AGES, CIP_M), np.interp(70, AGES, CIP_F))[free40]
+T40, T70 = norm.isf(cip40), norm.isf(cip70)            # each person's LT-FH++ thresholds at 40 and 70
 sd = np.sqrt(var40 + 1 - H2)                           # spread of full liability given the relatives
 below40 = norm.cdf((T40 - est40) / sd)                 # P(undiagnosed at 40)
 below70 = norm.cdf((T70 - est40) / sd)                 # P(undiagnosed at 70)
@@ -164,7 +216,7 @@ fh = np.array([reg.status[r].any() for r in fdr])
 fh40 = np.array([(reg.status[r] & (diag_time[r] <= birth40[i])).any() for i, r in enumerate(fdr)])
 print(f"family-history positive: {fh.sum()} by age 70, {fh40.sum()} at their 40th birthday")
 
-print("\n== Q7")
+print("\n== Q9")
 names = ["own status", "FH indicator", "score (use='gwas')"]
 r2 = [corr(x, g) ** 2 for x in (reg.status, fh, est)]      # R²: the squared correlation of each with g
 
@@ -187,13 +239,13 @@ def table(a, b):
     """2x2 table of two True/False arrays: both, first only, second only, neither."""
     return np.array([(a & b).sum(), (a & ~b).sum(), (~a & b).sum(), (~a & ~b).sum()])
 
-print("\n== Q8")
+print("\n== Q10")
 p_status, k_status = reg.status[par], reg.status[kid]
 t = tetrachoric(p_status, k_status)
 print(f"{len(par)} pairs, table {table(p_status, k_status)}")
 print(f"h2 = 2 rho = {2 * t.rho:.2f} +/- {2 * t.se:.2f}   (truth {H2})")
 
-print("\n== Q10")
+print("\n== Q12")
 from ltpred import liability_to_observed_h2
 
 Ps = np.linspace(0.02, 0.6, 50)                # case fraction in the sample
