@@ -7831,8 +7831,9 @@ package <a href="https://github.com/bvilhjal/ltpred">ltpred</a>, and check the s
 truth.</p>
 <p>Open the notebook in Colab and run the cells in order. All code is complete in this
 answer sheet. The student notebook has six marked cells to complete.
-The point is to interpret what you see, so write your answers down. Work in pairs. We do not expect you to finish all of these questions in class, but we encourage you
-to complete the remaining questions as homework before October 8.</p>
+The point is to interpret what you see, so write your answers down. Work in pairs.
+You are not expected to finish in class: complete the remaining questions as homework
+before October 8.</p>
 <p>Background: under the liability-threshold model a person is diagnosed when their
 liability, a genetic part <code>g</code> plus an environmental part, crosses a threshold. In
 LT-FH++ (<a href="https://doi.org/10.1016/j.ajhg.2022.01.009">Pedersen et al. 2022</a>) the
@@ -7863,7 +7864,7 @@ True values; <code>[f(x) for x in xs]</code> applies <code>f</code> to each elem
 <div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">q</span> <span class="n">git</span><span class="o">+</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">bvilhjal</span><span class="o">/</span><span class="n">ltpred</span><span class="nd">@v0</span><span class="mf">.7.2</span>     <span class="c1"># installs ltpred (about 30 s)</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">pip</span> install -q git+https://github.com/bvilhjal/ltpred@v0.7.2     # installs ltpred (about 30 s)
 </pre></div>
 </div>
 </div>
@@ -7926,11 +7927,11 @@ True values; <code>[f(x) for x in xs]</code> applies <code>f</code> to each elem
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Part-0:-The-data">Part 0: The data<a class="anchor-link" href="#Part-0:-The-data">¶</a></h2><p>The next cell simulates about 50,000 people across 50 independent groups of roughly
-1,000 people, each covering three generations. The groups have distinct IDs and no relatives in common.
-This keeps memory use modest; set <code>N_GROUPS = 20</code> for a faster run with about 20,000 people.
-A full run took about five minutes in Colab, excluding installation; timings vary. The disease affects 12% of men
-and 8% of women by old age, h² = 0.5, and everyone is followed to age 70. Fathers are men
+<h2 id="Part-0:-The-data">Part 0: The data<a class="anchor-link" href="#Part-0:-The-data">¶</a></h2><p>The next cell simulates about 50,000 people in 50 independent groups of roughly 1,000,
+each covering three generations; the groups share no relatives. A full run takes about
+five minutes in Colab after installation; set <code>N_GROUPS = 20</code> for a faster run with about
+20,000 people. The disease affects 12% of men and 8% of women by old age, h² = 0.5, and
+everyone is followed to age 70. Fathers are men
 and mothers women; the others are given a random sex. One entry per person:</p>
 <ul>
 <li><code>reg.ids</code>, <code>reg.father</code>, <code>reg.mother</code>: the pedigree</li>
@@ -8838,8 +8839,7 @@ diagnosed between 40 and 70.</p>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <h3 id="Q9:-Run-the-cell.-How-much-do-the-scores-of-later-cases-and-non-cases-overlap?">Q9: Run the cell. How much do the scores of later cases and non-cases overlap?<a class="anchor-link" href="#Q9:-Run-the-cell.-How-much-do-the-scores-of-later-cases-and-non-cases-overlap?">¶</a></h3><p>The AUC is the chance that a random later case scores above a random non-case,
-counting a tie as half. The cell
-prints it for the score at 40, for the true <code>g</code>, and for the <code>use="gwas"</code> score, which saw
+counting a tie as half. The cell prints it for the score at 40, for the true <code>g</code>, and for the <code>use="gwas"</code> score, which saw
 each person's own diagnosis. Why is the AUC of the true <code>g</code> below 1? Why is the
 <code>use="gwas"</code> score almost perfect, and why is that not prediction?</p>
 </div>
@@ -9001,8 +9001,8 @@ much do the lowest and highest fifths differ?</p>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <p><strong>Answer.</strong> The mean predicted risk is 7.0% against 7.2% observed: 4.4% against 4.9% in
-the lowest fifth and 12.0% against 11.7% in the highest. Observed risk is about 2.4 times as high in the
-highest fifth, yet most people there are not diagnosed. Good agreement is expected here,
+the lowest fifth and 12.0% against 11.7% in the highest. Observed risk is about 2.4
+times as high in the highest fifth, yet most people there are not diagnosed. Good agreement is expected here,
 because the calculation uses the true incidence curves and h². The AUC measures ranking;
 calibration asks whether predicted risks match observed rates.</p>
 </div>
@@ -9165,8 +9165,8 @@ cell lists all parent–child pairs.</p>
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Q12:-Estimate-h%C2%B2-from-the-parent%E2%80%93child-pairs.">Q12: Estimate h² from the parent–child pairs.<a class="anchor-link" href="#Q12:-Estimate-h%C2%B2-from-the-parent%E2%80%93child-pairs.">¶</a></h3><p>Is it close to 0.5? The standard error treats all pairs as independent: why does that
-not account for family dependence?</p>
+<h3 id="Q12:-Estimate-h%C2%B2-from-the-parent%E2%80%93child-pairs.">Q12: Estimate h² from the parent–child pairs.<a class="anchor-link" href="#Q12:-Estimate-h%C2%B2-from-the-parent%E2%80%93child-pairs.">¶</a></h3><p>Is it close to 0.5? The standard error treats all pairs as independent: why are they
+not?</p>
 </div>
 </div>
 </div>
@@ -9208,12 +9208,11 @@ h2 = 2 rho = 0.45 +/- 0.02 (pairs treated as independent)   truth 0.5
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><strong>Answer.</strong> h² = 0.45 from 78,940 pairs, below the generating value 0.5. This simple pooled
-estimate uses common thresholds despite the sex-specific incidence curves (see Q13).
-The standard error of 0.02 treats the pairs as independent, but each parent appears once per child and families overlap.
-It therefore ignores family dependence. One approach is to resample independent pedigree
-clusters, keeping all related people together; separate nuclear families may still overlap.
-Here, the 50 simulated groups provide independent resampling units.</p>
+<p><strong>Answer.</strong> h² = 0.45 from 78,940 pairs, a little below 0.5: the pooled estimate uses one
+threshold for all parents and one for all children, although the sexes differ (see Q13).
+The pairs are not independent: each parent appears once per child, and siblings share
+parents. The standard error of 0.02 is therefore too small. Resampling whole independent
+groups, such as the 50 simulated here, would account for that.</p>
 </div>
 </div>
 </div>
@@ -9352,10 +9351,10 @@ highest fifth: risk 0.120 -&gt; 0.089, observed 0.117
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <p><strong>Answer.</strong> The observed-scale h² is 0.17 in a population sample (P = K) and 0.48 in a
-balanced case–control study. It increases up to P = 0.5, then decreases; the liability-scale
-value stays 0.5. Scoring with 0.17 barely
-changes the correlation with <code>g</code> (0.52 to 0.51) or the AUC at 40 (both round to 0.598), but the
-slope of <code>g</code> on the score rises from 0.98 to 2.21: the scores are squeezed together. So are
+balanced case–control study. It increases up to P = 0.5, then decreases; the
+liability-scale value stays 0.5. Scoring with 0.17 barely changes the correlation with <code>g</code>
+(0.52 to 0.51) or the AUC at 40 (0.598 both times), but the slope of <code>g</code> on the score rises
+from 0.98 to 2.21: the scores are squeezed together. So are
 the risks: 6.0% and 8.9% in the lowest and highest fifths, against 4.4% and 12.0% with the
 right h² (4.9% and 11.7% observed). Nothing warns you: the scorer cannot tell that h² was
 on the wrong scale.</p>
@@ -9384,9 +9383,9 @@ tell you.</p>
 <p><strong>Answer (example).</strong> The score is the expected genetic liability given a family's
 diagnoses and ages, the incidence curves and h². It correlated 0.52 with the true <code>g</code> and
 was higher with more, and earlier, parental diagnoses. Scored at 40 it predicted diagnosis
-by 70 with an AUC of 0.60, against 0.56 for a yes/no family history, and its risks broadly matched
-the observed rates. The pooled parent–child estimate was h² = 0.45. An observed-scale h² passed to the
-scorer barely changed the AUC but distorted the risks. The score is not a risk and cannot
+by 70 with an AUC of 0.60, against 0.56 for a yes/no family history, and its risks broadly
+matched the observed rates. The pooled parent–child estimate was h² = 0.45. An
+observed-scale h² passed to the scorer barely changed the AUC but distorted the risks. The score is not a risk and cannot
 estimate its own h².</p>
 </div>
 </div>
