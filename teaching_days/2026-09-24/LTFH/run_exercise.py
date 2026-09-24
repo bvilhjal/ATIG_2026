@@ -20,7 +20,7 @@ def corr(x, y):
 
 
 def auc(score, case):
-    """AUC: the chance that a random case scores above a random non-case.
+    """AUC: probability a case scores above a non-case, with half-credit for ties.
 
     Computed from ranks (the Mann-Whitney statistic); `case` is a boolean array."""
     r = rankdata(score)
@@ -33,29 +33,64 @@ CIP_M = 0.12 / (1 + np.exp((58 - AGES) / 8))    # men: lifetime 12%, half of it 
 CIP_F = 0.08 / (1 + np.exp((62 - AGES) / 8))    # women: lifetime 8%, half of it by age 62
 K = 0.10                                        # simplified lifetime prevalence for Part E only
 
-ids, father, mother = simulate_pedigree(np.random.default_rng(1), n_founder_pairs=500, gens=2)
-fathers, mothers = set(father), set(mother)
-coin = np.random.default_rng(2).random(len(ids)) < 0.5  # a random sex for people who never became parents
-male = np.array([p in fathers or (p not in mothers and c) for p, c in zip(ids, coin)])
+N_GROUPS = 50                                   # about 50,000 people; use 20 for about 20,000
+
+
+def simulate_group(group):
+    """One independent group of families; small groups keep simulation memory bounded."""
+    ids, father, mother = simulate_pedigree(np.random.default_rng(2 * group + 1), n_founder_pairs=100, gens=2)
+    ids = [f"{group}:{p}" for p in ids]
+    father = [None if p is None else f"{group}:{p}" for p in father]
+    mother = [None if p is None else f"{group}:{p}" for p in mother]
+    fathers, mothers = set(father), set(mother)
+    coin = np.random.default_rng(2 * group + 2).random(len(ids)) < 0.5  # a random sex for people who never became parents
+    male = np.array([p in fathers or (p not in mothers and c) for p, c in zip(ids, coin)])
+
+    def simulate(cip):
+        """The register with one incidence curve for everyone (same seed = same liabilities)."""
+        return simulate_register_liabilities(np.random.default_rng(2 * group + 1), ids, father, mother,
+                                             h2=H2, cip_ages=AGES, cip_values=cip, eval_age=70)
+
+    as_men, as_women = simulate(CIP_M), simulate(CIP_F)
+    # each person's records follow their own sex's curve: sex-specific thresholds, as in LT-FH++
+    reg = replace(as_men, status=np.where(male, as_men.status, as_women.status),
+                  age=np.where(male, as_men.age, as_women.age),
+                  onset=np.where(male, as_men.onset, as_women.onset))
+    return reg, male
+
+
+groups = [simulate_group(group) for group in range(N_GROUPS)]
+registers, male_groups = zip(*groups)
+reg = replace(registers[0],
+              **{name: [p for r in registers for p in getattr(r, name)]
+                 for name in ("ids", "father", "mother")},
+              **{name: np.concatenate([getattr(r, name) for r in registers])
+                 for name in ("status", "age", "onset", "birth_time", "genetic", "residual_var")})
+male = np.concatenate(male_groups)
 sex = np.where(male, "M", "F")
-
-
-def simulate(cip):
-    """The register with one incidence curve for everyone (same seed = same liabilities)."""
-    return simulate_register_liabilities(np.random.default_rng(1), ids, father, mother,
-                                         h2=H2, cip_ages=AGES, cip_values=cip, eval_age=70)
-
-
-as_men, as_women = simulate(CIP_M), simulate(CIP_F)
-# each person's records follow their own sex's curve: sex-specific thresholds, as in LT-FH++
-reg = replace(as_men, status=np.where(male, as_men.status, as_women.status),
-              age=np.where(male, as_men.age, as_women.age),
-              onset=np.where(male, as_men.onset, as_women.onset))
 g = reg.genetic                                 # the truth, known only because we simulated it
 row = {p: i for i, p in enumerate(reg.ids)}     # id -> row number
 
 print(f"{len(reg.ids)} people ({male.sum()} men), {reg.status.sum()} diagnosed by age 70")
 print(f"diagnosed: men {reg.status[male].mean():.1%}, women {reg.status[~male].mean():.1%}")
+
+liability_grid = np.linspace(-3.5, 4, 500)
+threshold_ages = [40, 55, 70]
+fig, axes = plt.subplots(1, 2, figsize=(11, 4), sharex=True, sharey=True)
+for ax, label, cip in zip(axes, ["men", "women"], [CIP_M, CIP_F]):
+    ax.plot(liability_grid, norm.pdf(liability_grid, scale=np.sqrt(H2)),
+            ls="--", color="grey", label="genetic liability g")
+    ax.plot(liability_grid, norm.pdf(liability_grid), color="black", label="total liability L")
+    for age, colour in zip(threshold_ages, ["C0", "C1", "C2"]):
+        cip_at_age = np.interp(age, AGES, cip)
+        threshold = norm.isf(cip_at_age)
+        ax.axvline(threshold, color=colour, label=f"threshold at {age}")
+        print(f"{label}, age {age}: incidence {cip_at_age:.1%}, threshold {threshold:.2f}")
+    ax.set_title(label)
+    ax.set_xlabel("liability")
+    ax.legend(fontsize=8, loc="upper left")
+axes[0].set_ylabel("density")
+plt.show()
 
 years, n_born = np.unique(reg.birth_time, return_counts=True)    # people born in each year
 couples = Counter((f, m) for f, m in zip(reg.father, reg.mother) if f in row and m in row)
@@ -166,12 +201,36 @@ def score_at_40(h2):
 est40, var40 = score_at_40(H2)
 print(f"{free40.sum()} people undiagnosed at 40; corr(score at 40, g) = {corr(est40, g[free40]):.3f}")
 
-fig, ax = plt.subplots(figsize=(5, 4))
-ax.scatter(est, g, s=3, alpha=0.4)             # x: the score est, y: the truth g
-ax.set_xlabel("score (posterior mean)")
+children = {}                                        # (father, mother) -> rows of their children
+for i, (f, m) in enumerate(zip(reg.father, reg.mother)):
+    if f in row and m in row:
+        children.setdefault((f, m), []).append(i)
+
+
+def first_degree(i):
+    """Rows of person i's parents and full siblings."""
+    f, m = reg.father[i], reg.mother[i]
+    parents = [row[p] for p in (f, m) if p in row]
+    siblings = [j for j in children.get((f, m), []) if j != i]
+    return np.array(parents + siblings, dtype=int)
+
+
+fdr = [first_degree(i) for i in range(len(reg.ids))]
+fh = np.array([reg.status[r].any() for r in fdr])
+print(f"Family-history positive: {fh.sum()} of {len(fh)} people")
+
+
+fig, (ax, ax_fh) = plt.subplots(1, 2, figsize=(10, 4), sharey=True)
+ax.scatter(est, g, s=3, alpha=0.4)    # x: the score est, y: the truth g
+ax.set_xlabel("LT-FH++ genetic-liability score")
 ax.set_ylabel("true genetic liability g")
-ax.set_title(f"corr = {corr(est, g):.2f}")
+ax.set_title(f"Score: corr = {corr(est, g):.2f}")
+ax_fh.boxplot([g[~fh], g[fh]], positions=[0, 1], showmeans=True)
+ax_fh.set_xticks([0, 1], ["no", "yes"])
+ax_fh.set_xlabel("diagnosed parent or full sibling")
+ax_fh.set_title(f"Family-history indicator: corr = {corr(fh, g):.2f}")
 plt.show()
+print(f"Correlation with true g: score {corr(est, g):.3f}; family-history indicator {corr(fh, g):.3f}")
 
 # people undiagnosed at 70 with both parents in the register
 undiagnosed = ~reg.status & has_parents
@@ -242,28 +301,11 @@ print(f"mean predicted risk {risk.mean():.3f}   observed {y.mean():.3f}")
 for name, o, p in zip(("lowest", "2nd", "middle", "4th", "highest"), observed, predicted):
     print(f"{name:>8} fifth: observed {o:.3f}, predicted {p:.3f}")
 
-children = {}                                        # (father, mother) -> rows of their children
-for i, (f, m) in enumerate(zip(reg.father, reg.mother)):
-    if f in row and m in row:
-        children.setdefault((f, m), []).append(i)
-
-
-def first_degree(i):
-    """Rows of person i's parents and full siblings."""
-    f, m = reg.father[i], reg.mother[i]
-    parents = [row[p] for p in (f, m) if p in row]
-    siblings = [j for j in children.get((f, m), []) if j != i]
-    return np.array(parents + siblings, dtype=int)
-
-
-fdr = [first_degree(i) for i in range(len(reg.ids))]
-diag_time = reg.birth_time + reg.onset               # calendar time of each diagnosis
-birth40 = reg.birth_time + 40                        # calendar time of each 40th birthday
-
-# yes/no family history: any affected parent or sibling, by 70 and by one's own 40th birthday
-fh = np.array([reg.status[r].any() for r in fdr])
-fh40 = np.array([(reg.status[r] & (diag_time[r] <= birth40[i])).any() for i, r in enumerate(fdr)])
-print(f"family-history positive: {fh.sum()} by age 70, {fh40.sum()} at their 40th birthday")
+diag_time = reg.birth_time + reg.onset   # calendar time of each diagnosis
+birth40 = reg.birth_time + 40            # calendar time of each person's 40th birthday
+fh40 = np.array([(reg.status[r] & (diag_time[r] <= birth40[i])).any()
+                 for i, r in enumerate(fdr)])
+print(f"Family-history positive at their 40th birthday: {fh40.sum()}")
 
 names = ["own status", "FH indicator", "score (use='gwas')"]
 r2 = [corr(x, g) ** 2 for x in (reg.status, fh, est)]      # R²: the squared correlation of each with g
@@ -315,9 +357,8 @@ print(f"corr(score, g) {corr(est, g):.3f} -> {corr(est_wrong, g):.3f}; "
 est40_wrong, var40_wrong = score_at_40(h2_wrong)
 risk_wrong = risk_40_to_70(est40_wrong, var40_wrong, h2_wrong)
 print(f"AUC at 40 {auc(est40, y):.3f} -> {auc(est40_wrong, y):.3f}")
-for label, idx in (("lowest", fifths[0]), ("highest", fifths[-1])):     # the same people as in Q9
+for label, idx in (("lowest", fifths[0]), ("highest", fifths[-1])):     # the same people as in Q10
     print(f"{label} fifth: risk {risk[idx].mean():.3f} -> {risk_wrong[idx].mean():.3f}, observed {y[idx].mean():.3f}")
-
 
 import platform, scipy
 print(f"Python {platform.python_version()}, NumPy {np.__version__}, "
