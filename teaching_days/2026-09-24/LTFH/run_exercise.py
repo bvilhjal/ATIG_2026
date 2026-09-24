@@ -52,11 +52,11 @@ reg = replace(as_men, status=np.where(male, as_men.status, as_women.status),
               age=np.where(male, as_men.age, as_women.age),
               onset=np.where(male, as_men.onset, as_women.onset))
 g = reg.genetic                                 # the truth, known only because we simulated it
+row = {p: i for i, p in enumerate(reg.ids)}     # id -> row number
 
 print(f"{len(reg.ids)} people ({male.sum()} men), {reg.status.sum()} diagnosed by age 70")
 print(f"diagnosed: men {reg.status[male].mean():.1%}, women {reg.status[~male].mean():.1%}")
 
-row = {p: i for i, p in enumerate(reg.ids)}                      # id -> row number
 years, n_born = np.unique(reg.birth_time, return_counts=True)    # people born in each year
 couples = Counter((f, m) for f, m in zip(reg.father, reg.mother) if f in row and m in row)
 sizes, n_couples = np.unique(list(couples.values()), return_counts=True)   # children per couple
@@ -101,7 +101,6 @@ for ax in (ax1, ax2):
     ax.legend()
 plt.show()
 
-row = {p: i for i, p in enumerate(reg.ids)}                  # id -> row number
 has_parents = np.array([f in row for f in reg.father])       # parents recorded in the register
 parent_dx = np.array([any(reg.status[row[p]] for p in (f, m) if p in row)
                       for f, m in zip(reg.father, reg.mother)])   # a parent diagnosed by 70
@@ -174,17 +173,16 @@ ax.set_ylabel("true genetic liability g")
 ax.set_title(f"corr = {corr(est, g):.2f}")
 plt.show()
 
-# people still undiagnosed at 70 with both parents recorded; their status and age match,
-# but their own sex-specific thresholds and other family records can still differ
+# people undiagnosed at 70 with both parents in the register
 undiagnosed = ~reg.status & has_parents
 n_dx = np.array([sum(reg.status[row[p]] for p in (f, m) if p in row)
                  for f, m in zip(reg.father, reg.mother)])            # diagnosed parents: 0, 1 or 2
 parent_onset = np.array([min([reg.onset[row[p]] for p in (f, m) if p in row and reg.status[row[p]]], default=np.nan)
                          for f, m in zip(reg.father, reg.mother)])    # age of the (first) diagnosed parent
-one = undiagnosed & (n_dx == 1)                                              # exactly one diagnosed parent
+one = undiagnosed & (n_dx == 1)                                      # exactly one diagnosed parent
 
 fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(10, 3.8), sharey=True)
-ax1.boxplot([est[undiagnosed & (n_dx == k)] for k in (0, 1, 2)])     # the scores of the people in undiagnosed with k diagnosed parents
+ax1.boxplot([est[undiagnosed & (n_dx == k)] for k in (0, 1, 2)])     # the scores of the people in `undiagnosed` with k diagnosed parents
 ax1.set_xticks([1, 2, 3], ["0", "1", "2"])
 ax1.set_xlabel("diagnosed parents")
 ax1.set_ylabel("score")
@@ -216,6 +214,8 @@ print(f"AUC use='gwas' score   {auc(est[free40], y):.3f}")
 cip40 = np.where(male, np.interp(40, AGES, CIP_M), np.interp(40, AGES, CIP_F))[free40]
 cip70 = np.where(male, np.interp(70, AGES, CIP_M), np.interp(70, AGES, CIP_F))[free40]
 T40, T70 = norm.isf(cip40), norm.isf(cip70)            # each person's LT-FH++ thresholds at 40 and 70
+
+
 def risk_40_to_70(mean_g, var_g, h2):
     """Normal approximation to P(diagnosed 40–70 | relatives, undiagnosed at 40)."""
     sd = np.sqrt(var_g + 1 - h2)          # genetic uncertainty + environmental variance
@@ -242,7 +242,6 @@ print(f"mean predicted risk {risk.mean():.3f}   observed {y.mean():.3f}")
 for name, o, p in zip(("lowest", "2nd", "middle", "4th", "highest"), observed, predicted):
     print(f"{name:>8} fifth: observed {o:.3f}, predicted {p:.3f}")
 
-row = {p: i for i, p in enumerate(reg.ids)}          # id -> row number
 children = {}                                        # (father, mother) -> rows of their children
 for i, (f, m) in enumerate(zip(reg.father, reg.mother)):
     if f in row and m in row:
@@ -291,8 +290,7 @@ def table(a, b):
 p_status, k_status = reg.status[par], reg.status[kid]
 t = tetrachoric(p_status, k_status)
 print(f"{len(par)} pairs, table {table(p_status, k_status)}")
-print(f"h2 = 2 rho = {2 * t.rho:.2f}   (generating value {H2})")
-print(f"naive SE = {2 * t.se:.2f}; treats pairs as independent, not family-adjusted")
+print(f"h2 = 2 rho = {2 * t.rho:.2f} +/- {2 * t.se:.2f} (pairs treated as independent)   truth {H2}")
 
 from ltpred import liability_to_observed_h2
 
@@ -310,20 +308,15 @@ plt.show()
 print(f"population sample {float(liability_to_observed_h2(H2, K, None)):.3f}, "
       f"1:1 study {float(liability_to_observed_h2(H2, K, 0.5)):.3f}")
 
-h2_wrong = float(liability_to_observed_h2(H2, K, None))  # illustrative wrong-scale input
-est_wrong, var_wrong = score(h2_wrong)
-print(f"corr(score, g): correct h² {corr(est, g):.3f}; wrong h² {corr(est_wrong, g):.3f}")
-print(f"slope of g on score: correct {np.polyfit(est, g, 1)[0]:.2f}; "
-      f"wrong {np.polyfit(est_wrong, g, 1)[0]:.2f} (1 means correct scale)")
-
+h2_wrong = float(liability_to_observed_h2(H2, K, None))   # observed-scale value, used as if liability-scale
+est_wrong = score(h2_wrong)[0]
+print(f"corr(score, g) {corr(est, g):.3f} -> {corr(est_wrong, g):.3f}; "
+      f"slope of g on score {np.polyfit(est, g, 1)[0]:.2f} -> {np.polyfit(est_wrong, g, 1)[0]:.2f}")
 est40_wrong, var40_wrong = score_at_40(h2_wrong)
 risk_wrong = risk_40_to_70(est40_wrong, var40_wrong, h2_wrong)
-print(f"AUC at 40: correct h² {auc(est40, y):.4f}; wrong h² {auc(est40_wrong, y):.4f}")
-print(f"mean risk: correct {risk.mean():.3f}; wrong {risk_wrong.mean():.3f}; observed {y.mean():.3f}")
-# Keep the original Q9 groups so we compare risks for the same people.
-for label, idx in (("lowest", fifths[0]), ("highest", fifths[-1])):
-    print(f"{label} fifth: correct risk {risk[idx].mean():.3f}; "
-          f"wrong risk {risk_wrong[idx].mean():.3f}; observed {y[idx].mean():.3f}")
+print(f"AUC at 40 {auc(est40, y):.3f} -> {auc(est40_wrong, y):.3f}")
+for label, idx in (("lowest", fifths[0]), ("highest", fifths[-1])):     # the same people as in Q9
+    print(f"{label} fifth: risk {risk[idx].mean():.3f} -> {risk_wrong[idx].mean():.3f}, observed {y[idx].mean():.3f}")
 
 
 import platform, scipy
