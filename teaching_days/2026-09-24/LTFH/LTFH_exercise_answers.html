@@ -7829,11 +7829,8 @@ a.anchor-link {
 every person is known, describe the data, score everyone with LT-FH++ using the Python
 package <a href="https://github.com/bvilhjal/ltpred">ltpred</a>, and check the scores against the
 truth.</p>
-<p>Open the notebook in Colab, choose <em>File → Save a copy in Drive</em>, and run the cells in
-order. Most plotting cells are complete: run them and answer the questions below them.
-Five cells need editing. They are marked ✏️ <strong>Your turn</strong>, and inside them the lines to
-change are marked <code># &lt;-- EDIT</code>: replace each <code>...</code> with the expression described there
-(a hint is given under the cell).
+<p>Open the notebook in Colab and run the cells in order. All code is complete in this
+answer sheet. The student notebook has five marked cells to complete.
 The point is to interpret what you see, so write your answers down. Work in pairs. Parts 0, A and B are
 for the class (about an hour); parts C to E are homework.</p>
 <p>Background: under the liability-threshold model a person is diagnosed when their
@@ -7866,7 +7863,7 @@ True values; <code>[f(x) for x in xs]</code> applies <code>f</code> to each elem
 <div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">pip</span> install -q git+https://github.com/bvilhjal/ltpred@v0.7.1     # installs ltpred (about 30 s)
+<div class="highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">q</span> <span class="n">git</span><span class="o">+</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">bvilhjal</span><span class="o">/</span><span class="n">ltpred</span><span class="nd">@v0</span><span class="mf">.7.1</span>     <span class="c1"># installs ltpred (about 30 s)</span>
 </pre></div>
 </div>
 </div>
@@ -7916,7 +7913,7 @@ True values; <code>[f(x) for x in xs]</code> applies <code>f</code> to each elem
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>ltpred 0.7.2
+<pre>ltpred 0.7.1
 </pre>
 </div>
 </div>
@@ -7951,7 +7948,7 @@ and mothers women; the others are given a random sex. <code>reg</code> holds the
 <span class="n">AGES</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">121.0</span><span class="p">)</span>                      <span class="c1"># ages 0, 1, ..., 120</span>
 <span class="n">CIP_M</span> <span class="o">=</span> <span class="mf">0.12</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">((</span><span class="mi">58</span> <span class="o">-</span> <span class="n">AGES</span><span class="p">)</span> <span class="o">/</span> <span class="mi">8</span><span class="p">))</span>    <span class="c1"># men: lifetime 12%, half of it by age 58</span>
 <span class="n">CIP_F</span> <span class="o">=</span> <span class="mf">0.08</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">((</span><span class="mi">62</span> <span class="o">-</span> <span class="n">AGES</span><span class="p">)</span> <span class="o">/</span> <span class="mi">8</span><span class="p">))</span>    <span class="c1"># women: lifetime 8%, half of it by age 62</span>
-<span class="n">K</span> <span class="o">=</span> <span class="mf">0.10</span>                                        <span class="c1"># lifetime prevalence, men and women together</span>
+<span class="n">K</span> <span class="o">=</span> <span class="mf">0.10</span>                                        <span class="c1"># simplified lifetime prevalence for Part E only</span>
 
 <span class="n">ids</span><span class="p">,</span> <span class="n">father</span><span class="p">,</span> <span class="n">mother</span> <span class="o">=</span> <span class="n">simulate_pedigree</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">n_founder_pairs</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">gens</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 <span class="n">fathers</span><span class="p">,</span> <span class="n">mothers</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">father</span><span class="p">),</span> <span class="nb">set</span><span class="p">(</span><span class="n">mother</span><span class="p">)</span>
@@ -8127,8 +8124,10 @@ and siblings in the register.</p>
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><strong>Answer.</strong> 223 men and 143 women are diagnosed, nine in ten of them between 40 and 70,
-with a median age of 56 in both sexes. Men are diagnosed more often, but not earlier.</p>
+<p><strong>Answer.</strong> 223 men and 143 women are diagnosed, about nine in ten between 40 and 70.
+The median diagnosis age rounds to 56 in both sexes in this sample. Men are diagnosed
+more often; these sample medians do not demonstrate an earlier typical diagnosis in men,
+even though the generating curves have different age profiles.</p>
 </div>
 </div>
 </div>
@@ -8277,9 +8276,10 @@ no diagnosed parent: n = 3364, 5.9% diagnosed by 70
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><strong>Answer.</strong> Yes: 14.4% of the 578 people with a diagnosed parent are diagnosed by 70,
-against 5.9% of the 3,364 whose parents were not. This familial aggregation is what
-LT-FH++ uses.</p>
+<p><strong>Answer.</strong> By 70, 14.4% of people with a diagnosed parent are diagnosed themselves,
+versus 5.9% with neither parent diagnosed: about 2.4 times as often (an 8.5 percentage-point
+difference). Both groups have recorded parents. This familial aggregation is information
+LT-FH++ can use; by itself it would not prove a genetic cause in real data.</p>
 </div>
 </div>
 </div>
@@ -8353,10 +8353,19 @@ disease: only 43% of the people with <code>g</code> above 1 are diagnosed by 70.
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Scoring">Scoring<a class="anchor-link" href="#Scoring">¶</a></h3><p><code>estimate_liabilities</code> returns each person's score (<code>.est</code>, the expected <code>g</code> given the
-records) and its variance (<code>.var</code>). <code>strata=sex</code> gives each sex its own incidence curve.
-The helpers below score people as of their 40th birthday, using only records made before
-it (<code>score_at_40</code>), and rescore everyone under another h² (<code>score</code>, used in Part E).</p>
+<h3 id="Scoring">Scoring<a class="anchor-link" href="#Scoring">¶</a></h3><p>The score (<code>.est</code>) estimates a person's genetic liability <code>g</code> from the available
+family records. The posterior variance (<code>.var</code>) describes the remaining uncertainty
+about that person's <code>g</code>; it is not the variance of the scores across people.
+The package uses a deterministic approximation called Pearson–Aitken. Neither the
+score nor its variance is a probability of disease.</p>
+<p><code>strata=sex</code> gives each sex its own incidence curve. We make two kinds of score:</p>
+<ul>
+<li><code>use="gwas"</code>: include own diagnosis and relatives' records through age 70.</li>
+<li><code>use="prediction"</code>: leave out own diagnosis and cut every relative's records off
+at the person's 40th birthday, using calendar time. A parent may then be 70 and
+a sibling 38: the cutoff is the same date, not the same age.</li>
+</ul>
+<p>The helpers below produce these scores and let us change the assumed h² in Part E.</p>
 </div>
 </div>
 </div>
@@ -8514,11 +8523,12 @@ score is large. Most people have no diagnosed relatives and get small negative s
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <h2 id="Part-A:-What-the-score-uses">Part A: What the score uses<a class="anchor-link" href="#Part-A:-What-the-score-uses">¶</a></h2><p>A yes/no family history only says whether a relative was diagnosed. The score also uses
-how many relatives were diagnosed and at what age.</p>
+which relatives were diagnosed, how many, and at what ages.</p>
 <h3 id="Q7:-Compare-the-scores-of-people-with-different-family-histories.">Q7: Compare the scores of people with different family histories.<a class="anchor-link" href="#Q7:-Compare-the-scores-of-people-with-different-family-histories.">¶</a></h3><p>The plot shows people still undiagnosed at 70 whose parents are both in the register.
-Before running it, guess: who gets the higher score, someone whose parent was diagnosed
-at 45, or someone whose parent was diagnosed at 68? Then explain what you see, using the
-age-dependent thresholds from the slides.</p>
+Before running it, guess: all else equal, who gets the higher score, someone whose
+parent was diagnosed at 45, or someone whose parent was diagnosed at 68? Explain the
+plots using the age-dependent thresholds from the slides. These are group comparisons:
+other relatives and sex also differ between people.</p>
 </div>
 </div>
 </div>
@@ -8530,8 +8540,8 @@ age-dependent thresholds from the slides.</p>
 <div class="jp-InputPrompt jp-InputArea-prompt">In [11]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># people still undiagnosed at 70 with both parents recorded: their own record is the same,</span>
-<span class="c1"># so any difference in their scores comes from the family</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># people still undiagnosed at 70 with both parents recorded; their status and age match,</span>
+<span class="c1"># but their own sex-specific thresholds and other family records can still differ</span>
 <span class="n">undiagnosed</span> <span class="o">=</span> <span class="o">~</span><span class="n">reg</span><span class="o">.</span><span class="n">status</span> <span class="o">&amp;</span> <span class="n">has_parents</span>
 <span class="n">n_dx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="nb">sum</span><span class="p">(</span><span class="n">reg</span><span class="o">.</span><span class="n">status</span><span class="p">[</span><span class="n">row</span><span class="p">[</span><span class="n">p</span><span class="p">]]</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">m</span><span class="p">)</span> <span class="k">if</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">row</span><span class="p">)</span>
                  <span class="k">for</span> <span class="n">f</span><span class="p">,</span> <span class="n">m</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">reg</span><span class="o">.</span><span class="n">father</span><span class="p">,</span> <span class="n">reg</span><span class="o">.</span><span class="n">mother</span><span class="p">)])</span>            <span class="c1"># diagnosed parents: 0, 1 or 2</span>
@@ -8590,12 +8600,15 @@ parent diagnosed 60 to 70: n = 167, mean score 0.21
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><strong>Answer.</strong> The mean score is −0.15 with no diagnosed parent, 0.29 with one and 0.82 with
-two (only 10 people). Among those with one diagnosed parent it is 0.37 if the parent was
-diagnosed before 50, 0.30 at 50 to 59 and 0.21 at 60 to 70. Few people are diagnosed
-young, so the threshold at a young age is high: a parent who crossed it early must have a
-high liability, and a child's expected genetic liability is half the parent's. The boxes overlap a lot,
-because siblings, grandparents and the person's own sex also enter the score.</p>
+<p><strong>Answer.</strong> The mean score is −0.15 with no diagnosed parent, 0.29 with one and 0.82
+with two (only 10 people). With one diagnosed parent, the means are 0.37 for diagnosis
+before 50, 0.30 at 50–59 and 0.21 at 60–70.</p>
+<p>An early diagnosis implies a higher total liability under this model. Some of that
+liability is environmental, so it is not all inherited. Given both parents' genetic
+liabilities, the child's expected <code>g</code> is their average; the child also has a random
+Mendelian-sampling deviation. An early parental diagnosis therefore tends to raise the
+child's score. The boxes overlap because other relatives and sex-specific thresholds
+also matter. Being undiagnosed at 70 is not identical evidence for men and women.</p>
 </div>
 </div>
 </div>
@@ -8647,9 +8660,11 @@ diagnosed between 40 and 70.</p>
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Q8:-Run-the-cell.-How-much-do-the-scores-of-later-cases-and-non-cases-overlap?">Q8: Run the cell. How much do the scores of later cases and non-cases overlap?<a class="anchor-link" href="#Q8:-Run-the-cell.-How-much-do-the-scores-of-later-cases-and-non-cases-overlap?">¶</a></h3><p>The cell also prints the AUC for the score at 40, for the true <code>g</code> and for the score that
-used each person's own diagnosis (<code>use="gwas"</code>). Why is the true <code>g</code> below 1? Why is the
-<code>use="gwas"</code> score almost perfect, and why must it not be used for prediction?</p>
+<h3 id="Q8:-Run-the-cell.-How-much-do-the-scores-of-later-cases-and-non-cases-overlap?">Q8: Run the cell. How much do the scores of later cases and non-cases overlap?<a class="anchor-link" href="#Q8:-Run-the-cell.-How-much-do-the-scores-of-later-cases-and-non-cases-overlap?">¶</a></h3><p>The cell prints the AUC for the score at 40, for the true <code>g</code>, and for the score that
+used each person's own diagnosis (<code>use="gwas"</code>). AUC is the chance that a randomly
+chosen later case scores above a randomly chosen non-case, counting a tie as half.
+Why is even the AUC of the true <code>g</code> below 1? Why is the <code>use="gwas"</code> score almost perfect,
+and why is that not evidence of prediction?</p>
 </div>
 </div>
 </div>
@@ -8704,10 +8719,11 @@ AUC use='gwas' score   0.994
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><strong>Answer.</strong> The histograms overlap heavily; only people with a relative diagnosed before
-their 40th birthday stand out. The AUCs are 0.60 for the score, 0.88 for the true <code>g</code>
-(below 1 because the environmental part is unknown) and 0.99 for the <code>use="gwas"</code> score,
-which contains the outcome and so cannot be used to claim prediction.</p>
+<p><strong>Answer.</strong> The histograms overlap heavily. The AUCs are 0.60 for the score at 40,
+0.88 for the true <code>g</code> and 0.99 for the <code>use="gwas"</code> score. Even knowing <code>g</code> leaves the
+environmental part of liability unknown, so later cases and non-cases still overlap.
+The <code>use="gwas"</code> score contains the outcome we are trying to predict, as well as later
+family records: its high AUC is information leakage, not prospective performance.</p>
 </div>
 </div>
 </div>
@@ -8718,10 +8734,17 @@ which contains the outcome and so cannot be used to claim prediction.</p>
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Q9:-Convert-the-score-into-a-risk-and-compare-it-with-what-happened.">Q9: Convert the score into a risk and compare it with what happened.<a class="anchor-link" href="#Q9:-Convert-the-score-into-a-risk-and-compare-it-with-what-happened.">¶</a></h3><p>The cell computes each person's risk of diagnosis between 40 and 70 from the score, its
-variance and the thresholds for their sex at 40 and 70, and compares it with the observed
-rate in each fifth of the score. Run it. Is the risk well calibrated? How much does risk
-differ between the lowest and highest fifths?</p>
+<h3 id="Q9:-Convert-the-score-into-an-approximate-risk-and-compare-it-with-what-happened.">Q9: Convert the score into an approximate risk and compare it with what happened.<a class="anchor-link" href="#Q9:-Convert-the-score-into-an-approximate-risk-and-compare-it-with-what-happened.">¶</a></h3><p>A score ranks genetic liability; a risk is a probability over a specified time period.
+The cell approximates total liability, given the relatives' records, by a normal
+distribution. Its mean is <code>est40</code> and its variance is <code>var40 + (1 - H2)</code>: remaining
+genetic uncertainty plus environmental variance.</p>
+<p>Diagnosis between 40 and 70 means liability lies between the two age thresholds.
+We divide that probability by the probability of being undiagnosed at 40, because
+we selected people who were disease-free then. Their own disease-free status was
+not used in <code>est40</code>, so this does not count it twice.</p>
+<p>Run the cell. How close are predicted and observed risks in each fifth of the score?
+How much does risk differ between the lowest and highest fifths? Does one simulated
+register establish that the method is generally well calibrated?</p>
 </div>
 </div>
 </div>
@@ -8736,10 +8759,15 @@ differ between the lowest and highest fifths?</p>
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">cip40</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">male</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="mi">40</span><span class="p">,</span> <span class="n">AGES</span><span class="p">,</span> <span class="n">CIP_M</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="mi">40</span><span class="p">,</span> <span class="n">AGES</span><span class="p">,</span> <span class="n">CIP_F</span><span class="p">))[</span><span class="n">free40</span><span class="p">]</span>
 <span class="n">cip70</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">male</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="mi">70</span><span class="p">,</span> <span class="n">AGES</span><span class="p">,</span> <span class="n">CIP_M</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="mi">70</span><span class="p">,</span> <span class="n">AGES</span><span class="p">,</span> <span class="n">CIP_F</span><span class="p">))[</span><span class="n">free40</span><span class="p">]</span>
 <span class="n">T40</span><span class="p">,</span> <span class="n">T70</span> <span class="o">=</span> <span class="n">norm</span><span class="o">.</span><span class="n">isf</span><span class="p">(</span><span class="n">cip40</span><span class="p">),</span> <span class="n">norm</span><span class="o">.</span><span class="n">isf</span><span class="p">(</span><span class="n">cip70</span><span class="p">)</span>            <span class="c1"># each person's LT-FH++ thresholds at 40 and 70</span>
-<span class="n">sd</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">var40</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">H2</span><span class="p">)</span>                           <span class="c1"># spread of full liability given the relatives</span>
-<span class="n">below40</span> <span class="o">=</span> <span class="n">norm</span><span class="o">.</span><span class="n">cdf</span><span class="p">((</span><span class="n">T40</span> <span class="o">-</span> <span class="n">est40</span><span class="p">)</span> <span class="o">/</span> <span class="n">sd</span><span class="p">)</span>                 <span class="c1"># P(undiagnosed at 40)</span>
-<span class="n">below70</span> <span class="o">=</span> <span class="n">norm</span><span class="o">.</span><span class="n">cdf</span><span class="p">((</span><span class="n">T70</span> <span class="o">-</span> <span class="n">est40</span><span class="p">)</span> <span class="o">/</span> <span class="n">sd</span><span class="p">)</span>                 <span class="c1"># P(undiagnosed at 70)</span>
-<span class="n">risk</span> <span class="o">=</span> <span class="p">(</span><span class="n">below40</span> <span class="o">-</span> <span class="n">below70</span><span class="p">)</span> <span class="o">/</span> <span class="n">below40</span>                   <span class="c1"># P(diagnosed 40-70 | undiagnosed at 40)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">risk_40_to_70</span><span class="p">(</span><span class="n">mean_g</span><span class="p">,</span> <span class="n">var_g</span><span class="p">,</span> <span class="n">h2</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Normal approximation to P(diagnosed 40–70 | relatives, undiagnosed at 40)."""</span>
+    <span class="n">sd</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">var_g</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">h2</span><span class="p">)</span>          <span class="c1"># genetic uncertainty + environmental variance</span>
+    <span class="n">below40</span> <span class="o">=</span> <span class="n">norm</span><span class="o">.</span><span class="n">cdf</span><span class="p">((</span><span class="n">T40</span> <span class="o">-</span> <span class="n">mean_g</span><span class="p">)</span> <span class="o">/</span> <span class="n">sd</span><span class="p">)</span>
+    <span class="n">below70</span> <span class="o">=</span> <span class="n">norm</span><span class="o">.</span><span class="n">cdf</span><span class="p">((</span><span class="n">T70</span> <span class="o">-</span> <span class="n">mean_g</span><span class="p">)</span> <span class="o">/</span> <span class="n">sd</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">below40</span> <span class="o">-</span> <span class="n">below70</span><span class="p">)</span> <span class="o">/</span> <span class="n">below40</span>  <span class="c1"># condition on being undiagnosed at 40</span>
+
+
+<span class="n">risk</span> <span class="o">=</span> <span class="n">risk_40_to_70</span><span class="p">(</span><span class="n">est40</span><span class="p">,</span> <span class="n">var40</span><span class="p">,</span> <span class="n">H2</span><span class="p">)</span>
 
 <span class="n">fifths</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array_split</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">est40</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s2">"stable"</span><span class="p">),</span> <span class="mi">5</span><span class="p">)</span>   <span class="c1"># lowest to highest score</span>
 <span class="n">observed</span> <span class="o">=</span> <span class="p">[</span><span class="n">y</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="n">fifths</span><span class="p">]</span>                   <span class="c1"># share diagnosed in each fifth</span>
@@ -8792,9 +8820,15 @@ differ between the lowest and highest fifths?</p>
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><strong>Answer.</strong> The mean predicted risk is 6.9% against 6.6% observed, and both rise from
-about 4.5% in the lowest fifth to about 11% in the highest. The middle fifths are hard to
-tell apart, as expected with an AUC of 0.6.</p>
+<p><strong>Answer.</strong> Mean predicted risk is 6.9%, versus 6.6% observed. In the lowest fifth,
+4.5% is predicted and 4.4% observed; in the highest, 11.6% is predicted and 10.7%
+observed. Observed risk is about 2.4 times higher in the highest than the lowest fifth,
+but most people in even the highest fifth are not diagnosed by 70.</p>
+<p>This is reasonable agreement in this simulation, not proof of general calibration.
+The calculation uses a normal approximation and the true incidence curves and h².
+Sampling variation, related people, and different assumptions or populations can
+change the comparison. AUC measures ranking; calibration asks whether probabilities
+match frequencies.</p>
 </div>
 </div>
 </div>
@@ -8919,9 +8953,13 @@ R2: own status 0.139, FH indicator 0.072, score (use='gwas') 0.280
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><strong>Answer.</strong> R² is 0.14 for own status, 0.07 for family history and 0.28 for the score. For
-predicting diagnosis after 40 the AUC is 0.56 for family history against 0.60 for the
-score; own status is left out because nobody in that group was diagnosed at 40.</p>
+<p><strong>Answer.</strong> R² is 0.14 for own status, 0.07 for family history and 0.28 for the score.
+The score combines own status, ages, sex-specific thresholds and a wider set of relatives;
+the yes/no indicator uses only parents and full siblings and discards their ages.
+This is therefore a comparison of both information and how it is used.</p>
+<p>For predicting diagnosis after 40, the AUC is 0.56 for family history versus 0.60 for
+the score. Own status at 40 cannot distinguish anyone in this disease-free group;
+using own status at 70 would leak the outcome.</p>
 </div>
 </div>
 </div>
@@ -8932,8 +8970,14 @@ score; own status is left out because nobody in that group was diagnosed at 40.<
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Part-D:-Heritability-from-parents-and-children-(homework)">Part D: Heritability from parents and children (homework)<a class="anchor-link" href="#Part-D:-Heritability-from-parents-and-children-(homework)">¶</a></h2><p>h² is roughly twice the tetrachoric correlation between the diagnoses of parents and
-children. The next cell lists all parent–child pairs.</p>
+<h2 id="Part-D:-Heritability-from-parents-and-children-(homework)">Part D: Heritability from parents and children (homework)<a class="anchor-link" href="#Part-D:-Heritability-from-parents-and-children-(homework)">¶</a></h2><p>Tetrachoric correlation estimates a correlation between unobserved normal liabilities
+from a table of two binary outcomes. It is not the ordinary correlation of the 0/1
+statuses. Under a simple additive model with random mating and no shared environment,
+parent and child liabilities have correlation h²/2. Hence twice the tetrachoric
+correlation is a rough estimate of h².</p>
+<p>The next cell lists all parent–child pairs. This pooled calculation ignores the
+sex-specific thresholds, and its standard error treats pairs as independent. Both
+are simplifications: many pairs contain the same people or related people.</p>
 </div>
 </div>
 </div>
@@ -8968,7 +9012,8 @@ children. The next cell lists all parent–child pairs.</p>
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Q11:-Estimate-h%C2%B2-from-the-parent%E2%80%93child-pairs.">Q11: Estimate h² from the parent–child pairs.<a class="anchor-link" href="#Q11:-Estimate-h%C2%B2-from-the-parent%E2%80%93child-pairs.">¶</a></h3>
+<h3 id="Q11:-Estimate-h%C2%B2-from-the-parent%E2%80%93child-pairs.">Q11: Estimate h² from the parent–child pairs.<a class="anchor-link" href="#Q11:-Estimate-h%C2%B2-from-the-parent%E2%80%93child-pairs.">¶</a></h3><p>Compare the point estimate with the generating value 0.5. Why should the printed
+naive standard error not be treated as family-adjusted uncertainty?</p>
 </div>
 </div>
 </div>
@@ -8983,7 +9028,8 @@ children. The next cell lists all parent–child pairs.</p>
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">p_status</span><span class="p">,</span> <span class="n">k_status</span> <span class="o">=</span> <span class="n">reg</span><span class="o">.</span><span class="n">status</span><span class="p">[</span><span class="n">par</span><span class="p">],</span> <span class="n">reg</span><span class="o">.</span><span class="n">status</span><span class="p">[</span><span class="n">kid</span><span class="p">]</span>
 <span class="n">t</span> <span class="o">=</span> <span class="n">tetrachoric</span><span class="p">(</span><span class="n">p_status</span><span class="p">,</span> <span class="n">k_status</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">par</span><span class="p">)</span><span class="si">}</span><span class="s2"> pairs, table </span><span class="si">{</span><span class="n">table</span><span class="p">(</span><span class="n">p_status</span><span class="p">,</span><span class="w"> </span><span class="n">k_status</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"h2 = 2 rho = </span><span class="si">{</span><span class="mi">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">t</span><span class="o">.</span><span class="n">rho</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> +/- </span><span class="si">{</span><span class="mi">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">t</span><span class="o">.</span><span class="n">se</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">   (truth </span><span class="si">{</span><span class="n">H2</span><span class="si">}</span><span class="s2">)"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"h2 = 2 rho = </span><span class="si">{</span><span class="mi">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">t</span><span class="o">.</span><span class="n">rho</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">   (generating value </span><span class="si">{</span><span class="n">H2</span><span class="si">}</span><span class="s2">)"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"naive SE = </span><span class="si">{</span><span class="mi">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">t</span><span class="o">.</span><span class="n">se</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">; treats pairs as independent, not family-adjusted"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -8997,7 +9043,8 @@ children. The next cell lists all parent–child pairs.</p>
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
 <pre>7884 pairs, table [  88  505  472 6819]
-h2 = 2 rho = 0.48 +/- 0.07   (truth 0.5)
+h2 = 2 rho = 0.48   (generating value 0.5)
+naive SE = 0.07; treats pairs as independent, not family-adjusted
 </pre>
 </div>
 </div>
@@ -9010,7 +9057,13 @@ h2 = 2 rho = 0.48 +/- 0.07   (truth 0.5)
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><strong>Answer.</strong> h² = 0.48 ± 0.07 from 7,884 pairs, close to the true 0.5.</p>
+<p><strong>Answer.</strong> The estimate is h² = 0.48 from 7,884 parent–child pairs, close to the
+generating value 0.5. The printed 0.07 is a <strong>naive standard error</strong>, conditional on
+the fitted marginal thresholds and treating pairs as independent. It is not a 95%
+interval and does not account for overlapping families. Proper uncertainty needs a
+method that accounts for pedigree dependence, for example resampling independent
+pedigree clusters. Agreement with 0.5 in this one simulation does not remove those
+limitations.</p>
 </div>
 </div>
 </div>
@@ -9021,7 +9074,8 @@ h2 = 2 rho = 0.48 +/- 0.07   (truth 0.5)
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Q12:-What-would-make-this-estimate-wrong-in-a-real-register?">Q12: What would make this estimate wrong in a real register?<a class="anchor-link" href="#Q12:-What-would-make-this-estimate-wrong-in-a-real-register?">¶</a></h3><p>Think about follow-up, sex, shared environment and how people were sampled.</p>
+<h3 id="Q12:-What-would-make-this-estimate-wrong-in-a-real-register?">Q12: What would make this estimate wrong in a real register?<a class="anchor-link" href="#Q12:-What-would-make-this-estimate-wrong-in-a-real-register?">¶</a></h3><p>Think about follow-up, sex, shared environment, mating patterns, sampling and
+people appearing in several pairs.</p>
 </div>
 </div>
 </div>
@@ -9032,11 +9086,15 @@ h2 = 2 rho = 0.48 +/- 0.07   (truth 0.5)
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><strong>Answer.</strong> The method assumes one threshold for everyone, no shared environment and a
-population sample. Different follow-up times and sexes break the first assumption
-(Q3 showed a sex difference here), shared environment inflates the estimate, and a sample
-enriched for cases inflates it too: keeping all cases but only a fifth of the others
-gives 0.65 on this register.</p>
+<p><strong>Answer.</strong> The tetrachoric model allows separate thresholds for the parent and
+child margins, but assumes one threshold within each margin. Pooling sexes or people
+with different follow-up times violates that simplification; it already matters here.
+Shared environmental effects can mimic genetic similarity, and assortative mating
+changes the simple h²/2 relationship. Selecting people or families because of disease
+can bias the estimate unless ascertainment is accounted for; the direction depends on
+the selection scheme. Finally, overlapping pairs invalidate the naive independent-pair
+standard error. A real analysis should model the thresholds, sampling and pedigree
+dependence explicitly.</p>
 </div>
 </div>
 </div>
@@ -9048,8 +9106,13 @@ gives 0.65 on this register.</p>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <h2 id="Part-E:-Observed-and-liability-scale-(homework)">Part E: Observed and liability scale (homework)<a class="anchor-link" href="#Part-E:-Observed-and-liability-scale-(homework)">¶</a></h2><p><img alt="A liability split into a 0/1 outcome." src="https://bvilhjal.github.io/ATIG_2026/teaching_days/2026-09-24/LTFH/figures/observed_scale.png"/></p>
-<p>GWAS methods report h² on the observed 0/1 scale, which depends on the proportion of
-cases in the sample (<a href="https://doi.org/10.1016/j.ajhg.2011.02.002">Lee et al. 2011</a>).</p>
+<p>For a binary trait, an observed-scale h² depends on the case fraction in the sample.
+Some GWAS software reports this scale; other software already converts to liability
+scale. Always check which was reported (<a href="https://doi.org/10.1016/j.ajhg.2011.02.002">Lee et al. 2011</a>).</p>
+<p>For the conversion plot only, use a simplified single-threshold disease with lifetime
+prevalence <code>K = 0.10</code> and liability-scale <code>H2 = 0.5</code>. This illustrates the scale change;
+it is not a fitted GWAS result, not a conversion of Q11's estimate, and not the exact
+conversion for our sex-specific register followed only to age 70.</p>
 </div>
 </div>
 </div>
@@ -9060,7 +9123,11 @@ cases in the sample (<a href="https://doi.org/10.1016/j.ajhg.2011.02.002">Lee et
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Q13:-Run-the-cell.-How-does-the-observed-scale-h%C2%B2-depend-on-the-case-fraction?-The-cell-also-scores-everyone-with-the-h%C2%B2-a-population-GWAS-would-report,-passed-to-the-scorer-unconverted.-What-changes:-the-ranking,-the-scale,-or-both?-Which-of-Q8-and-Q9-would-be-affected?">Q13: Run the cell. How does the observed-scale h² depend on the case fraction? The cell also scores everyone with the h² a population GWAS would report, passed to the scorer unconverted. What changes: the ranking, the scale, or both? Which of Q8 and Q9 would be affected?<a class="anchor-link" href="#Q13:-Run-the-cell.-How-does-the-observed-scale-h%C2%B2-depend-on-the-case-fraction?-The-cell-also-scores-everyone-with-the-h%C2%B2-a-population-GWAS-would-report,-passed-to-the-scorer-unconverted.-What-changes:-the-ranking,-the-scale,-or-both?-Which-of-Q8-and-Q9-would-be-affected?">¶</a></h3>
+<h3 id="Q13:-Run-the-cell.-What-changes-when-the-wrong-heritability-scale-is-used?">Q13: Run the cell. What changes when the wrong heritability scale is used?<a class="anchor-link" href="#Q13:-Run-the-cell.-What-changes-when-the-wrong-heritability-scale-is-used?">¶</a></h3><p>First describe how observed-scale h² changes with the sample case fraction <code>P</code> in the
+simplified example. The cell then deliberately passes that example's observed-scale
+value to our scorer as though it were liability-scale h².</p>
+<p>Compare the score–truth correlation and slope, then the age-40 AUC and the risks in
+the original Q9 groups. Does a similar AUC guarantee similar risks?</p>
 </div>
 </div>
 </div>
@@ -9088,10 +9155,20 @@ cases in the sample (<a href="https://doi.org/10.1016/j.ajhg.2011.02.002">Lee et
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"population sample </span><span class="si">{</span><span class="nb">float</span><span class="p">(</span><span class="n">liability_to_observed_h2</span><span class="p">(</span><span class="n">H2</span><span class="p">,</span><span class="w"> </span><span class="n">K</span><span class="p">,</span><span class="w"> </span><span class="kc">None</span><span class="p">))</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">, "</span>
       <span class="sa">f</span><span class="s2">"1:1 study </span><span class="si">{</span><span class="nb">float</span><span class="p">(</span><span class="n">liability_to_observed_h2</span><span class="p">(</span><span class="n">H2</span><span class="p">,</span><span class="w"> </span><span class="n">K</span><span class="p">,</span><span class="w"> </span><span class="mf">0.5</span><span class="p">))</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 
-<span class="n">h2_pop</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">liability_to_observed_h2</span><span class="p">(</span><span class="n">H2</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="kc">None</span><span class="p">))</span>    <span class="c1"># what a population GWAS would report</span>
-<span class="n">e</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="n">score</span><span class="p">(</span><span class="n">h2_pop</span><span class="p">)</span>                                    <span class="c1"># score everyone with it, unconverted</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"scored with h² = </span><span class="si">{</span><span class="n">h2_pop</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">: corr(score, g) = </span><span class="si">{</span><span class="n">corr</span><span class="p">(</span><span class="n">e</span><span class="p">,</span><span class="w"> </span><span class="n">g</span><span class="p">)</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> (0.529 with 0.5), "</span>
-      <span class="sa">f</span><span class="s2">"slope of g on the score = </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">polyfit</span><span class="p">(</span><span class="n">e</span><span class="p">,</span><span class="w"> </span><span class="n">g</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> (1 = calibrated)"</span><span class="p">)</span>
+<span class="n">h2_wrong</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">liability_to_observed_h2</span><span class="p">(</span><span class="n">H2</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="kc">None</span><span class="p">))</span>  <span class="c1"># illustrative wrong-scale input</span>
+<span class="n">est_wrong</span><span class="p">,</span> <span class="n">var_wrong</span> <span class="o">=</span> <span class="n">score</span><span class="p">(</span><span class="n">h2_wrong</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"corr(score, g): correct h² </span><span class="si">{</span><span class="n">corr</span><span class="p">(</span><span class="n">est</span><span class="p">,</span><span class="w"> </span><span class="n">g</span><span class="p">)</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">; wrong h² </span><span class="si">{</span><span class="n">corr</span><span class="p">(</span><span class="n">est_wrong</span><span class="p">,</span><span class="w"> </span><span class="n">g</span><span class="p">)</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"slope of g on score: correct </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">polyfit</span><span class="p">(</span><span class="n">est</span><span class="p">,</span><span class="w"> </span><span class="n">g</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">; "</span>
+      <span class="sa">f</span><span class="s2">"wrong </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">polyfit</span><span class="p">(</span><span class="n">est_wrong</span><span class="p">,</span><span class="w"> </span><span class="n">g</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> (1 means correct scale)"</span><span class="p">)</span>
+
+<span class="n">est40_wrong</span><span class="p">,</span> <span class="n">var40_wrong</span> <span class="o">=</span> <span class="n">score_at_40</span><span class="p">(</span><span class="n">h2_wrong</span><span class="p">)</span>
+<span class="n">risk_wrong</span> <span class="o">=</span> <span class="n">risk_40_to_70</span><span class="p">(</span><span class="n">est40_wrong</span><span class="p">,</span> <span class="n">var40_wrong</span><span class="p">,</span> <span class="n">h2_wrong</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"AUC at 40: correct h² </span><span class="si">{</span><span class="n">auc</span><span class="p">(</span><span class="n">est40</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">)</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">; wrong h² </span><span class="si">{</span><span class="n">auc</span><span class="p">(</span><span class="n">est40_wrong</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">)</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"mean risk: correct </span><span class="si">{</span><span class="n">risk</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">; wrong </span><span class="si">{</span><span class="n">risk_wrong</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">; observed </span><span class="si">{</span><span class="n">y</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="c1"># Keep the original Q9 groups so we compare risks for the same people.</span>
+<span class="k">for</span> <span class="n">label</span><span class="p">,</span> <span class="n">idx</span> <span class="ow">in</span> <span class="p">((</span><span class="s2">"lowest"</span><span class="p">,</span> <span class="n">fifths</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="p">(</span><span class="s2">"highest"</span><span class="p">,</span> <span class="n">fifths</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">label</span><span class="si">}</span><span class="s2"> fifth: correct risk </span><span class="si">{</span><span class="n">risk</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">; "</span>
+          <span class="sa">f</span><span class="s2">"wrong risk </span><span class="si">{</span><span class="n">risk_wrong</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">; observed </span><span class="si">{</span><span class="n">y</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -9111,13 +9188,12 @@ cases in the sample (<a href="https://doi.org/10.1016/j.ajhg.2011.02.002">Lee et
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
 <pre>population sample 0.171, 1:1 study 0.475
-</pre>
-</div>
-</div>
-<div class="jp-OutputArea-child">
-<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>scored with h² = 0.17: corr(score, g) = 0.519 (0.529 with 0.5), slope of g on the score = 2.37 (1 = calibrated)
+corr(score, g): correct h² 0.529; wrong h² 0.519
+slope of g on score: correct 1.04; wrong 2.37 (1 means correct scale)
+AUC at 40: correct h² 0.5949; wrong h² 0.5957
+mean risk: correct 0.069; wrong 0.070; observed 0.066
+lowest fifth: correct risk 0.045; wrong risk 0.060; observed 0.044
+highest fifth: correct risk 0.116; wrong risk 0.087; observed 0.107
 </pre>
 </div>
 </div>
@@ -9130,12 +9206,19 @@ cases in the sample (<a href="https://doi.org/10.1016/j.ajhg.2011.02.002">Lee et
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><strong>Answer.</strong> A population sample (P = K = 0.10) would report 0.17 and a balanced
-case–control study 0.48. Scoring with the unconverted 0.17 barely changes the ranking
-(correlation 0.52 against 0.53) but shrinks the scores: the slope of <code>g</code> on the score is
-2.4 instead of 1. The AUC in Q8 depends only on the ranking and would hardly change; the
-risks in Q9 depend on the scale and would be wrong. h² is an input the scorer cannot
-check, so it has to be on the liability scale.</p>
+<p><strong>Answer.</strong> In the simplified example, observed-scale h² is 0.171 when <code>P = K = 0.10</code>
+and 0.475 in a balanced case–control sample. It rises towards <code>P = 0.5</code> and then falls;
+the underlying liability-scale value stays 0.5.</p>
+<p>Using 0.171 as the scorer's liability-scale h² shrinks the scores. Correlation with
+<code>g</code> changes only from 0.529 to 0.519, but the slope of <code>g</code> on the score changes from
+about 1.04 to 2.37: score differences are now too small. Pearson correlation alone
+does not establish unchanged ranking, so we also check prospective AUC directly.
+It changes only from 0.5949 to 0.5957.</p>
+<p>The risk differences nevertheless shrink: in the original lowest and highest fifths,
+the wrong-h² risks are about 6.0% and 8.7%, compared with 4.5% and 11.6% using the true
+h² (4.4% and 10.7% observed). A nearly unchanged AUC, or a similar overall mean risk,
+can hide distorted risk differences. The scorer requires an appropriate liability-scale
+h²; it cannot infer from the number alone that the wrong scale was supplied.</p>
 </div>
 </div>
 </div>
@@ -9158,14 +9241,15 @@ tell you.</p>
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><strong>Answer (example).</strong> The score is the expected genetic liability given a family's
-diagnoses and ages, the incidence curves and h². In the raw data a diagnosed parent more
-than doubled the incidence by 70. The score tracked <code>g</code> with a correlation of 0.53 and
-was higher when more parents were diagnosed, and when they were diagnosed younger. Scored at 40 it
-predicted diagnosis by 70 with an AUC of 0.60, better than a yes/no family history
-(0.56). Parent–child pairs gave h² = 0.48, which a population GWAS would report as 0.17;
-passed on unconverted, that estimate kept the ranking but put the score on the wrong
-scale. The score is not a risk and cannot estimate its own h².</p>
+<p><strong>Answer (example).</strong> The score estimates genetic liability from family diagnoses,
+ages, incidence curves and an assumed liability-scale h². It correlated 0.53 with true
+<code>g</code> and increased with more affected parents and earlier parental diagnoses. At age 40
+it predicted later diagnosis with AUC 0.60, versus 0.56 for a family-history indicator.
+Approximate risks agreed reasonably with this simulation, but that does not establish
+general calibration. Parent–child pairs gave h² = 0.48; their naive standard error
+ignores family dependence. Supplying an observed-scale h² distorted score and risk
+differences while barely changing AUC. The score is not itself a risk and does not
+estimate its own h².</p>
 </div>
 </div>
 </div>
@@ -9203,7 +9287,7 @@ scale. The score is not a risk and cannot estimate its own h².</p>
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>Python 3.10.20, NumPy 1.26.4, SciPy 1.15.3, ltpred 0.7.2
+<pre>Python 3.13.15, NumPy 2.1.3, SciPy 1.16.3, ltpred 0.7.1
 </pre>
 </div>
 </div>

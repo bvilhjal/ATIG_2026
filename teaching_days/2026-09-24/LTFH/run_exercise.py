@@ -1,6 +1,7 @@
-"""ATiG 2026, 24 September: LT-FH exercise, all answers as one script (plots are drawn only in the notebook)."""
+"""ATiG 2026, 24 September: complete LT-FH exercise calculations."""
 import matplotlib
 matplotlib.use("Agg")
+
 import numpy as np
 from scipy.stats import norm, rankdata
 import matplotlib.pyplot as plt
@@ -30,7 +31,7 @@ H2 = 0.5                                        # true liability-scale heritabil
 AGES = np.arange(0, 121.0)                      # ages 0, 1, ..., 120
 CIP_M = 0.12 / (1 + np.exp((58 - AGES) / 8))    # men: lifetime 12%, half of it by age 58
 CIP_F = 0.08 / (1 + np.exp((62 - AGES) / 8))    # women: lifetime 8%, half of it by age 62
-K = 0.10                                        # lifetime prevalence, men and women together
+K = 0.10                                        # simplified lifetime prevalence for Part E only
 
 ids, father, mother = simulate_pedigree(np.random.default_rng(1), n_founder_pairs=500, gens=2)
 fathers, mothers = set(father), set(mother)
@@ -55,7 +56,6 @@ g = reg.genetic                                 # the truth, known only because 
 print(f"{len(reg.ids)} people ({male.sum()} men), {reg.status.sum()} diagnosed by age 70")
 print(f"diagnosed: men {reg.status[male].mean():.1%}, women {reg.status[~male].mean():.1%}")
 
-print("\n== Q1")
 row = {p: i for i, p in enumerate(reg.ids)}                      # id -> row number
 years, n_born = np.unique(reg.birth_time, return_counts=True)    # people born in each year
 couples = Counter((f, m) for f, m in zip(reg.father, reg.mother) if f in row and m in row)
@@ -72,7 +72,6 @@ plt.show()
 print("born per year:", dict(zip(years.astype(int).tolist(), n_born.tolist())))
 print("couples by number of children:", dict(zip(sizes.tolist(), n_couples.tolist())))
 
-print("\n== Q2")
 bins = np.arange(0, 75, 5)                                      # 5-year age bins
 fig, ax = plt.subplots(figsize=(6, 3.5))
 ax.hist(reg.onset[male & reg.status], bins=bins, alpha=0.6, label="men")
@@ -84,7 +83,6 @@ plt.show()
 print(f"cases: {(male & reg.status).sum()} men, {(~male & reg.status).sum()} women; median age at "
       f"diagnosis {np.median(reg.onset[male & reg.status]):.0f} and {np.median(reg.onset[~male & reg.status]):.0f}")
 
-print("\n== Q3")
 fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(11, 4))
 for label, keep, cip, colour in (("men", male, CIP_M, "C0"), ("women", ~male, CIP_F, "C1")):
     # Kaplan-Meier: everyone enters at birth and leaves at diagnosis or at 70
@@ -103,7 +101,6 @@ for ax in (ax1, ax2):
     ax.legend()
 plt.show()
 
-print("\n== Q4")
 row = {p: i for i, p in enumerate(reg.ids)}                  # id -> row number
 has_parents = np.array([f in row for f in reg.father])       # parents recorded in the register
 parent_dx = np.array([any(reg.status[row[p]] for p in (f, m) if p in row)
@@ -120,7 +117,6 @@ ax.set_ylabel("% diagnosed by this age")
 ax.legend()
 plt.show()
 
-print("\n== Q5")
 fig, ax = plt.subplots(figsize=(6, 3.5))
 ax.hist(g[~reg.status], bins=50, density=True, alpha=0.5, label="not diagnosed by 70")
 ax.hist(g[reg.status], bins=50, density=True, alpha=0.5, label="diagnosed by 70")    # g of the cases
@@ -171,7 +167,6 @@ def score_at_40(h2):
 est40, var40 = score_at_40(H2)
 print(f"{free40.sum()} people undiagnosed at 40; corr(score at 40, g) = {corr(est40, g[free40]):.3f}")
 
-print("\n== Q6")
 fig, ax = plt.subplots(figsize=(5, 4))
 ax.scatter(est, g, s=3, alpha=0.4)             # x: the score est, y: the truth g
 ax.set_xlabel("score (posterior mean)")
@@ -179,9 +174,8 @@ ax.set_ylabel("true genetic liability g")
 ax.set_title(f"corr = {corr(est, g):.2f}")
 plt.show()
 
-print("\n== Q7")
-# people still undiagnosed at 70 with both parents recorded: their own record is the same,
-# so any difference in their scores comes from the family
+# people still undiagnosed at 70 with both parents recorded; their status and age match,
+# but their own sex-specific thresholds and other family records can still differ
 undiagnosed = ~reg.status & has_parents
 n_dx = np.array([sum(reg.status[row[p]] for p in (f, m) if p in row)
                  for f, m in zip(reg.father, reg.mother)])            # diagnosed parents: 0, 1 or 2
@@ -208,7 +202,6 @@ for label, lo, hi in (("before 50", 0, 50), ("50 to 59", 50, 60), ("60 to 70", 6
 y = reg.status[free40]      # diagnosed between 40 and 70, one entry per person in est40
 print(f"{y.sum()} of {len(y)} people undiagnosed at 40 were diagnosed by 70")
 
-print("\n== Q8")
 fig, ax = plt.subplots(figsize=(6, 3.5))
 ax.hist(est40[~y], bins=40, density=True, alpha=0.5, label="not diagnosed")
 ax.hist(est40[y], bins=40, density=True, alpha=0.5, label="diagnosed 40 to 70")   # the cases' scores
@@ -220,14 +213,18 @@ print(f"AUC score at 40        {auc(est40, y):.3f}")
 print(f"AUC true g             {auc(g[free40], y):.3f}")
 print(f"AUC use='gwas' score   {auc(est[free40], y):.3f}")
 
-print("\n== Q9")
 cip40 = np.where(male, np.interp(40, AGES, CIP_M), np.interp(40, AGES, CIP_F))[free40]
 cip70 = np.where(male, np.interp(70, AGES, CIP_M), np.interp(70, AGES, CIP_F))[free40]
 T40, T70 = norm.isf(cip40), norm.isf(cip70)            # each person's LT-FH++ thresholds at 40 and 70
-sd = np.sqrt(var40 + 1 - H2)                           # spread of full liability given the relatives
-below40 = norm.cdf((T40 - est40) / sd)                 # P(undiagnosed at 40)
-below70 = norm.cdf((T70 - est40) / sd)                 # P(undiagnosed at 70)
-risk = (below40 - below70) / below40                   # P(diagnosed 40-70 | undiagnosed at 40)
+def risk_40_to_70(mean_g, var_g, h2):
+    """Normal approximation to P(diagnosed 40–70 | relatives, undiagnosed at 40)."""
+    sd = np.sqrt(var_g + 1 - h2)          # genetic uncertainty + environmental variance
+    below40 = norm.cdf((T40 - mean_g) / sd)
+    below70 = norm.cdf((T70 - mean_g) / sd)
+    return (below40 - below70) / below40  # condition on being undiagnosed at 40
+
+
+risk = risk_40_to_70(est40, var40, H2)
 
 fifths = np.array_split(np.argsort(est40, kind="stable"), 5)   # lowest to highest score
 observed = [y[idx].mean() for idx in fifths]                   # share diagnosed in each fifth
@@ -269,7 +266,6 @@ fh = np.array([reg.status[r].any() for r in fdr])
 fh40 = np.array([(reg.status[r] & (diag_time[r] <= birth40[i])).any() for i, r in enumerate(fdr)])
 print(f"family-history positive: {fh.sum()} by age 70, {fh40.sum()} at their 40th birthday")
 
-print("\n== Q10")
 names = ["own status", "FH indicator", "score (use='gwas')"]
 r2 = [corr(x, g) ** 2 for x in (reg.status, fh, est)]      # R²: the squared correlation of each with g
 
@@ -292,13 +288,12 @@ def table(a, b):
     """2x2 table of two True/False arrays: both, first only, second only, neither."""
     return np.array([(a & b).sum(), (a & ~b).sum(), (~a & b).sum(), (~a & ~b).sum()])
 
-print("\n== Q11")
 p_status, k_status = reg.status[par], reg.status[kid]
 t = tetrachoric(p_status, k_status)
 print(f"{len(par)} pairs, table {table(p_status, k_status)}")
-print(f"h2 = 2 rho = {2 * t.rho:.2f} +/- {2 * t.se:.2f}   (truth {H2})")
+print(f"h2 = 2 rho = {2 * t.rho:.2f}   (generating value {H2})")
+print(f"naive SE = {2 * t.se:.2f}; treats pairs as independent, not family-adjusted")
 
-print("\n== Q13")
 from ltpred import liability_to_observed_h2
 
 Ps = np.linspace(0.02, 0.6, 50)                # case fraction in the sample
@@ -315,10 +310,21 @@ plt.show()
 print(f"population sample {float(liability_to_observed_h2(H2, K, None)):.3f}, "
       f"1:1 study {float(liability_to_observed_h2(H2, K, 0.5)):.3f}")
 
-h2_pop = float(liability_to_observed_h2(H2, K, None))    # what a population GWAS would report
-e, v = score(h2_pop)                                    # score everyone with it, unconverted
-print(f"scored with h² = {h2_pop:.2f}: corr(score, g) = {corr(e, g):.3f} (0.529 with 0.5), "
-      f"slope of g on the score = {np.polyfit(e, g, 1)[0]:.2f} (1 = calibrated)")
+h2_wrong = float(liability_to_observed_h2(H2, K, None))  # illustrative wrong-scale input
+est_wrong, var_wrong = score(h2_wrong)
+print(f"corr(score, g): correct h² {corr(est, g):.3f}; wrong h² {corr(est_wrong, g):.3f}")
+print(f"slope of g on score: correct {np.polyfit(est, g, 1)[0]:.2f}; "
+      f"wrong {np.polyfit(est_wrong, g, 1)[0]:.2f} (1 means correct scale)")
+
+est40_wrong, var40_wrong = score_at_40(h2_wrong)
+risk_wrong = risk_40_to_70(est40_wrong, var40_wrong, h2_wrong)
+print(f"AUC at 40: correct h² {auc(est40, y):.4f}; wrong h² {auc(est40_wrong, y):.4f}")
+print(f"mean risk: correct {risk.mean():.3f}; wrong {risk_wrong.mean():.3f}; observed {y.mean():.3f}")
+# Keep the original Q9 groups so we compare risks for the same people.
+for label, idx in (("lowest", fifths[0]), ("highest", fifths[-1])):
+    print(f"{label} fifth: correct risk {risk[idx].mean():.3f}; "
+          f"wrong risk {risk_wrong[idx].mean():.3f}; observed {y[idx].mean():.3f}")
+
 
 import platform, scipy
 print(f"Python {platform.python_version()}, NumPy {np.__version__}, "
