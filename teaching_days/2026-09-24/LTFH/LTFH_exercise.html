@@ -7829,12 +7829,12 @@ every person is known, describe the data, score everyone with LT-FH++ using the 
 package <a href="https://github.com/bvilhjal/ltpred">ltpred</a>, and check the scores against the
 truth.</p>
 <p>Open the notebook in Colab, choose <em>File → Save a copy in Drive</em>, and run the cells in
-order. Most plotting cells are complete: run them and answer the questions below them.
-Five cells need editing. They are marked ✏️ <strong>Your turn</strong>, and inside them the lines to
-change are marked <code># &lt;-- EDIT</code>: replace each <code>...</code> with the expression described there
-(a hint is given under the cell).
-The point is to interpret what you see, so write your answers down. Work in pairs. Parts 0, A and B are
-for the class (about an hour); parts C to E are homework.</p>
+order. Most cells are complete: run them and answer the question above each one. Five
+cells need editing. They are marked ✏️ <strong>Your turn</strong>, and inside them the lines to change
+are marked <code># &lt;-- EDIT</code>: replace each <code>...</code> with the expression described there (a hint
+is given under the cell). The point is to interpret what you see, so write your answers
+down. Work in pairs. Parts 0, A and B are for the class (about an hour); parts C to E are
+homework.</p>
 <p>Background: under the liability-threshold model a person is diagnosed when their
 liability, a genetic part <code>g</code> plus an environmental part, crosses a threshold. In
 LT-FH++ (<a href="https://doi.org/10.1016/j.ajhg.2022.01.009">Pedersen et al. 2022</a>) the
@@ -7865,7 +7865,7 @@ True values; <code>[f(x) for x in xs]</code> applies <code>f</code> to each elem
 <div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">pip</span> install -q git+https://github.com/bvilhjal/ltpred@v0.7.1     # installs ltpred (about 30 s)
+<div class="highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">pip</span> install -q git+https://github.com/bvilhjal/ltpred@v0.7.2     # installs ltpred (about 30 s)
 </pre></div>
 </div>
 </div>
@@ -7930,11 +7930,14 @@ True values; <code>[f(x) for x in xs]</code> applies <code>f</code> to each elem
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <h2 id="Part-0:-The-data">Part 0: The data<a class="anchor-link" href="#Part-0:-The-data">¶</a></h2><p>The next cell simulates three generations of families. The disease affects 12% of men
 and 8% of women by old age, h² = 0.5, and everyone is followed to age 70. Fathers are men
-and mothers women; the others are given a random sex. <code>reg</code> holds the pedigree
-(<code>reg.ids</code>, <code>reg.father</code>, <code>reg.mother</code>), whether each person was diagnosed by 70
-(<code>reg.status</code>), the age at diagnosis (<code>reg.onset</code>), the age at the end of follow-up
-(<code>reg.age</code>), the birth year (<code>reg.birth_time</code>) and the true genetic liability, stored as
-<code>g</code>.</p>
+and mothers women; the others are given a random sex. One entry per person:</p>
+<ul>
+<li><code>reg.ids</code>, <code>reg.father</code>, <code>reg.mother</code>: the pedigree</li>
+<li><code>reg.status</code>: diagnosed by 70 (True/False); <code>male</code>: True for men</li>
+<li><code>reg.onset</code>: age at diagnosis; <code>reg.age</code>: age at diagnosis or at 70, whichever came first</li>
+<li><code>reg.birth_time</code>: birth year</li>
+<li><code>g</code>: the true genetic liability</li>
+</ul>
 </div>
 </div>
 </div>
@@ -8112,9 +8115,9 @@ couples by number of children: {1: 133, 2: 429, 3: 401, 4: 437}
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Q3:-Plot-the-Kaplan%E2%80%93Meier-survival-and-the-cumulative-incidence-by-sex.">Q3: Plot the Kaplan–Meier survival and the cumulative incidence by sex.<a class="anchor-link" href="#Q3:-Plot-the-Kaplan%E2%80%93Meier-survival-and-the-cumulative-incidence-by-sex.">¶</a></h3><p>The survival curve S(t) is the share still undiagnosed at age t; the cumulative incidence
-is 1 − S(t). <code>kaplan_meier_cip(entry, exit, event)</code> estimates the cumulative incidence. Everyone enters at
-birth and leaves at diagnosis or at 70. Fill in the exit ages and events. Do the observed
+<h3 id="Q3:-Plot-the-Kaplan%E2%80%93Meier-survival-and-the-cumulative-incidence-by-sex.">Q3: Plot the Kaplan–Meier survival and the cumulative incidence by sex.<a class="anchor-link" href="#Q3:-Plot-the-Kaplan%E2%80%93Meier-survival-and-the-cumulative-incidence-by-sex.">¶</a></h3><p>The survival curve S(t) is the share still undiagnosed at age t; the cumulative
+incidence is 1 − S(t). <code>kaplan_meier_cip(entry, exit, event)</code> estimates the cumulative
+incidence; everyone enters at birth and leaves at diagnosis or at 70. Do the observed
 curves follow the true ones (dashed)? Why should men and women not share one curve?</p>
 </div>
 </div>
@@ -8402,7 +8405,7 @@ var(score) = 0.128  +  mean posterior variance = 0.359  =  0.488
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Q6:-Plot-the-score-against-the-true-g-(fill-in-the-two-arrays).-How-well-does-the-score-track-g?">Q6: Plot the score against the true <code>g</code> (fill in the two arrays). How well does the score track <code>g</code>?<a class="anchor-link" href="#Q6:-Plot-the-score-against-the-true-g-(fill-in-the-two-arrays).-How-well-does-the-score-track-g?">¶</a></h3>
+<h3 id="Q6:-Plot-the-score-against-the-true-g.-How-well-does-the-score-track-g?">Q6: Plot the score against the true <code>g</code>. How well does the score track <code>g</code>?<a class="anchor-link" href="#Q6:-Plot-the-score-against-the-true-g.-How-well-does-the-score-track-g?">¶</a></h3>
 </div>
 </div>
 </div>
@@ -8473,7 +8476,7 @@ thresholds from the slides.</p>
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>✏️ <strong>Your turn:</strong> edit the cell below: replace <code>...</code> with the scores of the people in <code>undiagnosed</code> who have <code>k</code> diagnosed parents.</p>
+<p>✏️ <strong>Your turn:</strong> edit the cell below: replace <code>...</code> with the scores <code>est</code> of the people in <code>undiagnosed</code> who have <code>k</code> diagnosed parents (<code>n_dx == k</code>); combine the two conditions with <code>&amp;</code>.</p>
 </div>
 </div>
 </div>
@@ -8631,7 +8634,8 @@ AUC use='gwas' score   0.994
 <h3 id="Q9:-Convert-the-score-into-a-risk-and-compare-it-with-what-happened.">Q9: Convert the score into a risk and compare it with what happened.<a class="anchor-link" href="#Q9:-Convert-the-score-into-a-risk-and-compare-it-with-what-happened.">¶</a></h3><p>A score ranks people; a risk is a probability. Given the relatives, a person's liability
 is roughly normal with mean <code>est40</code> and variance <code>var40 + 1 - H2</code> (genetic uncertainty plus
 environment). The risk of diagnosis between 40 and 70 is the chance that it lies above the
-threshold at 70 but below the one at 40, divided by the chance of being undiagnosed at 40.</p>
+threshold at 70 but below the one at 40 (the figure above), divided by the chance of
+being undiagnosed at 40.</p>
 <p>Run the cell. How close are predicted and observed risks in each fifth of the score? How
 much do the lowest and highest fifths differ?</p>
 </div>
@@ -8771,7 +8775,7 @@ by age 70 (<code>fh</code>) and by their own 40th birthday (<code>fh40</code>).<
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Q10:-How-much-of-g-do-own-status,-family-history-and-the-score-explain?-Fill-in-R%C2%B2,-then-explain-why-the-score-does-best.">Q10: How much of <code>g</code> do own status, family history and the score explain? Fill in R², then explain why the score does best.<a class="anchor-link" href="#Q10:-How-much-of-g-do-own-status,-family-history-and-the-score-explain?-Fill-in-R%C2%B2,-then-explain-why-the-score-does-best.">¶</a></h3>
+<h3 id="Q10:-How-much-of-g-do-own-status,-family-history-and-the-score-explain?-Why-does-the-score-do-best?">Q10: How much of <code>g</code> do own status, family history and the score explain? Why does the score do best?<a class="anchor-link" href="#Q10:-How-much-of-g-do-own-status,-family-history-and-the-score-explain?-Why-does-the-score-do-best?">¶</a></h3>
 </div>
 </div>
 </div>
