@@ -1,10 +1,10 @@
 # ATIG 2026 — reproducible teaching code
 
 Lecture simulations and practical exercises, organized by teaching date.
-Version **0.11.5**: a concise, Colab-checked
-[LT-FH exercise](https://bvilhjal.github.io/ATIG_2026/teaching_days/2026-09-24/LTFH/LTFH_exercise.html)
-(15 questions, about 50,000 simulated people, most plotting code given, run in
-[Colab](https://colab.research.google.com/github/bvilhjal/ATIG_2026/blob/main/teaching_days/2026-09-24/LTFH/LTFH_exercise.ipynb)). Python setup lives on its own [setup page](setup.html). The [PCA practical](https://bvilhjal.github.io/ATIG_2026/teaching_days/2026-09-10/PCA/PCA_tutorial.html)
+Version **0.12.0** adds the [MR practical](https://bvilhjal.github.io/ATIG_2026/teaching_days/2026-10-08/MR/MR_practical.html)
+for 8 October: BMI–CHD summary data, IVW estimation and a pleiotropy simulation.
+[Open in Colab](https://colab.research.google.com/github/bvilhjal/ATIG_2026/blob/main/teaching_days/2026-10-08/MR/MR_practical.ipynb).
+Python setup for the earlier exercises is on the [setup page](setup.html). The [PCA practical](https://bvilhjal.github.io/ATIG_2026/teaching_days/2026-09-10/PCA/PCA_tutorial.html)
 for 10 September has student and worked-answer handouts, rendered HTML, and
 validation records. The population-structure lecture produces **23 numbered
 figure families** in PNG, PDF and SVG, with calculated data and numerical checks.
@@ -16,6 +16,7 @@ figure families** in PNG, PDF and SVG, with calculated data and numerical checks
 | [8 September 2026](teaching_days/2026-09-08/README.md) | [Population structure](teaching_days/2026-09-08/population_structure/README.md) | Lecture simulations and figures. |
 | [10 September 2026](teaching_days/2026-09-10/README.md) | [PCA exercise](https://bvilhjal.github.io/ATIG_2026/teaching_days/2026-09-10/PCA/PCA_tutorial.html) | 1000 Genomes practical, student handout, worked answers and validation records. |
 | [24 September 2026](teaching_days/2026-09-24/README.md) | [LT-FH exercise](https://bvilhjal.github.io/ATIG_2026/teaching_days/2026-09-24/LTFH/LTFH_exercise.html) | Simulated-register practical with ltpred, student and worked-answer notebooks. |
+| [8 October 2026](teaching_days/2026-10-08/README.md) | [MR practical](https://bvilhjal.github.io/ATIG_2026/teaching_days/2026-10-08/MR/MR_practical.html) | BMI–CHD analysis, pleiotropy simulation, and worked answers. |
 
 **Table 1.** Teaching days currently represented in this repository.
 
@@ -38,6 +39,15 @@ and [in Colab](https://colab.research.google.com/github/bvilhjal/ATIG_2026/blob/
 Students simulate a disease register, describe it with plots, score it with LT-FH++
 using [ltpred](https://github.com/bvilhjal/ltpred), and compare the scores with the true
 genetic liability.
+
+## MR practical
+
+[Exercise](teaching_days/2026-10-08/MR/MR_practical.ipynb) and
+[answers](teaching_days/2026-10-08/MR/MR_practical_answers.ipynb), also as
+[HTML](https://bvilhjal.github.io/ATIG_2026/teaching_days/2026-10-08/MR/MR_practical.html)
+and [in Colab](https://colab.research.google.com/github/bvilhjal/ATIG_2026/blob/main/teaching_days/2026-10-08/MR/MR_practical.ipynb).
+Students explore LD-clumped BMI GWAS hits, estimate the BMI–CHD effect, and use a
+simulation to examine horizontal pleiotropy. The data are included.
 
 ## Reproduce the lecture figures
 
@@ -81,7 +91,8 @@ figure IDs are independent of slide and equation numbers in an editable lecture.
 The lecture's genotype and phenotype examples are synthetic. Two small published
 numerical summaries are explicitly labelled and cited. The PCA practical uses
 public 1000 Genomes data and includes derived scores, plots and validation
-records. The LT-FH practical uses only simulated registers. Lecture files,
+records. The LT-FH practical uses only simulated registers. The MR practical uses published
+BMI–CHD summary statistics and a short simulation. Lecture files,
 course participant data, downloaded paper panels and
 private course documents are not stored here.
 

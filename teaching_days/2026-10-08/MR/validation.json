@@ -1,0 +1,27 @@
+{
+  "teaching_date": "2026-10-08",
+  "versions": {
+    "python": "3.10.20",
+    "numpy": "1.26.4",
+    "pandas": "2.3.3",
+    "scipy": "1.15.3",
+    "matplotlib": "3.10.9"
+  },
+  "MR_practical": {
+    "executed_code_cells": 11,
+    "elapsed_seconds": 4.418,
+    "errors": 0
+  },
+  "MR_practical_answers": {
+    "executed_code_cells": 11,
+    "elapsed_seconds": 2.728,
+    "errors": 0
+  },
+  "course_version": "0.12.0",
+  "colab": "Live Colab execution not verified; local-file upload permission was disabled on previous attempt.",
+  "scientific_checks": 25,
+  "notebooks": {
+    "MR_practical.ipynb": "3702c77028e10731e7536c9d49b09ef4f6829af81fc75681720f1662b9b42556",
+    "MR_practical_answers.ipynb": "7a40dcacf2b2d45dc3593b892303b1b07bdaa696cc660584c80d51ac2465c1ed"
+  }
+}

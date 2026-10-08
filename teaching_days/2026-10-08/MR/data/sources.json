@@ -1,0 +1,85 @@
+{
+  "prepared": "2026-10-08",
+  "upstream_repository": "https://github.com/MRCIEU/TwoSampleMR",
+  "upstream_commit": "f4920457ee65c279f17c9a891173239d6adcd52c",
+  "source_url": "https://raw.githubusercontent.com/MRCIEU/TwoSampleMR/f4920457ee65c279f17c9a891173239d6adcd52c/inst/extdata/vig_harmonise.RData",
+  "source_sha256": "e9aaa283a8a937fe83347d9e06864ba6ef1c696ec50fb791676b526268695aab",
+  "upstream_license": "MIT (TwoSampleMR); original GWAS data remain subject to their source terms",
+  "exposure": {
+    "id": "ieu-a-2",
+    "trait": "BMI",
+    "study": "Locke et al. 2015",
+    "pmid": "25673413",
+    "population": "Mixed",
+    "units": "SD (kg/m^2)",
+    "sample_size": 339224
+  },
+  "outcome": {
+    "id": "ieu-a-7",
+    "trait": "Coronary heart disease",
+    "study": "Nikpay et al. 2015",
+    "pmid": "26343387",
+    "population": "Mixed",
+    "units": "log odds",
+    "sample_size": 184305,
+    "cases": 60801,
+    "controls": 123504
+  },
+  "conversion": "Base R load and write.csv; pandas column renaming and selection, no numerical filtering; CSV uses 12 significant digits.",
+  "limitations": [
+    "LD clumping is documented in the source workflow; exact historical clumping parameters and reference panel are not independently verified.",
+    "Proxy flags absent from cached outcome object.",
+    "Participant overlap not established from this extract.",
+    "All palindromic SNPs excluded for the teaching analysis."
+  ],
+  "files": {
+    "bmi_gwas.csv": {
+      "rows": 79,
+      "sha256": "d298bb8a96d9476f9a3f013558dde7c6485d0d6df6ba86e1c99db2e511913fe0"
+    },
+    "chd_gwas.csv": {
+      "rows": 79,
+      "sha256": "7661c8f31b91c8b6673ce83d321c484e69bc04306eda7f402ac518b52a1b876c"
+    },
+    "bmi_chd_prepared.csv": {
+      "rows": 75,
+      "sha256": "d49d3ee2f5cfb4d1abe5c81389f24098d3c08a18d45c13aa9707d7729c3a4372"
+    }
+  },
+  "teaching_date": "2026-10-08",
+  "prepared_table": {
+    "file": "bmi_chd_prepared.csv",
+    "input_rows_each": 79,
+    "matched_rows": 79,
+    "palindromic_snps_removed": [
+      "rs17001654",
+      "rs9579083",
+      "rs14810",
+      "rs9304665"
+    ],
+    "rows_retained": 75,
+    "steps": [
+      "Join raw tables by unique SNP ID. Verify matching chromosome, position, effect allele and other allele.",
+      "Exclude all four palindromic A/T or C/G SNPs.",
+      "Retain original allele labels, signed BMI/CHD effects and standard errors. No BMI-increasing reorientation.",
+      "Keep SNP identifier, both allele labels and both effects and standard errors; no further effect-size selection."
+    ],
+    "allele_orientation": "Original effect and other alleles from the supplied GWAS tables; no sign flips.",
+    "harmonisation_flips_required": 0
+  },
+  "instrument_selection": {
+    "exposure": "ieu-a-2",
+    "p_threshold": 5e-08,
+    "method": "LD clumping in the upstream extract_instruments workflow; not rerun in this practical.",
+    "documented_generation_code": "https://github.com/MRCIEU/TwoSampleMR/blob/f4920457ee65c279f17c9a891173239d6adcd52c/vignettes/harmonise.Rmd#L30-L34",
+    "documented_extraction_code": "https://github.com/MRCIEU/TwoSampleMR/blob/f4920457ee65c279f17c9a891173239d6adcd52c/R/instruments.R",
+    "cached_data_added_commit": "965f1c4e940d218b404e734471ca3480632278f1",
+    "historical_extraction_code": "https://github.com/MRCIEU/TwoSampleMR/blob/965f1c4e940d218b404e734471ca3480632278f1/R/instruments.R",
+    "documented_defaults": {
+      "clump": true,
+      "r2": 0.001,
+      "kb": 10000
+    },
+    "parameter_evidence_limit": "The extraction function can use pre-clumped server data. The cached object has no execution manifest; documented defaults do not independently verify the exact historical reference panel or parameters."
+  }
+}
