@@ -77,10 +77,12 @@ for cell, (printed, displayed) in zip(run, reruns):
                       if o['output_type'] == 'display_data' and 'image/png' not in o['data']]
     check(f"Stored outputs reproduce: {cell['metadata']['tags'][0]}",
           printed == stored_print and displayed == stored_display)
-for trait, (name, url, sha256) in scope['SOURCES'].items():
+for trait, url in scope['URLS'].items():
     record = sources['gwas'][trait]
     check(f'{trait} source matches sources.json',
-          (record['file'], record['url'], record['sha256']) == (name, url, sha256))
+          (record['file'], record['url']) == (scope['paths'][trait].name, url))
+    check(f'{trait} download matches its checksum',
+          hashlib.sha256(scope['paths'][trait].read_bytes()).hexdigest() == record['sha256'])
 
 ref, gwas, aligned = scope['ref'], scope['gwas'], scope['aligned']
 ldsc_h2_sumstats, ldsc_rg_sumstats = scope['ldsc_h2_sumstats'], scope['ldsc_rg_sumstats']
@@ -143,15 +145,14 @@ check('rg does not depend on trait order', np.isclose(swapped_order.rg, rg.rg, r
       and np.isclose(swapped_order.rg_se, rg.rg_se, rtol=1e-8))
 check('rg does not depend on M', np.isclose(rg_all.rg, rg.rg, rtol=1e-8))
 check('rg does not depend on allele coding', np.isclose(rg_reversed.rg, rg.rg, rtol=1e-8))
-check('Notebook rg equals the direct fit', np.isclose(scope['fit'].rg, rg.rg, rtol=1e-12)
-      if scope['pair'] == ('BMI', 'TG') else False)
+check('Notebook rg equals the direct fit', np.isclose(scope['rg_bmi_tg'].rg, rg.rg, rtol=1e-12))
 
 h2_table = {t: {'h2': f.h2, 'h2_se': f.h2_se, 'intercept': f.intercept,
                 'intercept_se': f.intercept_se, 'mean_chi2': f.mean_chisq}
             for t, f in scope['fits'].items()}
 rg_table = {k: {'rg': v['rg'], 'rg_se': v['SE'], 'cross_intercept': v['cross-trait intercept'],
-                'cross_intercept_se': v['intercept SE']} for k, v in scope['table'].items()}
-check('BMI-TG rg in the BMI-TG row of Table 8', np.isclose(rg_table['BMI–TG']['rg'], rg.rg, rtol=1e-12))
+                'cross_intercept_se': v['intercept SE']} for k, v in scope['rg_table'].items()}
+check('BMI-TG rg in the BMI-TG row of Table 6', np.isclose(rg_table['BMI–TG']['rg'], rg.rg, rtol=1e-12))
 check('TG intercept below one', h2_table['TG']['intercept'] < 1)
 answer_markdown = '\n'.join(''.join(c['source']) for c in answers['cells']
                              if ''.join(c['source']).startswith('**Answer.**'))

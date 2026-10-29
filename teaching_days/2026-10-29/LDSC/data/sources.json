@@ -4,7 +4,7 @@
   "storage": "The GWAS files are not stored in this repository. The notebook downloads them and checks the SHA-256 checksums below.",
   "gwas": {
     "BMI": {
-      "file": "bmi_giant_ukb_2018.txt.gz",
+      "file": "BMI.txt.gz",
       "url": "https://ftp.ebi.ac.uk/pub/databases/gwas/summary_statistics/GCST006001-GCST007000/GCST006900/Meta-analysis_Locke_et_al+UKBiobank_2018_UPDATED.txt.gz",
       "page": "https://www.ebi.ac.uk/gwas/studies/GCST006900",
       "sha256": "0d6ed0ea97870916b830ccae349df94ca6f3cc68c025c79e784729af7f7136a4",
@@ -19,7 +19,7 @@
       "notes": "Byte-identical to the file on the GIANT consortium data page (same SHA-256); the GWAS Catalog copy is used because the GIANT site was unreachable on 2026-10-29."
     },
     "TG": {
-      "file": "tg_glgc_2013.txt.gz",
+      "file": "TG.txt.gz",
       "url": "https://csg.sph.umich.edu/willer/public/lipids2013/jointGwasMc_TG.txt.gz",
       "page": "https://csg.sph.umich.edu/willer/public/lipids2013/",
       "sha256": "37087a0015c3211f5696616ad276eb4b5fae7219e0b8a2f37a5ed86b626c5f0b",
@@ -34,7 +34,7 @@
       "notes": "Genomic control was applied to each study and again to the meta-analysis (Willer et al. 2013, Methods); the consortium page states that P-values are after genomic control. Here, chi-square from beta/se is 11-12% larger than chi-square from P-value at the median; the practical uses beta/se. 1,160 rows share 183 rsIDs."
     },
     "DBP": {
-      "file": "dbp_evangelou_2018.txt.gz",
+      "file": "DBP.txt.gz",
       "url": "https://ftp.ebi.ac.uk/pub/databases/gwas/summary_statistics/GCST006001-GCST007000/GCST006630/Evangelou_30224653_DBP.txt.gz",
       "page": "https://www.ebi.ac.uk/gwas/studies/GCST006630",
       "sha256": "c55cfc8b50abee8e13ef88d70ab52678b1f45b45cf5974bdab91f8c8b361fd59",
