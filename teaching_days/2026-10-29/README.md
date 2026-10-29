@@ -11,7 +11,7 @@ and choose *File → Save a copy in Drive*.
 - [Answers](LDSC/LDSC_practical_answers.ipynb) ([HTML](https://bvilhjal.github.io/ATIG_2026/teaching_days/2026-10-29/LDSC/LDSC_practical_answers.html))
 - [`run_exercise.py`](LDSC/run_exercise.py) runs the calculations without Jupyter.
 
-The GWAS files (about 240 MB) are downloaded when the notebook runs; sources and checksums
+The GWAS files (about 260 MB) are downloaded from the GWAS Catalog when the notebook runs; sources and checksums
 are in [`LDSC/data/sources.json`](LDSC/data/sources.json).
 
 [Course index](../../README.md)

@@ -77,10 +77,10 @@ for cell, (printed, displayed) in zip(run, reruns):
                       if o['output_type'] == 'display_data' and 'image/png' not in o['data']]
     check(f"Stored outputs reproduce: {cell['metadata']['tags'][0]}",
           printed == stored_print and displayed == stored_display)
-for trait, url in scope['URLS'].items():
+for trait, study in scope['STUDIES'].items():
     record = sources['gwas'][trait]
     check(f'{trait} source matches sources.json',
-          (record['file'], record['url']) == (scope['paths'][trait].name, url))
+          (record['accession'], record['file']) == (study, scope['paths'][trait].name))
     check(f'{trait} download matches its checksum',
           hashlib.sha256(scope['paths'][trait].read_bytes()).hexdigest() == record['sha256'])
 
@@ -94,13 +94,14 @@ check('Reference matches its provenance',
 
 # Raw files read independently with pandas.
 columns = {'BMI': ('SNP', 'Tested_Allele', 'Other_Allele', 'BETA', 'SE'),
-           'TG': ('rsid', 'A1', 'A2', 'beta', 'se'),
+           'TG': ('hm_rsid', 'hm_effect_allele', 'hm_other_allele', 'hm_beta', 'standard_error'),
            'DBP': ('MarkerName', 'Allele1', 'Allele2', 'Effect', 'StdErr')}
+separators = {'BMI': '\t', 'TG': '\t', 'DBP': r'\s+'}
 reference = pd.DataFrame({'row': np.arange(len(ref.variants)), 'id': ref.variants.id,
                           'chrom': ref.variants.chrom, 'pos': ref.variants.pos,
                           'a1': ref.variants.a1, 'a2': ref.variants.a2})
 for trait, (snp, ea, oa, beta, se) in columns.items():
-    raw = pd.read_csv(scope['paths'][trait], sep=r'\s+', usecols=[snp, ea, oa, beta, se])
+    raw = pd.read_csv(scope['paths'][trait], sep=separators[trait], usecols=[snp, ea, oa, beta, se])
     check(f'{trait}: every row read', len(raw) == len(gwas[trait]) == sources['gwas'][trait]['rows'])
     raw['ea'], raw['oa'] = raw[ea].str.upper(), raw[oa].str.upper()
     raw['z'] = raw[beta] / raw[se]

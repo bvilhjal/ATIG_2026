@@ -1,7 +1,7 @@
 # ATIG 2026 — reproducible teaching code
 
 Lecture simulations and practical exercises, organized by teaching date.
-Version **0.14.0** has the [LDSC practical](https://bvilhjal.github.io/ATIG_2026/teaching_days/2026-10-29/LDSC/LDSC_practical.html)
+Version **0.15.0** has the [LDSC practical](https://bvilhjal.github.io/ATIG_2026/teaching_days/2026-10-29/LDSC/LDSC_practical.html)
 for 29 October: SNP heritability and genetic correlations from published BMI, triglyceride
 and blood-pressure GWAS. [Open in Colab](https://colab.research.google.com/github/bvilhjal/ATIG_2026/blob/main/teaching_days/2026-10-29/LDSC/LDSC_practical.ipynb).
 Python setup for the earlier exercises is on the [setup page](setup.html). The [PCA practical](https://bvilhjal.github.io/ATIG_2026/teaching_days/2026-09-10/PCA/PCA_tutorial.html)
@@ -57,7 +57,8 @@ simulation to examine horizontal pleiotropy. The data are included.
 [HTML](https://bvilhjal.github.io/ATIG_2026/teaching_days/2026-10-29/LDSC/LDSC_practical.html)
 and [in Colab](https://colab.research.google.com/github/bvilhjal/ATIG_2026/blob/main/teaching_days/2026-10-29/LDSC/LDSC_practical.ipynb).
 Students estimate heritability and genetic correlations from three published GWAS with
-[PLDSC](https://github.com/bvilhjal/PLDSC). The notebook downloads the GWAS files (about 240 MB).
+[PLDSC](https://github.com/bvilhjal/PLDSC). The notebook downloads the GWAS files from the
+[GWAS Catalog](https://www.ebi.ac.uk/gwas/) (about 260 MB).
 
 ## Reproduce the lecture figures
 

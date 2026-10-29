@@ -1,10 +1,10 @@
 {
   "prepared": "2026-10-29",
   "teaching_date": "2026-10-29",
-  "storage": "The GWAS files are not stored in this repository. The notebook downloads them and checks the SHA-256 checksums below.",
+  "storage": "The GWAS files are not stored in this repository. The notebook downloads them from the GWAS Catalog with allelign (allelign.fetch_ref), which caches them; validate_practical.py checks the SHA-256 checksums below.",
   "gwas": {
     "BMI": {
-      "file": "BMI.txt.gz",
+      "file": "Meta-analysis_Locke_et_al+UKBiobank_2018_UPDATED.txt.gz",
       "url": "https://ftp.ebi.ac.uk/pub/databases/gwas/summary_statistics/GCST006001-GCST007000/GCST006900/Meta-analysis_Locke_et_al+UKBiobank_2018_UPDATED.txt.gz",
       "page": "https://www.ebi.ac.uk/gwas/studies/GCST006900",
       "sha256": "0d6ed0ea97870916b830ccae349df94ca6f3cc68c025c79e784729af7f7136a4",
@@ -16,25 +16,28 @@
       "design": "Meta-analysis of GIANT (Locke et al. 2015) and UK Biobank; European ancestry; about 700,000 people",
       "build": "GRCh37",
       "columns": "CHR POS SNP Tested_Allele Other_Allele Freq_Tested_Allele_in_HRS BETA SE P N; Tested_Allele is the effect allele",
-      "notes": "Byte-identical to the file on the GIANT consortium data page (same SHA-256); the GWAS Catalog copy is used because the GIANT site was unreachable on 2026-10-29."
+      "accession": "GCST006900",
+      "harmonised": false
     },
     "TG": {
-      "file": "TG.txt.gz",
-      "url": "https://csg.sph.umich.edu/willer/public/lipids2013/jointGwasMc_TG.txt.gz",
-      "page": "https://csg.sph.umich.edu/willer/public/lipids2013/",
-      "sha256": "37087a0015c3211f5696616ad276eb4b5fae7219e0b8a2f37a5ed86b626c5f0b",
-      "bytes": 58866740,
-      "rows": 2439432,
+      "file": "24097068-GCST002216-EFO_0004530.h.tsv.gz",
+      "url": "https://ftp.ebi.ac.uk/pub/databases/gwas/summary_statistics/GCST002001-GCST003000/GCST002216/harmonised/24097068-GCST002216-EFO_0004530.h.tsv.gz",
+      "page": "https://www.ebi.ac.uk/gwas/studies/GCST002216",
+      "sha256": "08e44ed1baec6bddc881063e72e0b011d6ac150263cc519fdd6d0ead9f10502d",
+      "bytes": 80689144,
+      "rows": 2432313,
       "study": "Willer et al. 2013, Nat Genet 45:1274-1283",
       "pmid": "24097068",
       "doi": "10.1038/ng.2797",
       "design": "Global Lipids Genetics Consortium joint analysis of GWAS and Metabochip data; 188,578 people of European ancestry in the paper; N per SNP 50,000-178,000 in this file",
-      "build": "GRCh37 positions in SNP_hg19 (chr:pos); rsid used for matching",
-      "columns": "SNP_hg18 SNP_hg19 rsid A1 A2 beta se N P-value Freq.A1.1000G.EUR; A1 is the effect allele and always the TG-raising allele (all beta >= 0); alleles in lower case",
-      "notes": "Genomic control was applied to each study and again to the meta-analysis (Willer et al. 2013, Methods); the consortium page states that P-values are after genomic control. Here, chi-square from beta/se is 11-12% larger than chi-square from P-value at the median; the practical uses beta/se. 1,160 rows share 183 rsIDs."
+      "build": "GRCh38 (GWAS Catalog harmonised); matched to the GRCh37 reference by rsID only",
+      "columns": "GWAS Catalog harmonised layout: hm_rsid, hm_chrom, hm_pos, hm_effect_allele, hm_other_allele, hm_beta, standard_error, n, p_value, plus the submitted columns",
+      "notes": "The GWAS Catalog copy of the GLGC joint GWAS and Metabochip analysis, harmonised to GRCh38. Genomic control was applied to each study and again to the meta-analysis (Willer et al. 2013, Methods); chi-square from beta/se is 11-12% larger than chi-square from p_value at the median; the practical uses beta/se.",
+      "accession": "GCST002216",
+      "harmonised": true
     },
     "DBP": {
-      "file": "DBP.txt.gz",
+      "file": "Evangelou_30224653_DBP.txt.gz",
       "url": "https://ftp.ebi.ac.uk/pub/databases/gwas/summary_statistics/GCST006001-GCST007000/GCST006630/Evangelou_30224653_DBP.txt.gz",
       "page": "https://www.ebi.ac.uk/gwas/studies/GCST006630",
       "sha256": "c55cfc8b50abee8e13ef88d70ab52678b1f45b45cf5974bdab91f8c8b361fd59",
@@ -46,7 +49,9 @@
       "design": "Discovery meta-analysis of UK Biobank and ICBP, about 750,000 people of European ancestry; blood pressure analysed adjusted for age, age squared, sex and BMI. Before the meta-analysis, UK Biobank statistics were divided by their LDSC intercept (1.219 for DBP) and ICBP studies were corrected for genomic control (Evangelou et al. 2018, Methods); the authors note the potential for collider bias from the BMI adjustment.",
       "build": "GRCh37 (MarkerName is CHR:POS:TYPE)",
       "columns": "MarkerName Allele1 Allele2 Freq1 Effect StdErr P TotalSampleSize N_effective; Allele1 is the effect allele; Effect in mmHg; N_effective is N times imputation quality",
-      "notes": "No rsIDs; the practical splits MarkerName into chromosome and position and matches by position."
+      "notes": "No rsIDs; allelign (>= 0.2.0) takes chromosome and position from MarkerName (CHR:POS:TYPE, GRCh37).",
+      "accession": "GCST006630",
+      "harmonised": false
     }
   },
   "ld_reference": {
