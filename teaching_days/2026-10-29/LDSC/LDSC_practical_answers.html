@@ -7803,11 +7803,10 @@ a.anchor-link {
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <h1 id="ATiG-2026:-LD-score-regression-%E2%80%94-answers">ATiG 2026: LD score regression — answers<a class="anchor-link" href="#ATiG-2026:-LD-score-regression-%E2%80%94-answers">¶</a></h1><p>29 October 2026 · About 75 minutes · Work in pairs</p>
-<p>We will read three published GWAS, match them to one LD reference, and use LD score
-regression (LDSC) to estimate SNP heritability and genetic correlations.</p>
-<p>Run the cells in order. Change the settings marked <code># TRY</code> and discuss the questions.
-The setup downloads about 240 MB of GWAS results. <a href="https://colab.research.google.com/github/bvilhjal/ATIG_2026/blob/main/teaching_days/2026-10-29/LDSC/LDSC_practical_answers.ipynb">Open in Colab</a>
-and choose File → Save a copy in Drive. Use a Python 3 runtime.</p>
+<p>We estimate SNP heritability and genetic correlations from published GWAS results with
+LD score regression (LDSC). Run the cells in order, discuss the questions and change the
+settings marked <code># TRY</code>. <a href="https://colab.research.google.com/github/bvilhjal/ATIG_2026/blob/main/teaching_days/2026-10-29/LDSC/LDSC_practical_answers.ipynb">Open in Colab</a> and choose
+File → Save a copy in Drive.</p>
 </div>
 </div>
 </div>
@@ -7818,9 +7817,8 @@ and choose File → Save a copy in Drive. Use a Python 3 runtime.</p>
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Setup">Setup<a class="anchor-link" href="#Setup">¶</a></h2><p>Run the three cells. No editing needed. The first installs <a href="https://github.com/bvilhjal/PLDSC">PLDSC</a>,
-which brings <a href="https://github.com/bvilhjal/allelign">allelign</a> and the LD scores.
-The download takes a minute or two.</p>
+<h2 id="Setup">Setup<a class="anchor-link" href="#Setup">¶</a></h2><p>Run the three cells. The first installs <a href="https://github.com/bvilhjal/PLDSC">PLDSC</a> and
+<a href="https://github.com/bvilhjal/allelign">allelign</a>; the last downloads the GWAS files (about 240 MB).</p>
 </div>
 </div>
 </div>
@@ -7832,7 +7830,7 @@ The download takes a minute or two.</p>
 <div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">pip</span> install -q "pldsc @ git+https://github.com/bvilhjal/PLDSC@v0.1.1"
+<div class="highlight hl-python"><pre><span></span><span class="o">%</span><span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">q</span> <span class="s2">"pldsc @ git+https://github.com/bvilhjal/PLDSC@v0.1.1"</span>
 </pre></div>
 </div>
 </div>
@@ -7846,7 +7844,7 @@ The download takes a minute or two.</p>
 <div class="jp-InputPrompt jp-InputArea-prompt">In [1]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">hashlib</span>
+<div class="highlight hl-python"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">hashlib</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">urllib.request</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
 
@@ -7872,7 +7870,7 @@ The download takes a minute or two.</p>
 <div class="jp-InputPrompt jp-InputArea-prompt">In [2]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1">#@title Download the GWAS files (no editing needed)</span>
+<div class="highlight hl-python"><pre><span></span><span class="c1">#@title Download the GWAS files (no editing needed)</span>
 <span class="n">SOURCES</span> <span class="o">=</span> <span class="p">{</span>  <span class="c1"># trait: (file name, URL, SHA-256 of the file used here)</span>
     <span class="s1">'BMI'</span><span class="p">:</span> <span class="p">(</span><span class="s1">'bmi_giant_ukb_2018.txt.gz'</span><span class="p">,</span>
             <span class="s1">'https://ftp.ebi.ac.uk/pub/databases/gwas/summary_statistics/'</span>
@@ -7925,15 +7923,12 @@ DBP: dbp_evangelou_2018.txt.gz, 135 MB
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Q1.-Look-at-the-files">Q1. Look at the files<a class="anchor-link" href="#Q1.-Look-at-the-files">¶</a></h2><p>Each consortium uses its own format. Tables 1–3 show the first rows of each file.</p>
-<ul>
-<li>BMI: <a href="https://pubmed.ncbi.nlm.nih.gov/30124842/">Yengo et al. (2018)</a>, GIANT and UK Biobank, about 700,000 people.</li>
-<li>TG (triglycerides): <a href="https://pubmed.ncbi.nlm.nih.gov/24097068/">Willer et al. (2013)</a>, Global Lipids Genetics Consortium, about 90,000 people for most SNPs.</li>
-<li>DBP (diastolic blood pressure): <a href="https://pubmed.ncbi.nlm.nih.gov/30224653/">Evangelou et al. (2018)</a>, UK Biobank and ICBP, about 750,000 people.</li>
-</ul>
-<p>For each file, find the effect allele, the other allele, the effect estimate, its standard
-error, the sample size and the genomic position. Which file has no rsIDs? Which has no
-position column? What else differs?</p>
+<h2 id="Q1.-Look-at-the-files">Q1. Look at the files<a class="anchor-link" href="#Q1.-Look-at-the-files">¶</a></h2><p>BMI from <a href="https://pubmed.ncbi.nlm.nih.gov/30124842/">Yengo et al. 2018</a> (about 700,000 people),
+triglycerides (TG) from <a href="https://pubmed.ncbi.nlm.nih.gov/24097068/">Willer et al. 2013</a> (about 90,000)
+and diastolic blood pressure (DBP) from <a href="https://pubmed.ncbi.nlm.nih.gov/30224653/">Evangelou et al. 2018</a>
+(about 750,000).</p>
+<p>Find the effect allele, other allele, effect, standard error, sample size and position in
+each file. How do the files differ?</p>
 </div>
 </div>
 </div>
@@ -7945,7 +7940,7 @@ position column? What else differs?</p>
 <div class="jp-InputPrompt jp-InputArea-prompt">In [3]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">number</span><span class="p">,</span> <span class="p">(</span><span class="n">trait</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">paths</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">start</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+<div class="highlight hl-python"><pre><span></span><span class="k">for</span> <span class="n">number</span><span class="p">,</span> <span class="p">(</span><span class="n">trait</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">paths</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">start</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'Table </span><span class="si">{</span><span class="n">number</span><span class="si">}</span><span class="s1">. The first rows of the </span><span class="si">{</span><span class="n">trait</span><span class="si">}</span><span class="s1"> file, as text.'</span><span class="p">)</span>
     <span class="n">display</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="sa">r</span><span class="s1">'\s+'</span><span class="p">,</span> <span class="n">nrows</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">str</span><span class="p">))</span>
 </pre></div>
@@ -8217,17 +8212,11 @@ position column? What else differs?</p>
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><strong>Answer.</strong> BMI: <code>Tested_Allele</code> is the effect allele, <code>Other_Allele</code> the other allele,
-<code>BETA</code> and <code>SE</code> the estimate and its standard error, <code>N</code> the sample size, and <code>CHR</code> and
-<code>POS</code> the position. TG: <code>A1</code>, <code>A2</code>, <code>beta</code>, <code>se</code> and <code>N</code>; the position is only available
-as text in <code>SNP_hg19</code> (and <code>SNP_hg18</code>, on an older build). DBP: <code>Allele1</code>, <code>Allele2</code>,
-<code>Effect</code>, <code>StdErr</code>, and two sample sizes; it has no rsIDs, and the position is part of
-<code>MarkerName</code>.</p>
-<p>Other differences: alleles are lower case in TG and DBP; the effect and standard-error
-columns have three names each; the allele frequencies come from HRS, 1000 Genomes and the
-study itself; all TG effects are positive, because GLGC reports the TG-raising allele as
-<code>A1</code>; and the DBP effects are in mmHg while BMI effects are in SD units. Units do not matter here,
-because LDSC only uses $z = \beta/\text{SE}$.</p>
+<p><strong>Answer.</strong> BMI: <code>Tested_Allele</code>, <code>Other_Allele</code>, <code>BETA</code>, <code>SE</code>, <code>N</code>, <code>CHR</code> and <code>POS</code>. TG: <code>A1</code>,
+<code>A2</code>, <code>beta</code>, <code>se</code> and <code>N</code>; the position is only in the text of <code>SNP_hg19</code>. DBP: <code>Allele1</code>,
+<code>Allele2</code>, <code>Effect</code>, <code>StdErr</code> and two sample sizes; no rsIDs, and the position is part of
+<code>MarkerName</code>. Alleles are lower case in TG and DBP, all TG effects are positive (<code>A1</code> is the
+TG-raising allele), and DBP is in mmHg. Units don't matter, as LDSC uses $z = \beta/\text{SE}$.</p>
 </div>
 </div>
 </div>
@@ -8238,16 +8227,11 @@ because LDSC only uses $z = \beta/\text{SE}$.</p>
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Q2.-Read-the-files">Q2. Read the files<a class="anchor-link" href="#Q2.-Read-the-files">¶</a></h2><p>allelign recognises common column names and reads each file into the same layout.
-Table 4 shows which columns it used. The DBP file has no rsIDs: its <code>MarkerName</code> is
-chromosome:position:type on GRCh37, so we split it to get positions. DBP is then
-matched by position.</p>
-<p>Which fields were not found? For DBP, allelign used <code>N_effective</code> (sample size times
-imputation quality) rather than <code>TotalSampleSize</code>. Why does the choice of N matter
-for heritability?</p>
-<p>Figure 1 is a QQ plot of every variant in each file: observed against expected
-−log10 P when no variant has an effect. Which trait has the strongest associations?
-Where do the curves leave the diagonal, and what could make them do so?</p>
+<h2 id="Q2.-Read-the-files">Q2. Read the files<a class="anchor-link" href="#Q2.-Read-the-files">¶</a></h2><p>allelign recognises common column names (Table 4). The DBP file has no rsIDs, so we take
+the positions from <code>MarkerName</code>. For DBP, allelign uses <code>N_effective</code>, the sample size
+times imputation quality.</p>
+<p>Which columns were not found? Why does N matter for heritability? Which trait has the
+strongest associations in Figure 1, and why do the curves leave the diagonal?</p>
 </div>
 </div>
 </div>
@@ -8259,7 +8243,7 @@ Where do the curves leave the diagonal, and what could make them do so?</p>
 <div class="jp-InputPrompt jp-InputArea-prompt">In [4]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">mappings</span> <span class="o">=</span> <span class="p">{</span><span class="n">trait</span><span class="p">:</span> <span class="n">allelign</span><span class="o">.</span><span class="n">inspect_columns</span><span class="p">(</span><span class="n">path</span><span class="p">)[</span><span class="s1">'mapping'</span><span class="p">]</span> <span class="k">for</span> <span class="n">trait</span><span class="p">,</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">paths</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+<div class="highlight hl-python"><pre><span></span><span class="n">mappings</span> <span class="o">=</span> <span class="p">{</span><span class="n">trait</span><span class="p">:</span> <span class="n">allelign</span><span class="o">.</span><span class="n">inspect_columns</span><span class="p">(</span><span class="n">path</span><span class="p">)[</span><span class="s1">'mapping'</span><span class="p">]</span> <span class="k">for</span> <span class="n">trait</span><span class="p">,</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">paths</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">'Table 4. File columns used by allelign; blank if not found.'</span><span class="p">)</span>
 <span class="n">display</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">mappings</span><span class="p">)</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="s1">''</span><span class="p">))</span>
 </pre></div>
@@ -8380,7 +8364,7 @@ Where do the curves leave the diagonal, and what could make them do so?</p>
 <div class="jp-InputPrompt jp-InputArea-prompt">In [5]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">gwas</span> <span class="o">=</span> <span class="p">{</span><span class="n">trait</span><span class="p">:</span> <span class="n">allelign</span><span class="o">.</span><span class="n">read_sumstats</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="k">for</span> <span class="n">trait</span><span class="p">,</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">paths</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>  <span class="c1"># About 30 s.</span>
+<div class="highlight hl-python"><pre><span></span><span class="n">gwas</span> <span class="o">=</span> <span class="p">{</span><span class="n">trait</span><span class="p">:</span> <span class="n">allelign</span><span class="o">.</span><span class="n">read_sumstats</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="k">for</span> <span class="n">trait</span><span class="p">,</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">paths</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>  <span class="c1"># About 30 s.</span>
 
 <span class="c1"># Chromosome and position from DBP's MarkerName, e.g. 10:100000625:SNP.</span>
 <span class="n">dbp</span> <span class="o">=</span> <span class="n">gwas</span><span class="p">[</span><span class="s1">'DBP'</span><span class="p">]</span>
@@ -8419,7 +8403,7 @@ DBP: 7,160,657 variants, median N 742,239
 <div class="jp-InputPrompt jp-InputArea-prompt">In [6]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">4.5</span><span class="p">,</span> <span class="mf">4.5</span><span class="p">))</span>
+<div class="highlight hl-python"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">4.5</span><span class="p">,</span> <span class="mf">4.5</span><span class="p">))</span>
 <span class="k">for</span> <span class="n">trait</span><span class="p">,</span> <span class="n">sumstats</span> <span class="ow">in</span> <span class="n">gwas</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
     <span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">sumstats</span><span class="o">.</span><span class="n">beta</span> <span class="o">/</span> <span class="n">sumstats</span><span class="o">.</span><span class="n">se</span><span class="p">))[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># Largest first.</span>
     <span class="n">observed</span> <span class="o">=</span> <span class="o">-</span><span class="p">(</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">logsf</span><span class="p">(</span><span class="n">z</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>  <span class="c1"># -log10 P, two-sided.</span>
@@ -8457,21 +8441,13 @@ DBP: 7,160,657 variants, median N 742,239
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><strong>Answer.</strong> Chromosome and position were not found for TG and DBP, and allele frequency
-was found only for DBP. TG is matched by rsID instead, and we take the DBP positions from
-<code>MarkerName</code>. The frequency columns of BMI and TG come from other samples (HRS,
-1000 Genomes), so it is just as well that they are not used.</p>
-<p>The LDSC slope is $Nh^2/M$, so $h^2$ is estimated as slope × $M/N$: an N that is 10%
-too large gives an $h^2$ about 10% too small. <code>N_effective</code> discounts poorly imputed
-SNPs. Its median is 742,239 against 756,595 for <code>TotalSampleSize</code>. The HapMap3 SNPs are
-well imputed (at least 61% of the total N, median 99%), so here the choice matters little:
-with <code>TotalSampleSize</code>, DBP's h² is 0.136 instead of 0.137.</p>
-<p>In Figure 1, the BMI and DBP curves leave the diagonal almost at once, while the TG curve
-stays close to it until an expected −log10 P of about 2. BMI has the strongest associations, then DBP; TG
-has about an eighth of their sample size. A curve that leaves the diagonal early means
-the whole distribution of test statistics is inflated. Many small genetic effects in a
-large sample do that, and so would confounding such as population stratification; Q4
-tells the two apart.</p>
+<p><strong>Answer.</strong> allelign found no positions for TG and DBP, and an allele frequency only for
+DBP. $h^2$ is the slope times $M/N$, so an N that is 10% too large gives an $h^2$ that is 10%
+too small. Here it hardly matters: DBP's $h^2$ is 0.137 with <code>N_effective</code> and 0.136 with
+<code>TotalSampleSize</code>.</p>
+<p>BMI has the strongest associations, then DBP. Their curves leave the diagonal at once.
+Many small genetic effects in a large sample inflate all the statistics, but so would
+population stratification. Q4 tells the two apart.</p>
 </div>
 </div>
 </div>
@@ -8482,16 +8458,11 @@ tells the two apart.</p>
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Q3.-Match-to-the-LD-reference">Q3. Match to the LD reference<a class="anchor-link" href="#Q3.-Match-to-the-LD-reference">¶</a></h2><p>LDSC needs an LD score for every SNP. We use scores for about 1.2 million HapMap3 SNPs,
-calculated from 489 Europeans in the 1000 Genomes Project; they come with PLDSC. PLDSC
-leaves out about 30,000 of them that lie in regions with unusually long-range LD, such
-as the MHC.
-allelign first removes duplicates and variants with low sample size. It then aligns each
-GWAS to the reference allele <code>a1</code>, changing the sign when a file's effect allele is <code>a2</code>
-(Table 5).</p>
-<p>Why is only a small part of the DBP file used? Table 6 follows rs1421085 in <em>FTO</em>
-through the three files. Why must all traits refer to the same allele before we
-correlate them?</p>
+<h2 id="Q3.-Match-to-the-LD-reference">Q3. Match to the LD reference<a class="anchor-link" href="#Q3.-Match-to-the-LD-reference">¶</a></h2><p>PLDSC comes with LD scores for about 1.2 million HapMap3 SNPs, calculated from 489
+Europeans in the 1000 Genomes Project. It leaves out about 30,000 of them in regions with
+long-range LD, such as the MHC. Each GWAS is aligned to the reference allele <code>a1</code> (Table 5).</p>
+<p>Why is so little of the DBP file used? Table 6 follows rs1421085 in <em>FTO</em>. Why must the
+traits refer to the same allele?</p>
 </div>
 </div>
 </div>
@@ -8503,7 +8474,7 @@ correlate them?</p>
 <div class="jp-InputPrompt jp-InputArea-prompt">In [7]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">ref</span> <span class="o">=</span> <span class="n">load_ld_reference</span><span class="p">(</span><span class="s1">'hm3-eur'</span><span class="p">)</span>
+<div class="highlight hl-python"><pre><span></span><span class="n">ref</span> <span class="o">=</span> <span class="n">load_ld_reference</span><span class="p">(</span><span class="s1">'hm3-eur'</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">ref</span><span class="p">)</span>
 
 <span class="n">aligned</span> <span class="o">=</span> <span class="p">{}</span>
@@ -8605,7 +8576,7 @@ correlate them?</p>
 <div class="jp-InputPrompt jp-InputArea-prompt">In [8]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">snp</span> <span class="o">=</span> <span class="s1">'rs1421085'</span>  <span class="c1"># TRY: rs1260326 (GCKR) or rs13107325 (SLC39A8)</span>
+<div class="highlight hl-python"><pre><span></span><span class="n">snp</span> <span class="o">=</span> <span class="s1">'rs1421085'</span>  <span class="c1"># TRY: rs1260326 (GCKR) or rs13107325 (SLC39A8)</span>
 <span class="n">row</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">flatnonzero</span><span class="p">(</span><span class="n">ref</span><span class="o">.</span><span class="n">variants</span><span class="o">.</span><span class="n">id</span> <span class="o">==</span> <span class="n">snp</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 <span class="n">chrom</span><span class="p">,</span> <span class="n">pos</span> <span class="o">=</span> <span class="n">ref</span><span class="o">.</span><span class="n">variants</span><span class="o">.</span><span class="n">chrom</span><span class="p">[</span><span class="n">row</span><span class="p">],</span> <span class="n">ref</span><span class="o">.</span><span class="n">variants</span><span class="o">.</span><span class="n">pos</span><span class="p">[</span><span class="n">row</span><span class="p">]</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">snp</span><span class="si">}</span><span class="s1">: chromosome </span><span class="si">{</span><span class="n">chrom</span><span class="si">}</span><span class="s1">, position </span><span class="si">{</span><span class="n">pos</span><span class="si">:</span><span class="s1">,</span><span class="si">}</span><span class="s1">; '</span>
@@ -8708,17 +8679,12 @@ correlate them?</p>
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><strong>Answer.</strong> LDSC uses only the HapMap3 SNPs, which are common, well imputed and have LD
-scores. That is 1.13 of the 7.16 million DBP variants (16%), against 41–42% of the
-BMI and TG files. In QC, TG loses 37,752 variants with N below 70% of the median and
-1,160 rows whose rsID appears more than once.</p>
-<p>The BMI file reports rs1421085 for allele T with z = −45.8. For the reference allele C,
-that becomes +45.8: C raises BMI. TG reports C already (z = 5.1), so C also raises
-triglycerides. Bivariate LDSC multiplies the two z scores of each SNP. About half of
-the SNPs change sign in each file, so without alignment the products would have
-random signs, and the genetic covariance would be pulled towards zero. DBP reports
-T (z = 3.65), so the BMI-raising C allele lowers DBP in this GWAS. Keep this in mind
-for Q6.</p>
+<p><strong>Answer.</strong> LDSC only uses the HapMap3 SNPs: 1.13 of the 7.16 million DBP variants (16%).
+TG also loses variants with low N and duplicated rsIDs in QC.</p>
+<p>The BMI file reports rs1421085 for T (z = −45.8), so for C, z = +45.8. TG reports C
+(z = 5.1). Bivariate LDSC multiplies the two z scores, and about half the SNPs change sign,
+so without alignment the products would have random signs. C also lowers
+BMI-adjusted DBP (z = −3.65), which matters in Q6.</p>
 </div>
 </div>
 </div>
@@ -8729,15 +8695,12 @@ for Q6.</p>
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Q4.-Estimate-SNP-heritability">Q4. Estimate SNP heritability<a class="anchor-link" href="#Q4.-Estimate-SNP-heritability">¶</a></h2><p>LDSC models the expected χ² statistic of SNP $j$ as</p>
+<h2 id="Q4.-Estimate-SNP-heritability">Q4. Estimate SNP heritability<a class="anchor-link" href="#Q4.-Estimate-SNP-heritability">¶</a></h2><p>LDSC models the χ² statistic of SNP $j$ as</p>
 <p>$$E[\chi^2_j] = 1 + Na + \frac{N h^2}{M}\,\ell_j, \qquad (1)$$</p>
-<p>where $\ell_j$ is its LD score, $N$ the sample size, $M$ the number of SNPs the
-heritability $h^2$ refers to, and $a$ the inflation from confounding, such as population
-stratification. Figure 2 shows the mean χ² against LD score; Table 7 has the fits.</p>
-<p>Which trait has the highest heritability? Compare each intercept with λGC, the median χ²
-divided by 0.455 (the median expected without any association). Which tells you more
-about confounding? Why might TG's intercept be below one? Then set <code>M = ref.m_snps</code> and
-rerun both cells. What changes, and what does not?</p>
+<p>with LD score $\ell_j$, sample size $N$, number of SNPs $M$ and confounding $a$.</p>
+<p>Which trait has the highest heritability (Table 7, Figure 2)? Compare the intercepts with
+λGC, the median χ² divided by 0.455. Why is TG's intercept below one? Set
+<code>M = ref.m_snps</code> and rerun both cells: what changes?</p>
 </div>
 </div>
 </div>
@@ -8749,7 +8712,7 @@ rerun both cells. What changes, and what does not?</p>
 <div class="jp-InputPrompt jp-InputArea-prompt">In [9]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">M</span> <span class="o">=</span> <span class="n">ref</span><span class="o">.</span><span class="n">m_snps_5_50</span>  <span class="c1"># SNPs with MAF 5–50%, as in the original LDSC. TRY: ref.m_snps</span>
+<div class="highlight hl-python"><pre><span></span><span class="n">M</span> <span class="o">=</span> <span class="n">ref</span><span class="o">.</span><span class="n">m_snps_5_50</span>  <span class="c1"># SNPs with MAF 5–50%, as in the original LDSC. TRY: ref.m_snps</span>
 
 <span class="n">fits</span> <span class="o">=</span> <span class="p">{</span><span class="n">trait</span><span class="p">:</span> <span class="n">ldsc_h2_sumstats</span><span class="p">(</span><span class="n">sumstats</span><span class="p">,</span> <span class="n">ref</span><span class="o">.</span><span class="n">variants</span><span class="p">,</span> <span class="n">ref</span><span class="o">.</span><span class="n">scores</span><span class="p">,</span> <span class="n">m_snps</span><span class="o">=</span><span class="n">M</span><span class="p">)</span><span class="o">.</span><span class="n">estimate</span>
         <span class="k">for</span> <span class="n">trait</span><span class="p">,</span> <span class="n">sumstats</span> <span class="ow">in</span> <span class="n">gwas</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>  <span class="c1"># About 30 s.</span>
@@ -8850,7 +8813,7 @@ rerun both cells. What changes, and what does not?</p>
 <div class="jp-InputPrompt jp-InputArea-prompt">In [10]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">3.3</span><span class="p">))</span>
+<div class="highlight hl-python"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">3.3</span><span class="p">))</span>
 <span class="k">for</span> <span class="n">ax</span><span class="p">,</span> <span class="p">(</span><span class="n">trait</span><span class="p">,</span> <span class="n">fit</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">axes</span><span class="p">,</span> <span class="n">fits</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
     <span class="n">h</span> <span class="o">=</span> <span class="n">aligned</span><span class="p">[</span><span class="n">trait</span><span class="p">]</span>
     <span class="n">chi2</span> <span class="o">=</span> <span class="p">(</span><span class="n">h</span><span class="o">.</span><span class="n">beta</span> <span class="o">/</span> <span class="n">h</span><span class="o">.</span><span class="n">se</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
@@ -8894,32 +8857,15 @@ rerun both cells. What changes, and what does not?</p>
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><strong>Answer.</strong> With the common-SNP M, BMI has the highest heritability (0.214, SE 0.008),
-followed by TG (0.176, SE 0.022) and DBP (0.137, SE 0.007). In Figure 2, mean χ²
-rises almost linearly with LD score, as equation (1) predicts. In the last few bins the
-points fall below the line for all three traits; the regression weights give SNPs with
-high LD scores little weight, so the fit follows the bulk of the SNPs. TG is noisier
-because its N is about eight times smaller.</p>
-<p>λGC is 2.7 for BMI, but the intercept is only 1.159. In 690,000 people a polygenic
-trait inflates χ² everywhere, and λGC cannot separate that from confounding. The
-intercept can: about 6% of the excess mean χ² for BMI, (1.159 − 1)/(3.817 − 1), and
-10% for DBP, is in the intercept. That is an upper bound on confounding, because the
-intercept also absorbs mismatch between the model or the LD reference and the data.
-Note also that the UK Biobank part of DBP had already been divided by its own LDSC
-intercept.</p>
-<p>TG's intercept is 0.955 (SE 0.012), below one. GLGC corrected each study for genomic
-control, which divides all χ² by λGC and lowers both the intercept and the slope, so
-TG's $h^2$ is underestimated. The P-values in the file were corrected a second time:
-their χ² are about 11% smaller than those from beta/SE, which we use.</p>
-<p>TG's $h^2$ also depends on a few loci with very large effects, which equation (1) does
-not describe well. The fit drops SNPs with χ² above max(80, N/1000), which is 342 SNPs
-for TG. Without that filter (<code>chi2_cap=False</code>), TG's $h^2$ is 0.29. The original LDSC
-software handles these SNPs with a two-step estimator instead.</p>
-<p>With <code>M = ref.m_snps</code> (9,997,231 variants), every $h^2$ is 1.68 times larger: 0.36,
-0.30 and 0.23. The intercepts, mean χ² and λGC do not change, and neither would $r_g$.
-M decides what $h^2$ refers to: the common SNPs (MAF 5–50%) of the reference panel,
-or all 10 million variants, assuming rare variants explain as much per standardised
-variant as common ones. Published LDSC estimates normally use the common-SNP M.</p>
+<p><strong>Answer.</strong> BMI 0.214 (SE 0.008), TG 0.176 (SE 0.022), DBP 0.137 (SE 0.007).</p>
+<p>λGC is 2.7 for BMI, but the intercept is 1.159, so most of the inflation is polygenic
+signal. Only 6% of BMI's excess χ², (1.159 − 1)/(3.817 − 1), and 10% of DBP's is in the
+intercept, and that is an upper bound on confounding. TG's intercept is 0.955 because GLGC
+corrected each study for genomic control, which lowers its $h^2$ too. TG also depends on a
+few loci with very large effects: without the χ² cap (<code>chi2_cap=False</code>) its $h^2$ is 0.29.</p>
+<p>With <code>M = ref.m_snps</code>, every $h^2$ is 1.68 times larger, while the intercepts and $r_g$ stay
+the same. M sets which SNPs $h^2$ refers to; the usual choice is the common SNPs
+(MAF 5–50%).</p>
 </div>
 </div>
 </div>
@@ -8930,15 +8876,12 @@ variant as common ones. Published LDSC estimates normally use the common-SNP M.<
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Q5.-Genetic-correlation-between-BMI-and-TG">Q5. Genetic correlation between BMI and TG<a class="anchor-link" href="#Q5.-Genetic-correlation-between-BMI-and-TG">¶</a></h2><p>Bivariate LDSC uses the product of the two traits' z scores:</p>
+<h2 id="Q5.-BMI-and-TG">Q5. BMI and TG<a class="anchor-link" href="#Q5.-BMI-and-TG">¶</a></h2><p>Bivariate LDSC regresses the product of the two z scores on LD score:</p>
 <p>$$E[z_{1j} z_{2j}] = \frac{\sqrt{N_1 N_2}\,\rho_g}{M}\,\ell_j + \frac{N_s\,\rho}{\sqrt{N_1 N_2}}, \qquad (2)$$</p>
-<p>where $\rho_g$ is the genetic covariance, $N_s$ the number of people in both GWAS and
-$\rho$ the phenotypic correlation among them. The genetic correlation is
-$r_g = \rho_g / \sqrt{h^2_1 h^2_2}$.</p>
-<p>Is the BMI–TG genetic correlation clearly different from zero? What does the cross-trait
-intercept tell you? The plain correlation of z scores across SNPs is much smaller than
-$r_g$. Why? Figure 3 is the bivariate version of Figure 2: where does the line cross
-the y-axis, and what sets its slope?</p>
+<p>where $\rho_g$ is the genetic covariance, $N_s$ the number of people in both GWAS and $\rho$
+their phenotypic correlation. The genetic correlation is $r_g = \rho_g / \sqrt{h^2_1 h^2_2}$.</p>
+<p>Is $r_g$ clearly above zero? What does the intercept tell you? Why is the plain correlation
+of z scores so much smaller? Where does the line in Figure 3 meet the y-axis?</p>
 </div>
 </div>
 </div>
@@ -8950,7 +8893,7 @@ the y-axis, and what sets its slope?</p>
 <div class="jp-InputPrompt jp-InputArea-prompt">In [11]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">pair</span> <span class="o">=</span> <span class="p">(</span><span class="s1">'BMI'</span><span class="p">,</span> <span class="s1">'TG'</span><span class="p">)</span>
+<div class="highlight hl-python"><pre><span></span><span class="n">pair</span> <span class="o">=</span> <span class="p">(</span><span class="s1">'BMI'</span><span class="p">,</span> <span class="s1">'TG'</span><span class="p">)</span>
 <span class="n">fit</span> <span class="o">=</span> <span class="n">ldsc_rg_sumstats</span><span class="p">(</span><span class="n">gwas</span><span class="p">[</span><span class="n">pair</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="n">gwas</span><span class="p">[</span><span class="n">pair</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span> <span class="n">ref</span><span class="o">.</span><span class="n">variants</span><span class="p">,</span> <span class="n">ref</span><span class="o">.</span><span class="n">scores</span><span class="p">,</span>
                        <span class="n">m_snps</span><span class="o">=</span><span class="n">M</span><span class="p">,</span> <span class="n">ncores</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">estimate</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">pair</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s1">–</span><span class="si">{</span><span class="n">pair</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s1"> genetic correlation: </span><span class="si">{</span><span class="n">fit</span><span class="o">.</span><span class="n">rg</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1"> (SE </span><span class="si">{</span><span class="n">fit</span><span class="o">.</span><span class="n">rg_se</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">)'</span><span class="p">)</span>
@@ -8992,7 +8935,7 @@ Correlation of z scores over 941,293 SNPs: 0.126
 <div class="jp-InputPrompt jp-InputArea-prompt">In [12]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Mean z1 * z2 in LD-score bins, for the SNPs used in the fit.</span>
+<div class="highlight hl-python"><pre><span></span><span class="c1"># Mean z1 * z2 in LD-score bins, for the SNPs used in the fit.</span>
 <span class="n">n1</span><span class="p">,</span> <span class="n">n2</span> <span class="o">=</span> <span class="n">aligned</span><span class="p">[</span><span class="n">pair</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span><span class="o">.</span><span class="n">n_eff</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">aligned</span><span class="p">[</span><span class="n">pair</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span><span class="o">.</span><span class="n">n_eff</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
 <span class="n">used</span> <span class="o">=</span> <span class="n">ldsc_chi2_keep</span><span class="p">(</span><span class="n">z1</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">n1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&amp;</span> <span class="n">ldsc_chi2_keep</span><span class="p">(</span><span class="n">z2</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">n2</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 <span class="n">snps</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">'ld_score'</span><span class="p">:</span> <span class="n">ref</span><span class="o">.</span><span class="n">scores</span><span class="p">[</span><span class="n">shared</span><span class="p">][</span><span class="n">used</span><span class="p">],</span> <span class="s1">'product'</span><span class="p">:</span> <span class="p">(</span><span class="n">z1</span> <span class="o">*</span> <span class="n">z2</span><span class="p">)[</span><span class="n">used</span><span class="p">]})</span>
@@ -9036,23 +8979,11 @@ Correlation of z scores over 941,293 SNPs: 0.126
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><strong>Answer.</strong> $r_g$ = 0.282 (SE 0.030), more than nine standard errors from zero. Variants that
-raise BMI tend to raise triglycerides.</p>
-<p>The cross-trait intercept is 0.051 (SE 0.011). From equation (2), it reflects people in
-both GWAS (many cohorts contributed to both GIANT and GLGC) or confounding shared by
-the two. If the phenotypic correlation is around 0.3, it corresponds to roughly
-0.051 × √(688,566 × 90,996) / 0.3 ≈ 43,000 shared participants. Because the intercept is
-estimated, the overlap does not bias $r_g$.</p>
-<p>The plain correlation of z scores is 0.126. It is diluted by sampling noise: TG's mean
-χ² is only 1.21, so most of the variance of its z scores is noise. Averaging equation (2)
-over SNPs gives roughly
-[0.282 × √((3.817 − 1.159)(1.212 − 0.955)) + 0.051] / √(3.817 × 1.212) ≈ 0.13,
-close to what we see. LDSC uses only the part of $z_1 z_2$ that grows with LD score,
-which is genetic.</p>
-<p>In Figure 3, the mean product rises with LD score. The line crosses the y-axis at the
-cross-trait intercept, 0.051, and its slope is $\sqrt{N_1 N_2}\,\rho_g/M$, so it grows with
-the genetic covariance and the sample sizes. As in Figure 2, the bins with the highest
-LD scores fall below the line.</p>
+<p><strong>Answer.</strong> $r_g$ = 0.282 (SE 0.030), more than nine standard errors from zero. The
+cross-trait intercept, 0.051 (SE 0.011), reflects people in both GWAS or shared
+confounding, and it doesn't bias $r_g$. The plain correlation (0.126) is diluted by noise:
+TG's mean χ² is only 1.212. In Figure 3 the line meets the y-axis at the intercept, and its
+slope is $\sqrt{N_1 N_2}\,\rho_g/M$.</p>
 </div>
 </div>
 </div>
@@ -9063,12 +8994,10 @@ LD scores fall below the line.</p>
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Q6.-Add-blood-pressure">Q6. Add blood pressure<a class="anchor-link" href="#Q6.-Add-blood-pressure">¶</a></h2><p>Table 8 and Figure 4 show all three pairs. UK Biobank is part of both the BMI and the
-DBP GWAS.
-Evangelou et al. analysed blood pressure adjusted for age, sex and BMI.</p>
-<p>Is the BMI–DBP result what you expected? How can adjusting DBP for BMI change its genetic
-correlation with BMI? Why is the BMI–DBP cross-trait intercept close to zero despite the
-overlap?</p>
+<h2 id="Q6.-Add-blood-pressure">Q6. Add blood pressure<a class="anchor-link" href="#Q6.-Add-blood-pressure">¶</a></h2><p>UK Biobank is part of both the BMI and the DBP GWAS, and DBP was adjusted for BMI
+(Table 8, Figure 4).</p>
+<p>Did you expect the BMI–DBP result? How can adjusting for BMI change it? Why is its
+cross-trait intercept close to zero?</p>
 </div>
 </div>
 </div>
@@ -9080,7 +9009,7 @@ overlap?</p>
 <div class="jp-InputPrompt jp-InputArea-prompt">In [13]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">pairs</span> <span class="o">=</span> <span class="p">[(</span><span class="s1">'BMI'</span><span class="p">,</span> <span class="s1">'TG'</span><span class="p">),</span> <span class="p">(</span><span class="s1">'BMI'</span><span class="p">,</span> <span class="s1">'DBP'</span><span class="p">),</span> <span class="p">(</span><span class="s1">'TG'</span><span class="p">,</span> <span class="s1">'DBP'</span><span class="p">)]</span>
+<div class="highlight hl-python"><pre><span></span><span class="n">pairs</span> <span class="o">=</span> <span class="p">[(</span><span class="s1">'BMI'</span><span class="p">,</span> <span class="s1">'TG'</span><span class="p">),</span> <span class="p">(</span><span class="s1">'BMI'</span><span class="p">,</span> <span class="s1">'DBP'</span><span class="p">),</span> <span class="p">(</span><span class="s1">'TG'</span><span class="p">,</span> <span class="s1">'DBP'</span><span class="p">)]</span>
 <span class="n">table</span> <span class="o">=</span> <span class="p">{}</span>
 <span class="k">for</span> <span class="n">trait1</span><span class="p">,</span> <span class="n">trait2</span> <span class="ow">in</span> <span class="n">pairs</span><span class="p">:</span>  <span class="c1"># About a minute.</span>
     <span class="n">estimate</span> <span class="o">=</span> <span class="n">ldsc_rg_sumstats</span><span class="p">(</span><span class="n">gwas</span><span class="p">[</span><span class="n">trait1</span><span class="p">],</span> <span class="n">gwas</span><span class="p">[</span><span class="n">trait2</span><span class="p">],</span> <span class="n">ref</span><span class="o">.</span><span class="n">variants</span><span class="p">,</span> <span class="n">ref</span><span class="o">.</span><span class="n">scores</span><span class="p">,</span>
@@ -9186,19 +9115,12 @@ overlap?</p>
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><strong>Answer.</strong> Higher BMI goes with higher blood pressure, so for unadjusted DBP a positive
-$r_g$ would be expected. Here BMI–DBP $r_g$ is −0.059 (SE 0.017). Adjusted for BMI, each
-SNP's DBP estimate is roughly its DBP effect minus $b$ times its BMI effect, where $b$
-is the observational regression of DBP on BMI. Subtracting a multiple of the BMI genetic
-effects pushes the genetic covariance with BMI down, here to slightly below zero. This is
-collider bias from adjusting for a heritable covariate
-(<a href="https://pubmed.ncbi.nlm.nih.gov/25640676/">Aschard et al. 2015</a>); Evangelou et al. mention
-the risk. Table 6 showed this at one SNP: the BMI-raising allele of
-rs1421085 lowers BMI-adjusted DBP (z = −3.65).</p>
-<p>The cross-trait intercept is $N_s\rho/\sqrt{N_1 N_2}$. Within UK Biobank, DBP adjusted for
-BMI is uncorrelated with BMI by construction, so $\rho \approx 0$ and the large overlap
-leaves no trace: 0.003 (SE 0.014). TG–DBP gives $r_g$ = 0.095 (SE 0.027). In Figure 4,
-none of the three 95% intervals includes zero.</p>
+<p><strong>Answer.</strong> Higher BMI goes with higher blood pressure, so a positive $r_g$ would be
+expected, but BMI–DBP gives −0.059 (SE 0.017). Adjusting DBP for BMI subtracts a multiple of
+each SNP's BMI effect, which pushes the genetic covariance with BMI down. This is collider
+bias (<a href="https://pubmed.ncbi.nlm.nih.gov/25640676/">Aschard et al. 2015</a>). The intercept,
+0.003 (SE 0.014), is close to zero because BMI-adjusted DBP is uncorrelated with BMI in
+UK Biobank. TG–DBP gives 0.095 (SE 0.027).</p>
 </div>
 </div>
 </div>
@@ -9209,9 +9131,8 @@ none of the three 95% intervals includes zero.</p>
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Q7.-Conclude">Q7. Conclude<a class="anchor-link" href="#Q7.-Conclude">¶</a></h2><p>Write three sentences: report the BMI–TG genetic correlation with its standard error,
-explain why it does not show that higher BMI raises triglycerides, and say what the
-BMI–DBP result teaches you about using published GWAS results.</p>
+<h2 id="Q7.-Conclude">Q7. Conclude<a class="anchor-link" href="#Q7.-Conclude">¶</a></h2><p>Write three sentences: the BMI–TG $r_g$ with its standard error, why it does not show that
+BMI raises TG, and what the BMI–DBP result teaches you about published GWAS.</p>
 </div>
 </div>
 </div>
@@ -9222,13 +9143,9 @@ BMI–DBP result teaches you about using published GWAS results.</p>
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><strong>Answer.</strong> The genetic correlation between BMI and triglycerides is 0.28 (SE 0.03),
-estimated from about one million HapMap3 SNPs. It does not tell whether BMI raises
-triglycerides, triglyceride-related biology affects BMI, the same variants affect both
-through separate pathways, or both traits depend on something else; MR or other
-designs are needed for that. The BMI–DBP estimate shows that a covariate in a
-published GWAS changes what is estimated, so read the methods before combining
-summary statistics.</p>
+<p><strong>Answer.</strong> BMI and TG have a genetic correlation of 0.28 (SE 0.03). It could come from BMI
+affecting TG, the reverse, pleiotropy or a shared cause, and MR or other designs are needed
+to tell these apart. Before using a published GWAS, check what it was adjusted for.</p>
 </div>
 </div>
 </div>
@@ -9239,21 +9156,16 @@ summary statistics.</p>
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Going-further-(optional)">Going further (optional)<a class="anchor-link" href="#Going-further-(optional)">¶</a></h2><p><strong>More traits.</strong> The cell below adds one more GWAS in a format you have already read:
-other lipids from the same consortium as TG, or height from the same study as BMI.
-It fits its heritability and its genetic correlations with BMI, TG and DBP. Which
-pairs would you expect to be correlated? Look for other European-ancestry GWAS with
-rsIDs or GRCh37 positions, for example in the <a href="https://www.ebi.ac.uk/gwas/downloads/summary-statistics">GWAS Catalog</a>,
-and add them in the same way. Check <code>allelign.inspect_columns</code> first.</p>
-<p><strong>Ask an AI model to implement LDSC.</strong> Give an AI assistant (Claude, ChatGPT or another)
-the aligned data for one trait and ask for univariate LDSC from scratch in NumPy,
-with LDSC's regression weights and a block-jackknife standard error:</p>
+<h2 id="Going-further-(optional)">Going further (optional)<a class="anchor-link" href="#Going-further-(optional)">¶</a></h2><ul>
+<li>Run the cell below to add HDL, LDL, total cholesterol or height. Other European GWAS with
+rsIDs or GRCh37 positions work too, for example from the
+<a href="https://www.ebi.ac.uk/gwas/downloads/summary-statistics">GWAS Catalog</a>.</li>
+<li>Ask an AI model to write LDSC from scratch in NumPy from the arrays below, and compare
+with Table 7. Does it treat M, the weights and very large χ² the way PLDSC does?</li>
+</ul>
 <div class="highlight"><pre><span></span><span class="n">h</span> <span class="o">=</span> <span class="n">aligned</span><span class="p">[</span><span class="s1">'BMI'</span><span class="p">]</span>
 <span class="n">z</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">ell</span> <span class="o">=</span> <span class="n">h</span><span class="o">.</span><span class="n">beta</span> <span class="o">/</span> <span class="n">h</span><span class="o">.</span><span class="n">se</span><span class="p">,</span> <span class="n">h</span><span class="o">.</span><span class="n">n_eff</span><span class="p">,</span> <span class="n">ref</span><span class="o">.</span><span class="n">scores</span><span class="p">[</span><span class="n">h</span><span class="o">.</span><span class="n">var_index</span><span class="p">]</span>
 </pre></div>
-<p>Compare its $h^2$ and intercept with Table 7. Then read the code: which M does it use,
-how are the weights defined, and what happens to SNPs with very large χ²? Can you make
-it agree with PLDSC? Then try bivariate LDSC.</p>
 </div>
 </div>
 </div>
@@ -9265,7 +9177,7 @@ it agree with PLDSC? Then try bivariate LDSC.</p>
 <div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">MORE</span> <span class="o">=</span> <span class="p">{</span>  <span class="c1"># Same formats as TG and BMI.</span>
+<div class="highlight hl-python"><pre><span></span><span class="n">MORE</span> <span class="o">=</span> <span class="p">{</span>  <span class="c1"># Same formats as TG and BMI.</span>
     <span class="s1">'HDL'</span><span class="p">:</span> <span class="s1">'https://csg.sph.umich.edu/willer/public/lipids2013/jointGwasMc_HDL.txt.gz'</span><span class="p">,</span>
     <span class="s1">'LDL'</span><span class="p">:</span> <span class="s1">'https://csg.sph.umich.edu/willer/public/lipids2013/jointGwasMc_LDL.txt.gz'</span><span class="p">,</span>
     <span class="s1">'TC'</span><span class="p">:</span> <span class="s1">'https://csg.sph.umich.edu/willer/public/lipids2013/jointGwasMc_TC.txt.gz'</span><span class="p">,</span>
@@ -9295,30 +9207,16 @@ it agree with PLDSC? Then try bivariate LDSC.</p>
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Data-and-method-notes">Data and method notes<a class="anchor-link" href="#Data-and-method-notes">¶</a></h2><p>The GWAS files are downloaded and checked against the SHA-256 checksums in the setup cell.
-All three are meta-analyses of European-ancestry samples with GRCh37 positions. BMI (GIANT)
-and DBP (discovery stage) come from the GWAS Catalog
-(<a href="https://www.ebi.ac.uk/gwas/studies/GCST006900">GCST006900</a>,
-<a href="https://www.ebi.ac.uk/gwas/studies/GCST006630">GCST006630</a>), TG from the
-<a href="https://csg.sph.umich.edu/willer/public/lipids2013/">Global Lipids Genetics Consortium</a>
-(joint GWAS and Metabochip analysis). The TG studies were corrected for genomic control,
-and the meta-analysis P values were corrected again. For DBP, the UK Biobank statistics
-were divided by their LDSC intercept (1.219) and the ICBP studies corrected for genomic
-control before the meta-analysis. Further details are in <a href="data/sources.json"><code>data/sources.json</code></a>.</p>
-<p>The LD scores are the 1000 Genomes Phase 3 European scores for HapMap3 SNPs released with
-LDSC (<a href="https://doi.org/10.5281/zenodo.7768714">Zenodo 7768714</a>), packaged in PLDSC as
-<code>hm3-eur</code>. The set has almost no strand-ambiguous A/T or C/G SNPs (4 of 1.19 million),
-and allelign drops those. PLDSC fits equations (1) and (2) in one step, after dropping SNPs
-with χ² above max(80, N/1000), and uses these LD scores for the regression weights; standard
-errors come from a block jackknife. PLDSC leaves out allelign's GRCh37 long-range LD
-regions by default (<code>load_ld_reference('hm3-eur', include_long_range_ld=True)</code> keeps them).
-The original LDSC software instead uses a two-step estimator, and its regression weights
-leave out only the MHC. Its estimates differ
-somewhat from these, most for TG, whose h² depends on how SNPs with very large χ² are
-handled. The plain z-score correlation in Q5 is shown only for contrast.</p>
-<p>Background: <a href="https://pubmed.ncbi.nlm.nih.gov/25642630/">Bulik-Sullivan et al. (2015a)</a> on LDSC
-and <a href="https://pubmed.ncbi.nlm.nih.gov/26414676/">Bulik-Sullivan et al. (2015b)</a> on genetic
-correlation.</p>
+<h2 id="Data-and-methods">Data and methods<a class="anchor-link" href="#Data-and-methods">¶</a></h2><p>BMI (<a href="https://www.ebi.ac.uk/gwas/studies/GCST006900">GCST006900</a>), DBP
+(<a href="https://www.ebi.ac.uk/gwas/studies/GCST006630">GCST006630</a>) and TG
+(<a href="https://csg.sph.umich.edu/willer/public/lipids2013/">GLGC</a>) are European-ancestry
+meta-analyses on GRCh37; see <a href="data/sources.json"><code>data/sources.json</code></a>. The TG and DBP results
+were corrected for inflation before release. The LD scores are the 1000 Genomes Phase 3
+European scores released with LDSC (<a href="https://doi.org/10.5281/zenodo.7768714">Zenodo 7768714</a>).
+PLDSC fits equations (1) and (2) in one step and drops SNPs with χ² above max(80, N/1000).
+The original LDSC software uses a two-step estimator, so its estimates differ a little,
+most for TG. Background: <a href="https://pubmed.ncbi.nlm.nih.gov/25642630/">Bulik-Sullivan et al. 2015a</a>
+and <a href="https://pubmed.ncbi.nlm.nih.gov/26414676/">2015b</a>.</p>
 </div>
 </div>
 </div>

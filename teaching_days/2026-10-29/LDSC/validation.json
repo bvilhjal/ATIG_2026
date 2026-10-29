@@ -1,6 +1,6 @@
 {
   "teaching_date": "2026-10-29",
-  "course_version": "0.13.2",
+  "course_version": "0.13.3",
   "pldsc_ref": "v0.1.1",
   "versions": {
     "python": "3.14.6",
@@ -11,7 +11,7 @@
     "matplotlib": "3.11.2"
   },
   "executed_code_cells": 13,
-  "elapsed_seconds": 150.0,
+  "elapsed_seconds": 179.2,
   "scientific_checks": 40,
   "h2": {
     "BMI": {
@@ -58,7 +58,7 @@
   },
   "colab": "Live Colab execution not verified.",
   "notebooks": {
-    "LDSC_practical.ipynb": "7a08255dd7516f89d2e2a82c9ec7ddd5c1cdade1ce41ee6448eb6ba7984ca946",
-    "LDSC_practical_answers.ipynb": "864c0b73e8a63fd912f2ad5f2ab63d4d1d69b8917e553fa3cc3abc8662ba6998"
+    "LDSC_practical.ipynb": "5a3be6f82a021ab5f928e90d84d5495c0a8cd7cfa8caf2c5ce56eb09affdb4fd",
+    "LDSC_practical_answers.ipynb": "ff5328acca73588682046acdc70768b4e94b42129b9fa0a78f1240241108c96b"
   }
 }
