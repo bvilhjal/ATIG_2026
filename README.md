@@ -1,9 +1,9 @@
 # ATIG 2026 — reproducible teaching code
 
 Lecture simulations and practical exercises, organized by teaching date.
-Version **0.12.0** adds the [MR practical](https://bvilhjal.github.io/ATIG_2026/teaching_days/2026-10-08/MR/MR_practical.html)
-for 8 October: BMI–CHD summary data, IVW estimation and a pleiotropy simulation.
-[Open in Colab](https://colab.research.google.com/github/bvilhjal/ATIG_2026/blob/main/teaching_days/2026-10-08/MR/MR_practical.ipynb).
+Version **0.13.0** adds the [LDSC practical](https://bvilhjal.github.io/ATIG_2026/teaching_days/2026-10-29/LDSC/LDSC_practical.html)
+for 29 October: SNP heritability and genetic correlations from published BMI, triglyceride
+and blood-pressure GWAS. [Open in Colab](https://colab.research.google.com/github/bvilhjal/ATIG_2026/blob/main/teaching_days/2026-10-29/LDSC/LDSC_practical.ipynb).
 Python setup for the earlier exercises is on the [setup page](setup.html). The [PCA practical](https://bvilhjal.github.io/ATIG_2026/teaching_days/2026-09-10/PCA/PCA_tutorial.html)
 for 10 September has student and worked-answer handouts, rendered HTML, and
 validation records. The population-structure lecture produces **23 numbered
@@ -17,6 +17,7 @@ figure families** in PNG, PDF and SVG, with calculated data and numerical checks
 | [10 September 2026](teaching_days/2026-09-10/README.md) | [PCA exercise](https://bvilhjal.github.io/ATIG_2026/teaching_days/2026-09-10/PCA/PCA_tutorial.html) | 1000 Genomes practical, student handout, worked answers and validation records. |
 | [24 September 2026](teaching_days/2026-09-24/README.md) | [LT-FH exercise](https://bvilhjal.github.io/ATIG_2026/teaching_days/2026-09-24/LTFH/LTFH_exercise.html) | Simulated-register practical with ltpred, student and worked-answer notebooks. |
 | [8 October 2026](teaching_days/2026-10-08/README.md) | [MR practical](https://bvilhjal.github.io/ATIG_2026/teaching_days/2026-10-08/MR/MR_practical.html) | BMI–CHD analysis, pleiotropy simulation, and worked answers. |
+| [29 October 2026](teaching_days/2026-10-29/README.md) | [LDSC practical](https://bvilhjal.github.io/ATIG_2026/teaching_days/2026-10-29/LDSC/LDSC_practical.html) | Published BMI, triglyceride and blood-pressure GWAS; heritability, genetic correlation and worked answers. |
 
 **Table 1.** Teaching days currently represented in this repository.
 
@@ -48,6 +49,18 @@ genetic liability.
 and [in Colab](https://colab.research.google.com/github/bvilhjal/ATIG_2026/blob/main/teaching_days/2026-10-08/MR/MR_practical.ipynb).
 Students explore LD-clumped BMI GWAS hits, estimate the BMI–CHD effect, and use a
 simulation to examine horizontal pleiotropy. The data are included.
+
+## LDSC practical
+
+[Exercise](teaching_days/2026-10-29/LDSC/LDSC_practical.ipynb) and
+[answers](teaching_days/2026-10-29/LDSC/LDSC_practical_answers.ipynb), also as
+[HTML](https://bvilhjal.github.io/ATIG_2026/teaching_days/2026-10-29/LDSC/LDSC_practical.html)
+and [in Colab](https://colab.research.google.com/github/bvilhjal/ATIG_2026/blob/main/teaching_days/2026-10-29/LDSC/LDSC_practical.ipynb).
+Students read three GWAS files in different formats with
+[allelign](https://github.com/bvilhjal/allelign), align them to the HapMap3 LD scores
+bundled with [PLDSC](https://github.com/bvilhjal/PLDSC), and estimate heritability and
+genetic correlations. An optional section adds more traits and has an AI model implement
+LDSC for comparison. The notebook downloads the GWAS files (about 240 MB).
 
 ## Reproduce the lecture figures
 
@@ -92,13 +105,14 @@ The lecture's genotype and phenotype examples are synthetic. Two small published
 numerical summaries are explicitly labelled and cited. The PCA practical uses
 public 1000 Genomes data and includes derived scores, plots and validation
 records. The LT-FH practical uses only simulated registers. The MR practical uses published
-BMI–CHD summary statistics and a short simulation. Lecture files,
+BMI–CHD summary statistics and a short simulation. The LDSC practical downloads published
+GWAS results when it runs. Lecture files,
 course participant data, downloaded paper panels and
 private course documents are not stored here.
 
 The code is teaching material, not a production GWAS pipeline. A single selected
 simulation does not establish general calibration, power or robustness. The
-LDSC examples simulate a working model for test statistics rather than real
+lecture's LDSC examples simulate a working model for test statistics rather than real
 genotype GWAS data. See the [methods](teaching_days/2026-09-08/population_structure/docs/METHODS.md)
 and [validation](teaching_days/2026-09-08/population_structure/docs/VALIDATION.md).
 

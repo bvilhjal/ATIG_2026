@@ -1,0 +1,65 @@
+{
+  "prepared": "2026-10-29",
+  "teaching_date": "2026-10-29",
+  "storage": "The GWAS files are not stored in this repository. The notebook downloads them and checks the SHA-256 checksums below.",
+  "gwas": {
+    "BMI": {
+      "file": "bmi_giant_ukb_2018.txt.gz",
+      "url": "https://ftp.ebi.ac.uk/pub/databases/gwas/summary_statistics/GCST006001-GCST007000/GCST006900/Meta-analysis_Locke_et_al+UKBiobank_2018_UPDATED.txt.gz",
+      "page": "https://www.ebi.ac.uk/gwas/studies/GCST006900",
+      "sha256": "0d6ed0ea97870916b830ccae349df94ca6f3cc68c025c79e784729af7f7136a4",
+      "bytes": 46754937,
+      "rows": 2336269,
+      "study": "Yengo et al. 2018, Hum Mol Genet 27:3641-3649",
+      "pmid": "30124842",
+      "doi": "10.1093/hmg/ddy271",
+      "design": "Meta-analysis of GIANT (Locke et al. 2015) and UK Biobank; European ancestry; about 700,000 people",
+      "build": "GRCh37",
+      "columns": "CHR POS SNP Tested_Allele Other_Allele Freq_Tested_Allele_in_HRS BETA SE P N; Tested_Allele is the effect allele",
+      "notes": "Byte-identical to the file on the GIANT consortium data page (same SHA-256); the GWAS Catalog copy is used because the GIANT site was unreachable on 2026-10-29."
+    },
+    "TG": {
+      "file": "tg_glgc_2013.txt.gz",
+      "url": "https://csg.sph.umich.edu/willer/public/lipids2013/jointGwasMc_TG.txt.gz",
+      "page": "https://csg.sph.umich.edu/willer/public/lipids2013/",
+      "sha256": "37087a0015c3211f5696616ad276eb4b5fae7219e0b8a2f37a5ed86b626c5f0b",
+      "bytes": 58866740,
+      "rows": 2439432,
+      "study": "Willer et al. 2013, Nat Genet 45:1274-1283",
+      "pmid": "24097068",
+      "doi": "10.1038/ng.2797",
+      "design": "Global Lipids Genetics Consortium joint analysis of GWAS and Metabochip data; 188,578 people of European ancestry in the paper; N per SNP 50,000-178,000 in this file",
+      "build": "GRCh37 positions in SNP_hg19 (chr:pos); rsid used for matching",
+      "columns": "SNP_hg18 SNP_hg19 rsid A1 A2 beta se N P-value Freq.A1.1000G.EUR; A1 is the effect allele and always the TG-raising allele (all beta >= 0); alleles in lower case",
+      "notes": "Genomic control was applied to each study and again to the meta-analysis (Willer et al. 2013, Methods); the consortium page states that P-values are after genomic control. Here, chi-square from beta/se is 11-12% larger than chi-square from P-value at the median; the practical uses beta/se. 1,160 rows share 183 rsIDs."
+    },
+    "DBP": {
+      "file": "dbp_evangelou_2018.txt.gz",
+      "url": "https://ftp.ebi.ac.uk/pub/databases/gwas/summary_statistics/GCST006001-GCST007000/GCST006630/Evangelou_30224653_DBP.txt.gz",
+      "page": "https://www.ebi.ac.uk/gwas/studies/GCST006630",
+      "sha256": "c55cfc8b50abee8e13ef88d70ab52678b1f45b45cf5974bdab91f8c8b361fd59",
+      "bytes": 135219424,
+      "rows": 7160657,
+      "study": "Evangelou et al. 2018, Nat Genet 50:1412-1425",
+      "pmid": "30224653",
+      "doi": "10.1038/s41588-018-0205-x",
+      "design": "Discovery meta-analysis of UK Biobank and ICBP, about 750,000 people of European ancestry; blood pressure analysed adjusted for age, age squared, sex and BMI. Before the meta-analysis, UK Biobank statistics were divided by their LDSC intercept (1.219 for DBP) and ICBP studies were corrected for genomic control (Evangelou et al. 2018, Methods); the authors note the potential for collider bias from the BMI adjustment.",
+      "build": "GRCh37 (MarkerName is CHR:POS:TYPE)",
+      "columns": "MarkerName Allele1 Allele2 Freq1 Effect StdErr P TotalSampleSize N_effective; Allele1 is the effect allele; Effect in mmHg; N_effective is N times imputation quality",
+      "notes": "No rsIDs; the practical splits MarkerName into chromosome and position and matches by position."
+    }
+  },
+  "ld_reference": {
+    "pldsc_name": "hm3-eur",
+    "description": "HapMap3 regression SNPs with 1000 Genomes Phase 3 EUR LD scores (1 cM windows), as published for LD Score regression.",
+    "panel": "1000G EUR QC (489 individuals)",
+    "build": "GRCh37",
+    "n_variants": 1190268,
+    "m_snps": 9997231,
+    "m_snps_5_50": 5961159,
+    "source": "https://doi.org/10.5281/zenodo.7768714",
+    "bundle_sha256": "946bae2cc54cc1210a6f1e8d9db491e1772b53ba7c4a851380d661a160325d6d",
+    "long_range_ld_dropped": 30437,
+    "long_range_ld_note": "load_ld_reference('hm3-eur') leaves out the variants in allelign's GRCh37 long-range LD regions, including the MHC, by default; n_variants counts the full bundle."
+  }
+}
