@@ -1,6 +1,6 @@
 {
   "teaching_date": "2026-10-29",
-  "course_version": "0.13.4",
+  "course_version": "0.14.0",
   "pldsc_ref": "v0.1.1",
   "versions": {
     "python": "3.14.6",
@@ -10,9 +10,9 @@
     "pandas": "3.1.0",
     "matplotlib": "3.11.2"
   },
-  "executed_code_cells": 14,
-  "elapsed_seconds": 142.6,
-  "scientific_checks": 44,
+  "executed_code_cells": 12,
+  "elapsed_seconds": 133.8,
+  "scientific_checks": 41,
   "h2": {
     "BMI": {
       "h2": 0.2142,
@@ -40,25 +40,22 @@
     "BMI–TG": {
       "rg": 0.2819,
       "rg_se": 0.0299,
-      "cross_intercept": 0.0512,
-      "cross_intercept_se": 0.0111
+      "cross_intercept": 0.0512
     },
     "BMI–DBP": {
       "rg": -0.0586,
       "rg_se": 0.0168,
-      "cross_intercept": 0.0032,
-      "cross_intercept_se": 0.0142
+      "cross_intercept": 0.0032
     },
     "TG–DBP": {
       "rg": 0.095,
       "rg_se": 0.0269,
-      "cross_intercept": 0.036,
-      "cross_intercept_se": 0.0107
+      "cross_intercept": 0.036
     }
   },
   "colab": "Live Colab execution not verified.",
   "notebooks": {
-    "LDSC_practical.ipynb": "f3b885aaa9c79222eedf1da9368f1a49fd6fb223fffd9abf8bb01dbb9257e6e9",
-    "LDSC_practical_answers.ipynb": "090a0e0b162fea82e94cea075b9cbece56f234cef42209b74a1932538b431eae"
+    "LDSC_practical.ipynb": "14c5f50b30e705f7b627f01d35d2d91add13e80acf29f3c4bffbb77e843f997d",
+    "LDSC_practical_answers.ipynb": "1aa856e081fb2c964c5589d1d5289bd2abd403b3cf4ce433450ffeb80b6840be"
   }
 }

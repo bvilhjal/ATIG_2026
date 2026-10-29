@@ -145,28 +145,24 @@ check('rg does not depend on trait order', np.isclose(swapped_order.rg, rg.rg, r
       and np.isclose(swapped_order.rg_se, rg.rg_se, rtol=1e-8))
 check('rg does not depend on M', np.isclose(rg_all.rg, rg.rg, rtol=1e-8))
 check('rg does not depend on allele coding', np.isclose(rg_reversed.rg, rg.rg, rtol=1e-8))
-check('Notebook rg equals the direct fit', np.isclose(scope['rg_bmi_tg'].rg, rg.rg, rtol=1e-12))
 
 h2_table = {t: {'h2': f.h2, 'h2_se': f.h2_se, 'intercept': f.intercept,
                 'intercept_se': f.intercept_se, 'mean_chi2': f.mean_chisq}
             for t, f in scope['fits'].items()}
-rg_table = {k: {'rg': v['rg'], 'rg_se': v['SE'], 'cross_intercept': v['cross-trait intercept'],
-                'cross_intercept_se': v['intercept SE']} for k, v in scope['rg_table'].items()}
-check('BMI-TG rg in the BMI-TG row of Table 6', np.isclose(rg_table['BMI–TG']['rg'], rg.rg, rtol=1e-12))
+rg_table = {k: {'rg': v['rg'], 'rg_se': v['SE'], 'cross_intercept': v['intercept']}
+            for k, v in scope['rg_table'].items()}
+check('BMI-TG rg in the BMI-TG row of Table 5', np.isclose(rg_table['BMI–TG']['rg'], rg.rg, rtol=1e-12))
 check('TG intercept below one', h2_table['TG']['intercept'] < 1)
 answer_markdown = '\n'.join(''.join(c['source']) for c in answers['cells']
                              if ''.join(c['source']).startswith('**Answer.**'))
 quoted = [f"{h2_table[t]['h2']:.3f}" for t in ('BMI', 'TG', 'DBP')]
-quoted += [f"{h2_table[t]['intercept']:.3f}" for t in ('BMI', 'TG')]
-quoted += [f"{h2_table[t]['mean_chi2']:.3f}" for t in ('BMI', 'TG')]
+quoted += [f"{h2_table[t]['intercept']:.3f}" for t in ('BMI', 'TG', 'DBP')]
 quoted += [f"{rg_table[p]['rg']:.3f}".replace('-', '−') for p in rg_table]
 quoted += [f"{rg_table[p]['rg_se']:.3f}" for p in rg_table]
-quoted += [f"{rg_table['BMI–TG']['cross_intercept']:.3f}",
-           f"{rg_table['BMI–DBP']['cross_intercept_se']:.3f}"]
+quoted += [f"{rg_table['BMI–TG']['cross_intercept']:.3f}"]
 missing = [value for value in quoted if value not in answer_markdown]
 check('Answer text quotes the computed estimates', not missing)
-check('BMI-DBP cross-trait intercept within two SEs of zero',
-      abs(rg_table['BMI–DBP']['cross_intercept']) < 2 * rg_table['BMI–DBP']['cross_intercept_se'])
+check('BMI-DBP cross-trait intercept close to zero', abs(rg_table['BMI–DBP']['cross_intercept']) < 0.02)
 
 record = {
     'teaching_date': student['metadata']['atig']['teaching_date'],

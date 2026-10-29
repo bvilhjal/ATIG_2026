@@ -2,7 +2,7 @@
 
 LD score regression practical: heritability and genetic correlations from published BMI,
 triglyceride and blood-pressure GWAS, using [PLDSC](https://github.com/bvilhjal/PLDSC).
-Seven questions, about 75 minutes.
+Six questions, about 60 minutes.
 
 [Open in Google Colab](https://colab.research.google.com/github/bvilhjal/ATIG_2026/blob/main/teaching_days/2026-10-29/LDSC/LDSC_practical.ipynb)
 and choose *File → Save a copy in Drive*.
