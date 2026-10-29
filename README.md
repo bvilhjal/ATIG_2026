@@ -1,7 +1,7 @@
 # ATIG 2026 — reproducible teaching code
 
 Lecture simulations and practical exercises, organized by teaching date.
-Version **0.15.0** has the [LDSC practical](https://bvilhjal.github.io/ATIG_2026/teaching_days/2026-10-29/LDSC/LDSC_practical.html)
+Version **0.16.0** has the [LDSC practical](https://bvilhjal.github.io/ATIG_2026/teaching_days/2026-10-29/LDSC/LDSC_practical.html)
 for 29 October: SNP heritability and genetic correlations from published BMI, triglyceride
 and blood-pressure GWAS. [Open in Colab](https://colab.research.google.com/github/bvilhjal/ATIG_2026/blob/main/teaching_days/2026-10-29/LDSC/LDSC_practical.ipynb).
 Python setup for the earlier exercises is on the [setup page](setup.html). The [PCA practical](https://bvilhjal.github.io/ATIG_2026/teaching_days/2026-09-10/PCA/PCA_tutorial.html)

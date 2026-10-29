@@ -114,8 +114,13 @@ for trait, (snp, ea, oa, beta, se) in columns.items():
         matched = raw.merge(reference, on=['chrom', 'pos'])
     else:
         matched = raw.merge(reference, left_on=snp, right_on='id')
-    same = (matched.ea == matched.a1) & (matched.oa == matched.a2)
-    swapped = (matched.ea == matched.a2) & (matched.oa == matched.a1)
+    # allelign also accepts the opposite strand (TG lifted from GRCh38 has some reversed blocks).
+    complement = str.maketrans('ACGT', 'TGCA')
+    ea_c, oa_c = matched.ea.str.translate(complement), matched.oa.str.translate(complement)
+    same = ((matched.ea == matched.a1) & (matched.oa == matched.a2)) \
+        | ((ea_c == matched.a1) & (oa_c == matched.a2))
+    swapped = ((matched.ea == matched.a2) & (matched.oa == matched.a1)) \
+        | ((ea_c == matched.a2) & (oa_c == matched.a1))
     matched = matched[same | swapped].drop_duplicates('row', keep=False)
     expected = pd.Series(np.where(same[matched.index], 1, -1) * matched.z.to_numpy(),
                          index=matched.row.to_numpy())

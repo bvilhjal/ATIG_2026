@@ -30,7 +30,7 @@
       "pmid": "24097068",
       "doi": "10.1038/ng.2797",
       "design": "Global Lipids Genetics Consortium joint analysis of GWAS and Metabochip data; 188,578 people of European ancestry in the paper; N per SNP 50,000-178,000 in this file",
-      "build": "GRCh38 (GWAS Catalog harmonised); matched to the GRCh37 reference by rsID only",
+      "build": "GRCh38 (GWAS Catalog harmonised); allelign (>= 0.3.0) detects this and lifts TG to GRCh37 with the UCSC chain when it is aligned",
       "columns": "GWAS Catalog harmonised layout: hm_rsid, hm_chrom, hm_pos, hm_effect_allele, hm_other_allele, hm_beta, standard_error, n, p_value, plus the submitted columns",
       "notes": "The GWAS Catalog copy of the GLGC joint GWAS and Metabochip analysis, harmonised to GRCh38. Genomic control was applied to each study and again to the meta-analysis (Willer et al. 2013, Methods); chi-square from beta/se is 11-12% larger than chi-square from p_value at the median; the practical uses beta/se.",
       "accession": "GCST002216",
